@@ -6,24 +6,23 @@
 |______|_____/
 
 
-This wondrous word gives you the power to see your surroundings.
+Este hechizo te muestra tus alrededores.
 
 
-Examples
+Ejemplos
 
-<span foreground="yellow">ls</span>
-Shows you what is around your current position
+{{yb:ls}}
+Te muestra lo que hay a tu alrededor en tu posición actual
 
-<span foreground="yellow">ls -a</span>
-Will show you hidden things in the current directory
+{{yb:ls -a}}
+Te muestra los objetos escondidos en el directorio actual
 
-<span foreground="yellow">ls kitchen</span>
-Shows you what is in the directory kitchen,
-assuming you are in my-house
+{{yb:ls cocina}}
+Te muestra qué hay en la cocina, si estás en la casa.
 
-<span foreground="yellow">ls ../</span>
-Shows you what is in the directory behind you
+{{yb:ls ../}}
+Te muestra lo que hay en el directorio detrás de ti
 
-<span foreground="yellow">ls ~/my-house/kitchen</span>
-Regardless of your current position, this will
-show you what is in your kitchen
+{{yb:ls ~/mi-casa/cocina}}
+Sin importar tu posición actual, esto te mostrará
+qué hay en tu cocina.

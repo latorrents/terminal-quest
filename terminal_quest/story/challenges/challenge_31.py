@@ -1,13 +1,14 @@
 # challenge_31.py
 #
 # Copyright (C) 2014-2016 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
-from linux_story.StepTemplate import StepTemplate
-from linux_story.step_helper_functions import unblock_cd_commands
-from linux_story.sound_manager import SoundManager
-from linux_story.story.terminals.terminal_nano import TerminalNano
+from terminal_quest.step import StepTemplate
+from terminal_quest.step_helpers import unblock_cd_commands
+from terminal_quest.sound import SoundManager
+from terminal_quest.terminals import TerminalNano
 
 
 class StepTemplateNano(StepTemplate):
@@ -19,16 +20,16 @@ class StepTemplateNano(StepTemplate):
 
 class Step1(StepTemplateNano):
     story = [
-        _("You've arrived in the {{bb:shed-shop}}. {{lb:Look around.}}")
+        "Has llegado a la {{bb:tienda-de-cobertizos}}. {{lb:Mira alrededor.}}"
     ]
-    start_dir = "~/town/east/shed-shop"
-    end_dir = "~/town/east/shed-shop"
+    start_dir = "~/pueblo/este/tienda-de-cobertizos"
+    end_dir = "~/pueblo/este/tienda-de-cobertizos"
     commands = [
         "ls",
         "ls -a"
     ]
     hints = [
-        _("{{rb:Use}} {{yb:ls}} {{rb:to look around.}}")
+        "{{rb:Usa}} {{yb:ls}} {{rb:para mirar alrededor.}}"
     ]
 
     def next(self):
@@ -37,21 +38,21 @@ class Step1(StepTemplateNano):
 
 class Step2(StepTemplateNano):
     story = [
-        _("Huh, you can't see {{bb:Bernard}} anywhere."),
+        "Mmm, no ves a {{bb:Bernard}} por ningún lado.",
 
-        _("I wonder where he went.\n"),
+        "¿A dónde habrá ido?\n",
 
-        _("Maybe he's in his {{bb:basement}}? Let's {{lb:go}} down there.")
+        "¿Tal vez está en el {{bb:sotano}}? {{lb:Vayamos}} ahí abajo."
     ]
-    start_dir = "~/town/east/shed-shop"
-    end_dir = "~/town/east/shed-shop/basement"
+    start_dir = "~/pueblo/este/tienda-de-cobertizos"
+    end_dir = "~/pueblo/este/tienda-de-cobertizos/sotano"
     hints = [
-        _("{{rb:Go into the basement with}} {{yb:cd basement}}")
+        "{{rb:Ve al sótano con}} {{yb:cd sotano}}"
     ]
 
     def check_command(self, line):
-        if line == "cat Bernards-hat":
-            self.send_hint(_("\nIs that Bernard\'s hat? Strange he left it behind..."))
+        if line == "cat Sombrero-de-Bernard":
+            self.send_hint("\n¿Ese es el sombrero de Bernard? Qué raro que lo haya dejado...")
         else:
             return StepTemplateNano.check_command(self, line)
 
@@ -64,16 +65,16 @@ class Step2(StepTemplateNano):
 
 class Step3(StepTemplateNano):
     story = [
-        _("You walked into {{bb:Bernard}}'s basement. {{lb:Look around.}}")
+        "Bajas al sótano de {{bb:Bernard}}. {{lb:Mira alrededor.}}"
     ]
-    start_dir = "~/town/east/shed-shop/basement"
-    end_dir = "~/town/east/shed-shop/basement"
+    start_dir = "~/pueblo/este/tienda-de-cobertizos/sotano"
+    end_dir = "~/pueblo/este/tienda-de-cobertizos/sotano"
     commands = [
         "ls",
         "ls -a"
     ]
     hints = [
-        _("{{rb:Look around with}} {{yb:ls}}{{rb:.}}")
+        "{{rb:Mira alrededor con}} {{yb:ls}}{{rb:.}}"
     ]
 
     def _run_at_start(self):
@@ -86,19 +87,19 @@ class Step3(StepTemplateNano):
 
 class Step4(StepTemplateNano):
     story = [
-        _("You see what looks like another script and a couple of diaries."),
+        "Ves lo que parece ser otro script y un par de diarios.",
         "",
-        _("Shall we {{lb:examine}} them?")
+        "¿Los {{lb:examinamos}}?"
     ]
-    start_dir = "~/town/east/shed-shop/basement"
-    end_dir = "~/town/east/shed-shop/basement"
+    start_dir = "~/pueblo/este/tienda-de-cobertizos/sotano"
+    end_dir = "~/pueblo/este/tienda-de-cobertizos/sotano"
     commands = [
-        "cat bernards-diary-1",
-        "cat bernards-diary-2",
-        "cat photocopier.sh"
+        "cat diario-de-bernard-1",
+        "cat diario-de-bernard-2",
+        "cat fotocopiadora.sh"
     ]
     hints = [
-        _("{{rb:Use}} {{yb:cat}} {{rb:to examine the objects around you.}}")
+        "{{rb:Usa}} {{yb:cat}} {{rb:para examinar los objetos alrededor tuyo.}}"
     ]
 
     def check_command(self, line):
@@ -106,10 +107,10 @@ class Step4(StepTemplateNano):
             self.commands.remove(line)
 
             if not self.commands:
-                text = _("\n{{gb:Press}} {{ob:Enter}} {{gb:to continue.}}")
+                text = "\n{{gb:Presiona}} {{ob:Enter}} {{gb:para continuar.}}"
                 self.send_hint(text)
             else:
-                text = _("\n{{gb:Well done! Look at the other objects.}}")
+                text = "\n{{gb:¡Bien hecho! Examina algún objeto más.}}"
                 self.send_hint(text)
 
         elif not line and not self.commands:

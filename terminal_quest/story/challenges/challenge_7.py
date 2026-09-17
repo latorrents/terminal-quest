@@ -1,11 +1,12 @@
 # challenge_7.py
 #
 # Copyright (C) 2014-2016 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
-from linux_story.StepTemplate import StepTemplate
-from linux_story.story.terminals.terminal_cd import TerminalCd
+from terminal_quest.step import StepTemplate
+from terminal_quest.terminals import TerminalCd
 
 
 class StepTemplateCd(StepTemplate):
@@ -17,12 +18,12 @@ class StepTemplateCd(StepTemplate):
 
 class Step1(StepTemplateCd):
     story = [
-        _("Have a {{lb:look around}} to see what's going on!")
+        "{{lb:Mira alrededor}} para ver qué está pasando."
     ]
-    start_dir = "~/town"
-    end_dir = "~/town"
+    start_dir = "~/pueblo"
+    end_dir = "~/pueblo"
     commands = "ls"
-    hints = [_("{{rb:To look around, use}} {{yb:ls}}")]
+    hints = ["{{rb:Para mirar a tu alrededor usa}} {{yb:ls}}"]
 
     def next(self):
         return 7, 2
@@ -30,12 +31,15 @@ class Step1(StepTemplateCd):
 
 class Step2(StepTemplateCd):
     story = [
-        _("Wow, there's so many people here. Find the {{bb:Mayor}} and {{lb:listen}} to what he has to say.")
+        (
+            "Wow, hay mucha gente aquí. Encuentra al {{bb:Alcalde}} y {{lb:escucha}} lo que "
+            "tiene para decir."
+        )
     ]
-    start_dir = "~/town"
-    end_dir = "~/town"
-    commands = "cat Mayor"
-    hints = [_("{{rb:Stuck? Type:}} {{yb:cat Mayor}}")]
+    start_dir = "~/pueblo"
+    end_dir = "~/pueblo"
+    commands = "cat Alcalde"
+    hints = ["{{rb:Escribe:}} {{yb:cat Alcalde}}"]
 
     def next(self):
         return 7, 3
@@ -43,19 +47,22 @@ class Step2(StepTemplateCd):
 
 class Step3(StepTemplateCd):
     story = [
-        _("{{wb:Mayor:}} {{Bb:\"Calm down please! We have our best people looking into the disappearances, and we're hoping to have an explanation soon.\"}}\n"),
-        _("Something strange is happening. Better check everyone is ok."),
-        _("Type {{yb:cat}} to check on the people.")
+        (
+            "{{wb:Alcalde:}} {{Bb:\"¡Mantengan la calma, por favor! Tenemos a los mejores "
+            "buscando a los desaparecidos, y esperamos encontrar una explicación pronto.\"}}\n"
+        ),
+        "Algo extraño está pasando. Mejor fíjate que todos estén bien.",
+        "Escribe {{yb:cat}} para fijarte en las personas."
     ]
-    start_dir = "~/town"
-    end_dir = "~/town"
+    start_dir = "~/pueblo"
+    end_dir = "~/pueblo"
 
     # Use functions here
     command = ""
     all_commands = {
-        "cat grumpy-man": _("{{wb:Man:}} {{Bb:\"Help! I don't know what's happening to me. I heard this bell ring, and now my legs have gone all strange.\"}}"),
-        "cat young-girl": _("{{wb:Girl:}} {{Bb:\"Can you help me? I can't find my friend Amy anywhere. If you see her, will you let me know?\"}}"),
-        "cat little-boy": _("{{wb:Boy:}} {{Bb:\"Pongo? Pongo? Has anyone seen my dog Pongo? He's never run away before...\"}}")
+        "cat hombre-enojado": "{{wb:Hombre:}} {{Bb:\"¡Ayuda! No sé qué me está pasando. Escuché sonar una campana, y ahora mis piernas se sienten muy raras.\"}}",
+        "cat chica": "{{wb:Chica:}} {{Bb:\"¿Puedes ayudarme? No encuentro a mi amiga Amy por ningún lado. Si la ves, ¿me avisas?\"}}",
+        "cat chico": "{{wb:Chico:}} {{Bb:\"¿Pongo? ¿Pongo? ¿Alguien ha visto a mi perro Pongo? Nunca antes se había escapado...\"}}"
     }
 
     last_step = True
@@ -68,13 +75,13 @@ class Step3(StepTemplateCd):
 
         # If they enter ls, say Well Done
         if line == 'ls':
-            hint = _("\n{{gb:You look around.}}")
+            hint = "\n{{gb:Mira a tu alrededor.}}"
             self.send_hint(hint)
             return False
 
         # check through list of commands
         self.hints = [
-            _("{{rb:Use}} {{yb:%s}} {{rb:to progress.}}") % self.all_commands.keys()[0]
+            "{{rb:Usa}} {{yb:%s}} {{rb:para avanzar.}}" % list(self.all_commands.keys())[0]
         ]
 
         end_dir_validated = self.get_fake_path() == self.end_dir
@@ -87,11 +94,11 @@ class Step3(StepTemplateCd):
             self.all_commands.pop(line, None)
 
             if len(self.all_commands) == 1:
-                hint += _("\n{{gb:Well done! Check on 1 more person.}}")
+                hint += "\n{{gb:¡Bien hecho! Fíjate en 1 persona más.}}"
             elif len(self.all_commands) > 0:
-                hint += _("\n{{gb:Well done! Check on %d more people.}}") % len(self.all_commands)
+                hint += "\n{{gb:¡Bien hecho! Fíjate en %d personas más.}}" % len(self.all_commands)
             else:
-                hint += _("\n{{gb:Press}} {{ob:Enter}} {{gb:to continue.}}")
+                hint += "\n{{gb:Presiona}} {{ob:Enter}} {{gb:para continuar.}}"
 
             self.send_hint(hint)
 

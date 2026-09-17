@@ -1,19 +1,20 @@
 # challenge_17.py
 #
 # Copyright (C) 2014-2016 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
 
 
-from kano_profile.apps import save_app_state_variable, load_app_state_variable
+from terminal_quest.progress import save_app_state_variable, load_app_state_variable
 
-from linux_story.StepTemplate import StepTemplate
-from linux_story.common import get_story_file
-from linux_story.story.terminals.terminal_mv import TerminalMv
-from linux_story.story.terminals.terminal_echo import TerminalEcho
-from linux_story.step_helper_functions import unblock_cd_commands
-from linux_story.helper_functions import wrap_in_box
+from terminal_quest.step import StepTemplate
+from terminal_quest.common import get_story_file
+from terminal_quest.terminals import TerminalMv
+from terminal_quest.terminals import TerminalEcho
+from terminal_quest.step_helpers import unblock_cd_commands
+from terminal_quest.helpers import wrap_in_box
 
 
 # This is for the challenges that only need ls
@@ -30,34 +31,36 @@ class StepTemplateEcho(StepTemplate):
 
 class Step1(StepTemplateMv):
     story = [
-        _("You're in your room, standing in front of the {{bb:.chest}} containing all the commands "
-          "you've learned so far.\n"),
-        _("Maybe something else is hidden in the house?\n"),
-        _("{{lb:Look}} in the hallway {{lb:behind you}}. Remember, behind you is {{bb:..}}")
+        (
+            "Estás en tu cuarto, frente al {{bb:.cofre}} que contiene todos los comandos "
+            "que has aprendido hasta ahora.\n"
+        ),
+        "¿Tal vez hay algo más oculto en la casa?\n",
+        "{{lb:Mira}} el pasillo {{lb:detrás de ti}}. Recuerda: lo que está detrás de ti es {{bb:..}}"
     ]
-    start_dir = "~/my-house/my-room"
-    end_dir = "~/my-house/my-room"
+    start_dir = "~/mi-casa/mi-cuarto"
+    end_dir = "~/mi-casa/mi-cuarto"
     file_list = [
-        {"path": "~/farm/barn/Cobweb"},
-        {"path": "~/farm/barn/Daisy"},
-        {"path": "~/farm/barn/Ruth"},
-        {"path": "~/farm/barn/Trotter"},
-        {"path": "~/farm/toolshed/MKDIR"},
-        {"path": "~/farm/toolshed/spanner"},
-        {"path": "~/farm/toolshed/hammer"},
-        {"path": "~/farm/toolshed/saw"},
-        {"path": "~/farm/toolshed/tape-measure"},
+        {"path": "~/granja/granero/Cobweb"},
+        {"path": "~/granja/granero/Daisy"},
+        {"path": "~/granja/granero/Ruth"},
+        {"path": "~/granja/granero/Trotter"},
+        {"path": "~/granja/taller/MKDIR"},
+        {"path": "~/granja/taller/llave-inglesa"},
+        {"path": "~/granja/taller/martillo"},
+        {"path": "~/granja/taller/serrucho"},
+        {"path": "~/granja/taller/cinta-metrica"},
         {
-            "path": "~/farm/farmhouse/bed",
+            "path": "~/granja/casa-de-campo/cama",
             "contents": get_story_file("bed_farmhouse")
         },
-        {"path": "~/farm/toolshed/MKDIR"},
-        {"path": "~/my-house/parents-room/.safe/ECHO"},
-        {"path": "~/my-house/parents-room/.safe/mums-diary"},
-        {"path": "~/my-house/parents-room/.safe/map"}
+        {"path": "~/granja/taller/MKDIR"},
+        {"path": "~/mi-casa/cuarto-de-papas/.caja-fuerte/ECHO"},
+        {"path": "~/mi-casa/cuarto-de-papas/.caja-fuerte/diario-de-mama"},
+        {"path": "~/mi-casa/cuarto-de-papas/.caja-fuerte/mapa"}
     ]
     hints = [
-        _("{{rb:Look behind you with}} {{yb:ls ../}}")
+        "{{rb:Mira detrás de ti con}} {{yb:ls ../}}"
     ]
     commands = [
         "ls ..",
@@ -70,21 +73,21 @@ class Step1(StepTemplateMv):
 
 class Step2(StepTemplateMv):
     story = [
-        _("You see doors to your {{bb:garden}}, {{bb:kitchen}}, {{bb:my-room}} and {{bb:parents-room}}."),
-        _("We haven't checked out your parents' room properly yet.\n"),
-        _("{{lb:Go into your}} {{bb:parents-room}}.")
+        "Ves las puertas del {{bb:jardin}}, {{bb:cocina}}, {{bb:mi-cuarto}} y {{bb:cuarto-de-papas}}.",
+        "Todavía no hemos revisado el cuarto de tus padres.\n",
+        "{{lb:Entra en el}} {{bb:cuarto-de-papas}}."
     ]
 
-    start_dir = "~/my-house/my-room"
-    end_dir = "~/my-house/parents-room"
+    start_dir = "~/mi-casa/mi-cuarto"
+    end_dir = "~/mi-casa/cuarto-de-papas"
 
     path_hints = {
-        "~/my-house/my-room": {
-            "blocked": _("\n{{rb:Use}} {{yb:cd ..}} {{rb:to go back.}}")
+        "~/mi-casa/mi-cuarto": {
+            "blocked": "\n{{rb:Usa}} {{yb:cd ..}} {{rb:para volver.}}"
         },
-        "~/my-house": {
-            "not_blocked": _("\n{{gb:Now go into your}} {{lb:parents-room}}{{gb:.}}"),
-            "blocked": _("\n{{rb:Use}} {{yb:cd parents-room}} {{rb:to go in.}}")
+        "~/mi-casa": {
+            "not_blocked": "\n{{gb:Ahora ve al}} {{lb:cuarto-de-papas}}{{gb:.}}",
+            "blocked": "\n{{rb:Usa}} {{yb:cd cuarto-de-papas}} {{rb:para entrar.}}"
         }
     }
 
@@ -110,13 +113,13 @@ class Step2(StepTemplateMv):
 
 class Step3(StepTemplateMv):
     story = [
-        _("Look around {{lb:closely}}.")
+        "Mira alrededor {{lb:más de cerca}}."
     ]
-    start_dir = "~/my-house/parents-room"
-    end_dir = "~/my-house/parents-room"
+    start_dir = "~/mi-casa/cuarto-de-papas"
+    end_dir = "~/mi-casa/cuarto-de-papas"
 
     hints = [
-        _("{{rb:Use the command}} {{yb:ls -a}} {{rb:to look around closely.}}")
+        "{{rb:Usa el comando}} {{yb:ls -a}} {{rb:para mirar alrededor más de cerca.}}"
     ]
     commands = [
         "ls -a",
@@ -133,21 +136,21 @@ class Step3(StepTemplateMv):
 
 class Step4(StepTemplateMv):
     story = [
-        _("There's a {{bb:.safe}}!\n"),
-        _("Maybe there's something useful in here. {{lb:Look inside}} the {{bb:.safe}}.")
+        "¡Hay una {{bb:.caja-fuerte}}!\n",
+        "Puede haber algo útil aquí. {{lb:Mira dentro}} de la {{bb:.caja-fuerte}}."
     ]
 
     commands = [
-        "ls .safe",
-        "ls .safe/",
-        "ls -a .safe",
-        "ls -a .safe/"
+        "ls .caja-fuerte",
+        "ls .caja-fuerte/",
+        "ls -a .caja-fuerte",
+        "ls -a .caja-fuerte/"
     ]
-    start_dir = "~/my-house/parents-room"
-    end_dir = "~/my-house/parents-room"
+    start_dir = "~/mi-casa/cuarto-de-papas"
+    end_dir = "~/mi-casa/cuarto-de-papas"
     hints = [
-        _("{{rb:Look in the}} {{bb:.safe}} {{rb:using}} {{lb:ls}}{{rb:.}}"),
-        _("{{rb:Use}} {{yb:ls .safe}} {{rb:to look into the .safe.}}")
+        "{{rb:Mira dentro de la}} {{bb:.caja-fuerte}} {{rb:usando}} {{lb:ls}}{{rb:.}}",
+        "{{rb:Usa}} {{yb:ls .caja-fuerte}} {{rb:para mirar dentro de la caja fuerte.}}"
     ]
 
     def next(self):
@@ -156,24 +159,24 @@ class Step4(StepTemplateMv):
 
 class Step5(StepTemplateMv):
     story = [
-        _("So you found your {{bb:Mum's diary}}?"),
-        _("You probably shouldn't read it...\n"),
-        _("What else is here? Let's {{lb:examine}} that {{bb:map}}.")
+        "Encontraste el diario de tu mamá: {{bb:diario-de-mama}}",
+        "No deberías leerlo...\n",
+        "¿Qué más hay aquí? Vamos a {{lb:examinar}} ese {{bb:mapa}}."
     ]
-    start_dir = "~/my-house/parents-room"
-    end_dir = "~/my-house/parents-room"
+    start_dir = "~/mi-casa/cuarto-de-papas"
+    end_dir = "~/mi-casa/cuarto-de-papas"
     hints = [
-        _("{{rb:Use}} {{yb:cat}} {{rb:to read the}} {{bb:map}}{{rb:.}}"),
-        _("{{rb:Use}} {{yb:cat .safe/map}} {{rb:to read the map.}}")
+        "{{rb:Usa}} {{yb:cat}} {{rb:para leer el}} {{bb:mapa}}{{rb:.}}",
+        "{{rb:Usa}} {{yb:cat .caja-fuerte/mapa}} {{rb:para leer el mapa.}}"
     ]
 
-    commands = "cat .safe/map"
+    commands = "cat .caja-fuerte/mapa"
 
     def check_command(self, line):
-        checked_diary = load_app_state_variable("linux-story", "checked_mums_diary")
-        if line == 'cat .safe/mums-diary' and not checked_diary:
-            self.send_hint(_("\n{{rb:You read your Mum\'s diary!}} {{ob:Your nosiness has been recorded.}}"))
-            save_app_state_variable("linux-story", "checked_mums_diary", True)
+        checked_diary = load_app_state_variable("terminal-quest", "checked_mums_diary")
+        if line == 'cat .caja-fuerte/diario-de-mama' and not checked_diary:
+            self.send_hint("\n{{rb:¡Leíste el diario íntimo de tu mamá!}} {{ob:Tu travesura quedó registrada.}}")
+            save_app_state_variable("terminal-quest", "checked_mums_diary", True)
             return False
 
         return StepTemplateMv.check_command(self, line)
@@ -184,17 +187,17 @@ class Step5(StepTemplateMv):
 
 class Step6(StepTemplateMv):
     story = [
-        _("So there's a farm around here?"),
-        _("Apparently it's not far from our house, just off the windy road...\n"),
-        _("What is this {{bb:ECHO}} note? {{lb:Examine}} the {{bb:ECHO}} note.")
+        "¿Hay una granja por aquí cerca?",
+        "Parece que no está lejos de tu casa, siguiendo la carretera ventosa...\n",
+        "¿Qué es esta nota {{bb:ECHO}}? {{lb:Examina}} la nota {{bb:ECHO}}."
     ]
 
-    start_dir = "~/my-house/parents-room"
-    end_dir = "~/my-house/parents-room"
-    commands = "cat .safe/ECHO"
+    start_dir = "~/mi-casa/cuarto-de-papas"
+    end_dir = "~/mi-casa/cuarto-de-papas"
+    commands = "cat .caja-fuerte/ECHO"
     hints = [
-        _("{{rb:Use the}} {{yb:cat}} {{rb:command to read the}} {{bb:ECHO}} {{rb:note.}}"),
-        _("{{rb:Use}} {{yb:cat .safe/ECHO}} {{rb:to read the note.}}")
+        "{{rb:Usa}} {{yb:cat}} {{rb:para leer la nota}} {{bb:ECHO}}{{rb:.}}",
+        "{{rb:Usa}} {{yb:cat .caja-fuerte/ECHO}} {{rb:para leer la nota.}}"
     ]
 
     def next(self):
@@ -203,25 +206,28 @@ class Step6(StepTemplateMv):
 
 class Step7(StepTemplateEcho):
     story = [
-        _("So the note says {{Bb:\"echo hello - will make you say hello\"}}"),
-        _("Let's test this out. \n"),
+        "La nota dice {{Bb:\"echo hola - te ayudará a decir hola\"}}",
+        "Probémoslo. \n",
     ]
     story += wrap_in_box([
-        _("{{gb:New Power}}: {{yb:echo}} followed by words"),
-        _("lets you {{lb:speak}}"),
+        "{{gb:Nuevo Poder}}: {{yb:echo}} seguido de palabras",
+        "te permite {{lb:hablar}}",
     ])
 
     hints = [
-        _("{{rb:Use the command}} {{yb:echo hello}}")
+        "{{rb:Usa el comando}} {{yb:echo hola}}"
     ]
     commands = [
+        "echo hola",
+        "echo HOLA",
+        "echo Hola",
         "echo hello",
         "echo HELLO",
         "echo Hello"
     ]
     highlighted_commands = ['echo']
-    start_dir = "~/my-house/parents-room"
-    end_dir = "~/my-house/parents-room"
+    start_dir = "~/mi-casa/cuarto-de-papas"
+    end_dir = "~/mi-casa/cuarto-de-papas"
 
     def next(self):
         return 18, 1

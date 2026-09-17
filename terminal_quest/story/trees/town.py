@@ -1,18 +1,19 @@
 # town.py
 #
 # Copyright (C) 2014-2017 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 
 
-from linux_story.common import get_story_file
-from hidden_shelter import hidden_shelter
-from east import east
+from terminal_quest.common import get_story_file
+from .hidden_shelter import hidden_shelter
+from .east import east
 
 
 grumpy_man_hurt = {
-    "name": "grumpy-man",
-    "contents": get_story_file("grumpy-man"),
+    "name": "hombre-enojado",
+    "contents": get_story_file("hombre-enojado"),
     "challenges": [
         {
             "challenge": 0,
@@ -27,7 +28,7 @@ grumpy_man_hurt = {
 }
 
 grumpy_man_fixed = {
-    "name": "grumpy-man",
+    "name": "hombre-enojado",
     "contents": get_story_file("grumpy-man-fixed"),
     "challenges": [
         {
@@ -43,8 +44,8 @@ grumpy_man_fixed = {
 }
 
 young_girl = {
-    "name": "young-girl",
-    "contents": get_story_file("young-girl"),
+    "name": "chica",
+    "contents": get_story_file("chica"),
     "challenges": [
         {
             "challenge": 0,
@@ -63,8 +64,8 @@ young_girl = {
 }
 
 little_boy = {
-    "name": "little-boy",
-    "contents": get_story_file("little-boy"),
+    "name": "chico",
+    "contents": get_story_file("chico"),
     "challenges": [
         {
             "challenge": 0,
@@ -83,8 +84,8 @@ little_boy = {
 }
 
 mayor = {
-    "name": "Mayor",
-    "contents": get_story_file("Mayor"),
+    "name": "Alcalde",
+    "contents": get_story_file("Alcalde"),
     "challenges": [
         {
             "challenge": 0,
@@ -103,7 +104,7 @@ mayor = {
 }
 
 note_town = {
-    "name": "note",
+    "name": "nota",
     "contents": get_story_file("note_town"),
     "challenges": [
         {
@@ -124,8 +125,8 @@ note_town = {
 }
 
 dog_town = {
-    "name": "dog",
-    "contents": get_story_file("dog"),
+    "name": "perro",
+    "contents": get_story_file("perro"),
     "challenges": [
         {
             "challenge": 0,
@@ -207,8 +208,8 @@ bernard = {
 }
 
 rabbit = {
-    "name": "Rabbit",
-    "contents": get_story_file("Rabbit"),
+    "name": "Conejo",
+    "contents": get_story_file("Conejo"),
     "challenges": [
         {
             "challenge": 0,
@@ -224,7 +225,7 @@ rabbit = {
 
 
 swordmaster = {
-    "name": "Swordmaster",
+    "name": "Espadachin",
     "contents": get_story_file("swordmaster-without-sword"),
     "challenges": [
         {
@@ -273,8 +274,8 @@ edward = {
 }
 
 dad = {
-    "name": "Dad",
-    "contents": get_story_file("Dad"),
+    "name": "Papa",
+    "contents": get_story_file("Papa"),
     "challenges": [
         {
             "challenge": 0,
@@ -290,8 +291,8 @@ dad = {
 
 
 mum = {
-    "name": "Mum",
-    "contents": get_story_file("Mum"),
+    "name": "Mama",
+    "contents": get_story_file("Mama"),
     "challenges": [
         {
             "challenge": 0,
@@ -307,7 +308,7 @@ mum = {
 
 
 town = {
-    "name": "town",
+    "name": "pueblo",
     "children": [
         hidden_shelter,
         grumpy_man_hurt,

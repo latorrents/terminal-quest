@@ -1,14 +1,15 @@
 #!/usr/bin/env python
 #
 # Copyright (C) 2014, 2015 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
-from linux_story.StepTemplate import StepTemplate
-from linux_story.helper_functions import wrap_in_box
-from linux_story.step_helper_functions import unblock_commands
-from linux_story.story.terminals.terminal_chmod import TerminalChmod
-from linux_story.story.terminals.terminal_nano import TerminalNano
+from terminal_quest.step import StepTemplate
+from terminal_quest.helpers import wrap_in_box
+from terminal_quest.step_helpers import unblock_commands
+from terminal_quest.terminals import TerminalChmod
+from terminal_quest.terminals import TerminalNano
 
 
 class StepTemplateNano(StepTemplate):
@@ -21,17 +22,17 @@ class StepTemplateChmod(StepTemplate):
 
 class Step1(StepTemplateNano):
     story = [
-        _("There are three doors, leading to two rooms and a cage."),
-        _("First, {{lb:look inside the dark-room}}.")
+        "Hay tres puertas que llevan a dos cuartos y a una jaula.",
+        "Primero, {{lb:mira dentro del cuarto-oscuro}}."
     ]
-    start_dir = "~/woods/cave"
-    end_dir = "~/woods/cave"
+    start_dir = "~/bosque/cueva"
+    end_dir = "~/bosque/cueva"
     commands = [
-        "ls dark-room",
-        "ls dark-room/"
+        "ls cuarto-oscuro",
+        "ls cuarto-oscuro/"
     ]
     hints = [
-        _("{{rb:Use}} {{yb:ls dark-room/}} {{rb:to look inside the dark-room.}}")
+        "{{rb:Usa}} {{yb:ls cuarto-oscuro/}} {{rb:para mirar dentro del cuarto-oscuro.}}"
     ]
 
     def next(self):
@@ -40,17 +41,17 @@ class Step1(StepTemplateNano):
 
 class Step2(StepTemplateNano):
     story = [
-        _("The room is pitch black, and it is impossible to see anything inside."),
-        _("Next, {{lb:look inside}} the {{bb:locked-room}}")
+        "El cuarto está totalmente a oscuras y es imposible ver algo adentro.",
+        "Ahora, {{lb:mira dentro}} del {{bb:cuarto-cerrado}}"
     ]
-    start_dir = "~/woods/cave"
-    end_dir = "~/woods/cave"
+    start_dir = "~/bosque/cueva"
+    end_dir = "~/bosque/cueva"
     commands = [
-        "ls locked-room",
-        "ls locked-room/"
+        "ls cuarto-cerrado",
+        "ls cuarto-cerrado/"
     ]
     hints = [
-        _("{{rb:Use}} {{yb:ls locked-room/}} {{rb:to look inside the locked-room.}}")
+        "{{rb:Usa}} {{yb:ls cuarto-cerrado/}} {{rb:para mirar dentro del cuarto-cerrado.}}"
     ]
 
     def next(self):
@@ -59,17 +60,17 @@ class Step2(StepTemplateNano):
 
 class Step3(StepTemplateNano):
     story = [
-        _("Peering through a grimy window, you can just make out the items inside."),
-        _("{{lb:Examine the items inside}}.")
+        "Espiando por una ventana sucia, apenas logras distinguir los objetos de adentro.",
+        "{{lb:Examina los objetos de adentro}}."
     ]
-    start_dir = "~/woods/cave"
-    end_dir = "~/woods/cave"
+    start_dir = "~/bosque/cueva"
+    end_dir = "~/bosque/cueva"
     commands = [
-        "cat locked-room/sign",
-        "cat locked-room/firework"
+        "cat cuarto-cerrado/letrero",
+        "cat cuarto-cerrado/fuego-artificial"
     ]
     hints = [
-        _("{{rb:Examine the sign with}} {{yb:cat locked-room/sign}}")
+        "{{rb:Examina el letrero con}} {{yb:cat cuarto-cerrado/letrero}}"
     ]
 
     def next(self):
@@ -78,19 +79,19 @@ class Step3(StepTemplateNano):
 
 class Step4(StepTemplateNano):
     story = [
-        _("You are unable to make out the items in the room."),
-        _("Maybe it would help if you went inside?"),
-        _("Try and {{lb:go inside}} the {{bb:locked-room}}.")
+        "No logras distinguir bien los objetos del cuarto.",
+        "¿Tal vez ayudaría si entraras?",
+        "Intenta {{lb:entrar}} al {{bb:cuarto-cerrado}}."
     ]
-    start_dir = "~/woods/cave"
-    end_dir = "~/woods/cave"
-    dirs_to_attempt = "~/woods/cave/locked-room"
+    start_dir = "~/bosque/cueva"
+    end_dir = "~/bosque/cueva"
+    dirs_to_attempt = "~/bosque/cueva/cuarto-cerrado"
     hints = [
-        _("{{rb:Go inside the locked-room with}} {{yb:cd locked-room}}")
+        "{{rb:Entra al cuarto-cerrado con}} {{yb:cd cuarto-cerrado}}"
     ]
     commands = [
-        "cd locked-room",
-        "cd locked-room/"
+        "cd cuarto-cerrado",
+        "cd cuarto-cerrado/"
     ]
 
     def block_command(self, last_user_input):
@@ -102,17 +103,17 @@ class Step4(StepTemplateNano):
 
 class Step5(StepTemplateNano):
     story = [
-        _("The door is locked, so you can't go in."),
-        _("Finally, {{lb:look inside}} the {{bb:cage}}.")
+        "La puerta está cerrada, así que no puedes entrar.",
+        "Por último, {{lb:mira dentro}} de la {{bb:jaula}}."
     ]
-    start_dir = "~/woods/cave"
-    end_dir = "~/woods/cave"
+    start_dir = "~/bosque/cueva"
+    end_dir = "~/bosque/cueva"
     commands = [
-        "ls cage",
-        "ls cage/"
+        "ls jaula",
+        "ls jaula/"
     ]
     hints = [
-        _("{{rb:Look inside the cage with}} {{yb:ls cage}}")
+        "{{rb:Mira dentro de la jaula con}} {{yb:ls jaula}}"
     ]
 
     def next(self):
@@ -121,15 +122,15 @@ class Step5(StepTemplateNano):
 
 class Step6(StepTemplateNano):
     story = [
-        _("There is a bird in the cage. {{lb:Examine}} the bird."),
+        "Hay un pájaro en la jaula. {{lb:Examina}} el pájaro.",
     ]
-    start_dir = "~/woods/cave"
-    end_dir = "~/woods/cave"
+    start_dir = "~/bosque/cueva"
+    end_dir = "~/bosque/cueva"
     commands = [
-        "cat cage/bird"
+        "cat jaula/pajaro"
     ]
     hints = [
-        _("{{rb:Examine the bird with}} {{yb:cat cage/bird}}")
+        "{{rb:Examina el pájaro con}} {{yb:cat jaula/pajaro}}"
     ]
 
     def next(self):
@@ -138,19 +139,19 @@ class Step6(StepTemplateNano):
 
 class Step7(StepTemplateNano):
     story = [
-        _("Bird: {{Bb:\"...Me...trapped..\"}}"),
-        _("{{Bb:\"Please help....get me out.\"}}"),
+        "Pájaro: {{Bb:\"...Estoy...atrapado..\"}}",
+        "{{Bb:\"Por favor, ayuda....sácame de aquí.\"}}",
         "",
-        _("Help the bird by {{lb:moving}} the {{lb:bird}} outside the {{lb:cage}}.")
+        "Ayuda al pájaro {{lb:moviendo}} el {{lb:pajaro}} fuera de la {{lb:jaula}}."
     ]
-    start_dir = "~/woods/cave"
-    end_dir = "~/woods/cave"
+    start_dir = "~/bosque/cueva"
+    end_dir = "~/bosque/cueva"
     commands = [
-        "mv cage/bird .",
-        "mv cage/bird ./"
+        "mv jaula/pajaro .",
+        "mv jaula/pajaro ./"
     ]
     hints = [
-        _("{{rb:Move the bird outside the cage with}} {{yb:mv cage/bird ./}}")
+        "{{rb:Saca el pájaro de la jaula con}} {{yb:mv jaula/pajaro ./}}"
     ]
 
     def block_command(self, line):
@@ -163,30 +164,30 @@ class Step7(StepTemplateNano):
 
 class Step8(StepTemplateChmod):
     story = [
-        "You are unable to move the bird outside the cage.",
-        "Bird: {{Bb:\"...didn't work....\"}}",
-        "{{Bb:\"...look in}} {{lb:dark-room}} {{Bb:to find help..\"}}",
-        "{{Bb:\"..use}} {{yb:chmod +r dark-room}} {{Bb:to switch lights on.\"}}",
-        "{{Bb:\"...get me out...and I'll help you.\"}}",
+        "No puedes sacar el {{bb:pajaro}} de la {{bb:jaula}}.",
+        "Pájaro: {{Bb:\"...no funcionó....\"}}",
+        "{{Bb:\"...busca en el}} {{lb:cuarto-oscuro}} {{Bb:para encontrar ayuda..\"}}",
+        "{{Bb:\"..usa}} {{yb:chmod +r cuarto-oscuro}} {{Bb:para encender las luces.\"}}",
+        "{{Bb:\"...sácame de aquí...y te ayudaré.\"}}",
         ""
     ]
     story += wrap_in_box([
-        _("{{gb:New Power:}} Use "),
-        _("{{yb:chmod +r dark-room}} "),
-        _("to allow yourself to {{lb:read}} "),
-        _("the contents of dark-room.")
+        "{{gb:Nuevo Poder:}} Usa ",
+        "{{yb:chmod +r cuarto-oscuro}} ",
+        "para darte permiso de {{lb:leer}} ",
+        "el contenido del cuarto-oscuro."
     ])
 
-    start_dir = "~/woods/cave"
-    end_dir = "~/woods/cave"
+    start_dir = "~/bosque/cueva"
+    end_dir = "~/bosque/cueva"
     commands = [
-        "chmod +r dark-room",
-        "chmod +r dark-room/"
+        "chmod +r cuarto-oscuro",
+        "chmod +r cuarto-oscuro/"
     ]
     highlighted_commands = "chmod"
     hints = [
-        "{{rb:Follow the bird's instructions and use}} {{yb:chmod +r dark-room}} {{rb:to turn the lights on in the}} "
-        "{{bb:dark-room.}}"
+        "{{rb:Sigue las instrucciones del pájaro y usa}} {{yb:chmod +r cuarto-oscuro}} {{rb:para encender las luces del}} "
+        "{{bb:cuarto-oscuro.}}"
     ]
 
     def next(self):

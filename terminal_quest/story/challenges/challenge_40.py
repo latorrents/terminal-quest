@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 #
 # Copyright (C) 2014-2017 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
-from linux_story.StepTemplate import StepTemplate
-from linux_story.common import get_story_file
-from linux_story.step_helper_functions import unblock_cd_commands
-from linux_story.story.terminals.terminal_chmod import TerminalChmod
+from terminal_quest.step import StepTemplate
+from terminal_quest.common import get_story_file
+from terminal_quest.step_helpers import unblock_cd_commands
+from terminal_quest.terminals import TerminalChmod
 
 
 class StepTemplateChmod(StepTemplate):
@@ -16,47 +17,47 @@ class StepTemplateChmod(StepTemplate):
 
 class Step1(StepTemplateChmod):
     story = [
-        _("Swordsmaster:{{Bb:\"...this is very strange. I left the door open. Perhaps someone...or "
-          "something...sneaked in while we were talking.\"}}"),
-        _("{{Bb:\"You may need my help later. Come back if you are blocked by lack of knowledge.\"}}"),
+        "Espadachin: {{Bb:\"...esto es muy extraño. Dejé la puerta abierta. Quizás alguien... o "
+        "algo... se coló mientras hablábamos.\"}}",
+        "{{Bb:\"Puede que necesites mi ayuda más adelante. Vuelve si te quedas atascado por falta de conocimiento.\"}}",
         "",
-        _("Time to head off - {{lb:leave}} the Swordmaster's house.")
+        "Es hora de partir: {{lb:sal}} de la casa del Espadachin."
     ]
-    start_dir = "~/woods/clearing/house"
-    end_dir = "~/woods/clearing"
+    start_dir = "~/bosque/claro/casa"
+    end_dir = "~/bosque/claro"
 
     hints = [
-        _("{{rb:Leave the house with}} {{yb:cd ..}}")
+        "{{rb:Sal de la casa con}} {{yb:cd ..}}"
     ]
 
     file_list = [
         {
             "contents": get_story_file("note_woods"),
-            "path": "~/woods/note",
-            "permissions": 0644,
+            "path": "~/bosque/nota",
+            "permissions": 0o644,
             "type": "file"
         },
         {
-            "contents": get_story_file("Rabbit"),
-            "path": "~/woods/thicket/Rabbit",
-            "permissions": 0644,
+            "contents": get_story_file("Conejo"),
+            "path": "~/bosque/matorral/Conejo",
+            "permissions": 0o644,
             "type": "file"
         },
         {
-            "path": "~/woods/thicket/rabbithole",
-            "permissions": 0755,
+            "path": "~/bosque/matorral/madriguera",
+            "permissions": 0o755,
             "type": "directory"
         },
         {
             "contents": get_story_file("note_swordsmaster-clearing"),
-            "path": "~/woods/clearing/note",
-            "permissions": 0644,
+            "path": "~/bosque/claro/nota",
+            "permissions": 0o644,
             "type": "file"
         },
         {
             "contents": get_story_file("note_rabbithole"),
-            "path": "~/woods/thicket/note",
-            "permissions": 0644,
+            "path": "~/bosque/matorral/nota",
+            "permissions": 0o644,
             "type": "file"
         }
     ]
@@ -70,18 +71,18 @@ class Step1(StepTemplateChmod):
 
 class Step2(StepTemplateChmod):
     story = [
-        _("{{lb:Look around}} and see if there are clues about where to go next.")
+        "{{lb:Mira alrededor}} y busca pistas sobre adónde ir ahora."
     ]
 
-    start_dir = "~/woods/clearing"
-    end_dir = "~/woods/clearing"
+    start_dir = "~/bosque/claro"
+    end_dir = "~/bosque/claro"
     commands = [
         "ls",
         "ls -a"
     ]
 
     hints = [
-        _("{{rb:Use}} {{yb:ls}} {{rb:to look around.}}")
+        "{{rb:Usa}} {{yb:ls}} {{rb:para mirar alrededor.}}"
     ]
 
     def next(self):
@@ -90,15 +91,15 @@ class Step2(StepTemplateChmod):
 
 class Step3(StepTemplateChmod):
     story = [
-        _("Another note! What does this say?")
+        "¡Otra nota! ¿Qué dirá?"
     ]
-    start_dir = "~/woods/clearing"
-    end_dir = "~/woods/clearing"
+    start_dir = "~/bosque/claro"
+    end_dir = "~/bosque/claro"
     commands = [
-        "cat note"
+        "cat nota"
     ]
     hints = [
-        _("{{rb:Use}} {{yb:cat note}} {{rb:to read the note.}}")
+        "{{rb:Usa}} {{yb:cat nota}} {{rb:para leer la nota.}}"
     ]
 
     def next(self):
@@ -107,14 +108,14 @@ class Step3(StepTemplateChmod):
 
 class Step4(StepTemplateChmod):
     story = [
-        _("It looks like we should leave the clearing."),
-        _("{{lb:Go back into the woods.}}")
+        "Parece que deberíamos salir del claro.",
+        "{{lb:Vuelve al bosque.}}"
     ]
-    start_dir = "~/woods/clearing"
-    end_dir = "~/woods"
+    start_dir = "~/bosque/claro"
+    end_dir = "~/bosque"
 
     hints = [
-        _("{{rb:Go back to the woods with}} {{yb:cd ../}}")
+        "{{rb:Vuelve al bosque con}} {{yb:cd ../}}"
     ]
 
     def block_command(self, line):
@@ -126,10 +127,10 @@ class Step4(StepTemplateChmod):
 
 class Step5(StepTemplateChmod):
     story = [
-        _("{{lb:Look around.}}")
+        "{{lb:Mira alrededor.}}"
     ]
-    start_dir = "~/woods"
-    end_dir = "~/woods"
+    start_dir = "~/bosque"
+    end_dir = "~/bosque"
     commands = [
         "ls",
         "ls -a"
@@ -137,7 +138,7 @@ class Step5(StepTemplateChmod):
 
     # This text is used so much we can probably save it as "default ls hint"
     hints = [
-        _("{{rb:Use}} {{yb:ls}} {{rb:to look around.}}")
+        "{{rb:Usa}} {{yb:ls}} {{rb:para mirar alrededor.}}"
     ]
 
     def next(self):
@@ -146,15 +147,15 @@ class Step5(StepTemplateChmod):
 
 class Step6(StepTemplateChmod):
     story = [
-        _("There's another note! {{lb:Read}} it.")
+        "¡Hay otra nota! {{lb:Léela.}}"
     ]
-    start_dir = "~/woods"
-    end_dir = "~/woods"
+    start_dir = "~/bosque"
+    end_dir = "~/bosque"
     commands = [
-        "cat note"
+        "cat nota"
     ]
     hints = [
-        _("{{rb:Use}} {{yb:cat note}} {{rb:to examine the note.}}")
+        "{{rb:Usa}} {{yb:cat nota}} {{rb:para examinar la nota.}}"
     ]
 
     def next(self):
@@ -163,12 +164,12 @@ class Step6(StepTemplateChmod):
 
 class Step7(StepTemplateChmod):
     story = [
-        _("Let's {{lb:go}} into the thicket.")
+        "{{lb:Entremos}} en el matorral."
     ]
-    start_dir = "~/woods"
-    end_dir = "~/woods/thicket"
+    start_dir = "~/bosque"
+    end_dir = "~/bosque/matorral"
     hints = [
-        _("{{rb:Use}} {{yb:cd thicket}} {{rb:to go into the thicket.}}")
+        "{{rb:Usa}} {{yb:cd matorral}} {{rb:para entrar en el matorral.}}"
     ]
 
     def block_command(self, line):
@@ -180,17 +181,17 @@ class Step7(StepTemplateChmod):
 
 class Step8(StepTemplateChmod):
     story = [
-        _("You push through into a dense patch of plants. The trees overshadow you."),
-        _("{{lb:Look around.}}")
+        "Te abres paso entre plantas muy tupidas. Los árboles te cubren con su sombra.",
+        "{{lb:Mira alrededor.}}"
     ]
-    start_dir = "~/woods/thicket"
-    end_dir = "~/woods/thicket"
+    start_dir = "~/bosque/matorral"
+    end_dir = "~/bosque/matorral"
     commands = [
         "ls",
         "ls -a"
     ]
     hints = [
-        _("{{rb:Use}} {{yb:ls}} {{rb:to look around.}}")
+        "{{rb:Usa}} {{yb:ls}} {{rb:para mirar alrededor.}}"
     ]
 
     def next(self):

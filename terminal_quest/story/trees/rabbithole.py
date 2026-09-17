@@ -1,15 +1,16 @@
 # rabbithole.py
 #
 # Copyright (C) 2014-2017 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 
-from linux_story.common import get_story_file
-from chest import chest
+from terminal_quest.common import get_story_file
+from .chest import chest
 
 
 cage = {
-    "name": "cage",
+    "name": "jaula",
     "challenges": [
         {
             "challenge": 0,
@@ -19,12 +20,12 @@ cage = {
         {
             "challenge": 44,
             "step": 5,
-            "permissions": 0500
+            "permissions": 0o500
         },
         {
             "challenge": 45,
             "step": 6,
-            "permissions": 0755
+            "permissions": 0o755
         }
     ],
     "children": [
@@ -41,49 +42,49 @@ cage = {
             "contents": get_story_file("Edward")
         },
         {
-            "name": "dog",
-            "contents": get_story_file("dog")
+            "name": "perro",
+            "contents": get_story_file("perro")
         },
         {
-            "name": "Swordmaster",
+            "name": "Espadachin",
             "contents": get_story_file("swordmaster-without-sword")
         },
         {
-            "name": "Dad",
-            "contents": get_story_file("Dad")
+            "name": "Papa",
+            "contents": get_story_file("Papa")
         },
         {
-            "name": "Mum",
-            "contents": get_story_file("Mum")
+            "name": "Mama",
+            "contents": get_story_file("Mama")
         },
         {
-            "name": "grumpy-man",
-            "contents": get_story_file("grumpy-man")
+            "name": "hombre-enojado",
+            "contents": get_story_file("hombre-enojado")
         },
         {
-            "name": "Mayor",
-            "contents": get_story_file("Mayor")
+            "name": "Alcalde",
+            "contents": get_story_file("Alcalde")
         },
         {
-            "name": "little-boy",
-            "contents": get_story_file("little-boy")
+            "name": "chico",
+            "contents": get_story_file("chico")
         },
         {
-            "name": "young-girl",
-            "contents": get_story_file("young-girl")
+            "name": "chica",
+            "contents": get_story_file("chica")
         }
     ]
 }
 
 rabbithole = {
-    "name": "rabbithole",
+    "name": "madriguera",
     "type": "directory",
     "children": [
         cage,
         chest,
         {
-            "name": "Rabbit",
-            "contents": get_story_file("Rabbit"),
+            "name": "Conejo",
+            "contents": get_story_file("Conejo"),
             "challenges": [
                 {
                     "challenge": 0,
@@ -97,8 +98,8 @@ rabbithole = {
             ],
         },
         {
-            "name": "bell",
-            "contents": get_story_file("bell"),
+            "name": "campana",
+            "contents": get_story_file("campana"),
             "challenges": [
                 {
                     "challenge": 0,
@@ -116,17 +117,17 @@ rabbithole = {
         {
             "challenge": 40,
             "step": 1,
-            "permissions": 0755
+            "permissions": 0o755
         },
         {
             "challenge": 43,
             "step": 1,
-            "permissions": 0000
+            "permissions": 0o000
         },
         {
             "challenge": 44,
             "step": 5,
-            "permissions": 0755
+            "permissions": 0o755
         }
     ]
 }

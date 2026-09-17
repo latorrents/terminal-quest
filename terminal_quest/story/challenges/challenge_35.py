@@ -1,15 +1,16 @@
 #!/usr/bin/env python
 #
 # Copyright (C) 2014, 2015 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
 
-from linux_story.Animation import Animation
-from linux_story.StepTemplate import StepTemplate
-from linux_story.helper_functions import wrap_in_box
-from linux_story.step_helper_functions import unblock_commands
-from linux_story.story.terminals.terminal_chmod import TerminalChmod
+from terminal_quest.animation import Animation
+from terminal_quest.step import StepTemplate
+from terminal_quest.helpers import wrap_in_box
+from terminal_quest.step_helpers import unblock_commands
+from terminal_quest.terminals import TerminalChmod
 
 
 class StepTemplateChmod(StepTemplate):
@@ -18,19 +19,19 @@ class StepTemplateChmod(StepTemplate):
 
 class Step1(StepTemplateChmod):
     story = [
-        _("{{lb:Look inside}} the dark room again.")
+        "{{lb:Mira dentro}} del cuarto oscuro otra vez."
     ]
-    start_dir = "~/woods/cave"
-    end_dir = "~/woods/cave"
+    start_dir = "~/bosque/cueva"
+    end_dir = "~/bosque/cueva"
     commands = [
-        "ls dark-room",
-        "ls ./dark-room",
-        "ls ./dark-room/",
-        "ls dark-room/",
+        "ls cuarto-oscuro",
+        "ls ./cuarto-oscuro",
+        "ls ./cuarto-oscuro/",
+        "ls cuarto-oscuro/",
     ]
 
     hints = [
-        _("{{rb:Use}} {{yb:ls dark-room}} {{rb:to look inside the dark-room.}}")
+        "{{rb:Usa}} {{yb:ls cuarto-oscuro}} {{rb:para mirar dentro del cuarto-oscuro.}}"
     ]
 
     def next(self):
@@ -39,16 +40,16 @@ class Step1(StepTemplateChmod):
 
 class Step2(StepTemplateChmod):
     story = [
-        _("You can see a sign in the {{bb:dark-room}}. {{lb:Read the sign.}}")
+        "Ves un letrero en el {{bb:cuarto-oscuro}}. {{lb:Lee el letrero.}}"
     ]
-    start_dir = "~/woods/cave"
-    end_dir = "~/woods/cave"
+    start_dir = "~/bosque/cueva"
+    end_dir = "~/bosque/cueva"
     commands = [
-        "cat dark-room/sign"
+        "cat cuarto-oscuro/letrero"
     ]
 
     hints = [
-        _("{{rb:Use}} {{yb:cat dark-room/sign}} {{rb:to read the sign.}}")
+        "{{rb:Usa}} {{yb:cat cuarto-oscuro/letrero}} {{rb:para leer el letrero.}}"
     ]
 
     def next(self):
@@ -57,21 +58,21 @@ class Step2(StepTemplateChmod):
 
 class Step3(StepTemplateChmod):
     story = wrap_in_box([
-        _("{{gb:New Power:}} Use"),
-        _("{{yb:chmod +x locked-room}}"),
-        _("to unlock the locked-room.")
+        "{{gb:Nuevo Poder:}} Usa",
+        "{{yb:chmod +x cuarto-cerrado}}",
+        "para abrir el cuarto-cerrado."
     ])
     story += [
-        _("Use it on the {{bb:locked-room}}.")
+        "Úsalo en el {{bb:cuarto-cerrado}}."
     ]
-    start_dir = "~/woods/cave"
-    end_dir = "~/woods/cave"
+    start_dir = "~/bosque/cueva"
+    end_dir = "~/bosque/cueva"
     hints = [
-        _("{{rb:Unlock the locked-room with}} {{yb:chmod +x locked-room}}")
+        "{{rb:Abre el cuarto-cerrado con}} {{yb:chmod +x cuarto-cerrado}}"
     ]
     commands = [
-        "chmod +x locked-room",
-        "chmod +x locked-room/"
+        "chmod +x cuarto-cerrado",
+        "chmod +x cuarto-cerrado/"
     ]
     highlighted_commands = "chmod"
 
@@ -81,21 +82,21 @@ class Step3(StepTemplateChmod):
 
 class Step4(StepTemplateChmod):
     story = [
-        _("Now you can {{lb:examine}} the items in the {{bb:locked-room}}."),
-        _("{{lb:Read the sign in the locked-room}}")
+        "Ahora puedes {{lb:examinar}} los objetos del {{bb:cuarto-cerrado}}.",
+        "{{lb:Lee el letrero del cuarto-cerrado.}}"
     ]
-    start_dir = "~/woods/cave"
-    end_dir = "~/woods/cave"
+    start_dir = "~/bosque/cueva"
+    end_dir = "~/bosque/cueva"
     commands = [
-        "cat locked-room/sign"
+        "cat cuarto-cerrado/letrero"
     ]
     hints = [
-        _("{{rb:Use}} {{yb:cat locked-room/sign}} {{rb:to read the sign.}}")
+        "{{rb:Usa}} {{yb:cat cuarto-cerrado/letrero}} {{rb:para leer el letrero.}}"
     ]
 
     def check_commmand(self, line):
-        if line == "cat locked-room/firework":
-            self.send_hint("You see a firework.")
+        if line == "cat cuarto-cerrado/fuego-artificial":
+            self.send_hint("Ves un fuego artificial.")
             return
 
         return StepTemplateChmod.check_command(self, line)
@@ -106,22 +107,22 @@ class Step4(StepTemplateChmod):
 
 class Step5(StepTemplateChmod):
     story = wrap_in_box([
-        _("{{gb:New Power:}} Type"),
-        _("{{yb:chmod +w cage}}"),
-        _("to give write permissions to,"),
-        _("and thus unlock, the cage."),
+        "{{gb:Nuevo Poder:}} Escribe",
+        "{{yb:chmod +w jaula}}",
+        "para dar permiso de escritura",
+        "y así abrir la jaula.",
     ])
     story += [
-        "Try it out!"
+        "¡Pruébalo!"
     ]
-    start_dir = "~/woods/cave"
-    end_dir = "~/woods/cave"
+    start_dir = "~/bosque/cueva"
+    end_dir = "~/bosque/cueva"
     commands = [
-        "chmod +w cage",
-        "chmod +w cage/"
+        "chmod +w jaula",
+        "chmod +w jaula/"
     ]
     hints = [
-        _("{{rb:Use}} {{yb:chmod +w cage}} {{rb:to unlock the cage.}}")
+        "{{rb:Usa}} {{yb:chmod +w jaula}} {{rb:para abrir la jaula.}}"
     ]
 
     def next(self):
@@ -130,17 +131,17 @@ class Step5(StepTemplateChmod):
 
 class Step6(StepTemplateChmod):
     story = [
-        _("Now you can help the bird escape from the cage."),
-        _("{{lb:Move the bird outside the cage to where you are.}}")
+        "Ahora puedes ayudar al pájaro a escapar de la jaula.",
+        "{{lb:Mueve el pájaro fuera de la jaula, a donde estás tú.}}"
     ]
-    start_dir = "~/woods/cave"
-    end_dir = "~/woods/cave"
+    start_dir = "~/bosque/cueva"
+    end_dir = "~/bosque/cueva"
     commands = [
-        "mv cage/bird .",
-        "mv cage/bird ./"
+        "mv jaula/pajaro .",
+        "mv jaula/pajaro ./"
     ]
     hints = [
-        _("{{rb:Use}} {{yb:mv cage/bird ./}} {{rb:to move the bird outside.}}")
+        "{{rb:Usa}} {{yb:mv jaula/pajaro ./}} {{rb:para sacar al pájaro.}}"
     ]
 
     def block_command(self, line):
@@ -149,4 +150,3 @@ class Step6(StepTemplateChmod):
     def next(self):
         Animation("bird-animation").play_across_screen(speed=5)
         return 36, 1
-

@@ -1,52 +1,53 @@
 # cave.py
 #
 # Copyright (C) 2014-2017 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 
 
-from linux_story.common import get_story_file
+from terminal_quest.common import get_story_file
 
 dark_room = {
-    "name": "dark-room",
+    "name": "cuarto-oscuro",
     "challenges": [
         {
             "challenge": 32,
             "step": 1,
-            "permissions": 0300
+            "permissions": 0o300
         },
         {
             "challenge": 35,
             "step": 1,
-            "permissions": 0700
+            "permissions": 0o700
         }
     ],
     "children": [
         {
-            "name": "sign",
+            "name": "letrero",
             "contents": get_story_file("x-sign")
         }
     ]
 }
 
 cage_room = {
-    "name": "cage",
+    "name": "jaula",
     "challenges": [
         {
             "challenge": 32,
             "step": 1,
-            "permissions": 0500
+            "permissions": 0o500
         },
         {
             "challenge": 35,
             "step": 6,
-            "permissions": 0700
+            "permissions": 0o700
         }
     ],
     "children": [
         {
-            "name": "bird",
-            "contents": get_story_file("bird"),
+            "name": "pajaro",
+            "contents": get_story_file("pajaro"),
             "challenges": [
                 {
                     "challenge": 36,
@@ -56,7 +57,7 @@ cage_room = {
             ]
         },
         {
-            "name": "scroll",
+            "name": "pergamino",
             "contents": get_story_file("scroll-cage"),
             "challenges": [
                 {
@@ -74,26 +75,26 @@ cage_room = {
 }
 
 locked_room = {
-    "name": "locked-room",
+    "name": "cuarto-cerrado",
     "challenges": [
         {
             "challenge": 32,
             "step": 1,
-            "permissions": 0600
+            "permissions": 0o600
         },
         {
             "challenge": 35,
             "step": 4,
-            "permissions": 0700
+            "permissions": 0o700
         }
     ],
     "children": [
         {
-            "name": "firework",
+            "name": "fuego-artificial",
             "contents": get_story_file("firework-animation")
         },
         {
-            "name": "sign",
+            "name": "letrero",
             "contents": get_story_file("w-sign"),
             "challenges": [
                 {
@@ -107,8 +108,8 @@ locked_room = {
             ]
         },
         {
-            "name": "lighter",
-            "contents": get_story_file("lighter"),
+            "name": "encendedor",
+            "contents": get_story_file("encendedor"),
             "challenges": [
                 {
                     "challenge": 32,
@@ -117,7 +118,7 @@ locked_room = {
                 {
                     "challenge": 36,
                     "step": 4,
-                    "permissions": 0755
+                    "permissions": 0o755
                 }
             ]
         }
@@ -125,14 +126,14 @@ locked_room = {
 }
 
 chest = {
-    "name": "chest",
+    "name": "cofre",
     "children": [
         {
-            "name": "riddle",
+            "name": "acertijo",
             "contents": get_story_file("riddle-cave")
         },
         {
-            "name": "answer",
+            "name": "respuesta",
             "contents": get_story_file("answer-cave")
         }
     ],
@@ -145,25 +146,25 @@ chest = {
         {
             "challenge": 37,
             "step": 2,
-            "permissions": 0000
+            "permissions": 0o000
         },
         {
             "challenge": 37,
             "step": 5,
-            "permissions": 0700
+            "permissions": 0o700
         }
     ]
 }
 
 cave = {
-    "name": "cave",
+    "name": "cueva",
     "children": [
         dark_room,
         cage_room,
         locked_room,
         chest,
         {
-            "name": "sign",
+            "name": "letrero",
             "contents": get_story_file("sign_cave")
         }
     ]

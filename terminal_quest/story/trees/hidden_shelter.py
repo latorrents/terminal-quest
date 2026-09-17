@@ -1,10 +1,11 @@
 # hidden_shelter.py
 #
 # Copyright (C) 2014-2017 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 
-from linux_story.common import get_story_file
+from terminal_quest.common import get_story_file
 
 eleanor_hidden_shelter = {
     "name": "Eleanor",
@@ -32,8 +33,8 @@ eleanor_hidden_shelter = {
 }
 
 dog_hidden_shelter = {
-    "name": "dog",
-    "contents": get_story_file("dog"),
+    "name": "perro",
+    "contents": get_story_file("perro"),
     "challenges": [
         {
             "challenge": 10,
@@ -92,8 +93,8 @@ edward_hidden_shelter = {
 
 
 apple_hidden_shelter = {
-    "name": "apple",
-    "contents": get_story_file("apple"),
+    "name": "manzana",
+    "contents": get_story_file("manzana"),
     "challenges": [
         {
             "challenge": 10,
@@ -118,8 +119,8 @@ apple_hidden_shelter = {
 
 
 apple_basket = {
-    "name": "apple",
-    "contents": get_story_file("apple"),
+    "name": "manzana",
+    "contents": get_story_file("manzana"),
     "challenges": [
         {
             "challenge": 11,
@@ -158,7 +159,7 @@ kitchen_food_challenges = [
 
 
 basket_hidden_shelter = {
-    "name": "basket",
+    "name": "canasta",
     "type": "directory",
     "challenges": [
         {
@@ -183,8 +184,8 @@ basket_hidden_shelter = {
             "challenges": kitchen_food_challenges
         },
         {
-            "name": "cake",
-            "contents": get_story_file("cake"),
+            "name": "pastel",
+            "contents": get_story_file("pastel"),
             "challenges": kitchen_food_challenges
         },
         {
@@ -197,7 +198,7 @@ basket_hidden_shelter = {
 
 
 tiny_chest = {
-    "name": ".tiny-chest",
+    "name": ".cofrecito",
     "children": [
         {
             "name": "MV",
@@ -214,7 +215,7 @@ tiny_chest = {
 
 
 hidden_shelter = {
-    "name": ".hidden-shelter",
+    "name": ".refugio-oculto",
     "children": [
         basket_hidden_shelter,
         tiny_chest,

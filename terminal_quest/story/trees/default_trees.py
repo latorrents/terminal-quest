@@ -1,18 +1,19 @@
 # default_trees.py
 #
 # Copyright (C) 2014-2017 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 
-from farm import farm
-from linux_story.common import get_story_file
-from my_house import my_house
-from woods import woods
-from town import town
+from .farm import farm
+from terminal_quest.common import get_story_file
+from .my_house import my_house
+from .woods import woods
+from .town import town
 
 
 basket = {
-    "name": "basket",
+    "name": "canasta",
     "challenges": [
         {
             "challenge": 0,
@@ -50,8 +51,8 @@ basket = {
             ]
         },
         {
-            "name": "cake",
-            "contents": get_story_file("cake"),
+            "name": "pastel",
+            "contents": get_story_file("pastel"),
             "challenges": [
                 {
                     "challenge": 14,

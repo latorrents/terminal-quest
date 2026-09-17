@@ -1,17 +1,17 @@
            .--._..--.
           ( _'-_  -_.'
            |  - :- |
-    <''''''''''''''''''''''''-._
-   |  You cannot read in a     |\
-   |   dark room. Use          | |
-   |                         _.' |
-   |  chmod +r dark-room       | |
- .'                          _.' |
- `._   to turn the lights on  |:.'
-  |                          _.' |
-    `|                        |  |
-      `=''"=---.._.--.      _|  |
-           | _   - | `-...-__|_.'
+    <''''''''''''''''''''''''''''''-._
+   |  No puedes leer en un           |\
+   |  cuarto oscuro. Usa             | |
+   |                               _.' |
+   |  chmod +r cuarto-oscuro         | |
+ .'                                _.' |
+ `._  para encender las luces       |:.'
+  |                                _.' |
+    `|                              |  |
+      `=''"=---.._.--.            _|  |
+           | _   - | `-...-________|_.'
            |  -    |
            |    -  |
            | _  -  |

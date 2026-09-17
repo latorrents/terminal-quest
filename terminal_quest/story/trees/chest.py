@@ -1,15 +1,21 @@
-from linux_story.common import get_story_file
+# chest.py
+#
+# Copyright (C) 2014-2017 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
+# License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
+
+from terminal_quest.common import get_story_file
 
 chest = {
-    "name": "chest",
+    "name": "cofre",
     "children": [
         {
-            "name": "scroll",
-            "contents": get_story_file("scroll"),
+            "name": "pergamino",
+            "contents": get_story_file("pergamino"),
         },
         {
-            "name": "torn-note",
-            "contents": get_story_file("torn-note")
+            "name": "nota-rota",
+            "contents": get_story_file("nota-rota")
         }
     ],
     "challenges": [

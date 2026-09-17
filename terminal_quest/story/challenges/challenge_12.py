@@ -1,6 +1,7 @@
 # challenge_12.py
 #
 # Copyright (C) 2014-2016 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
@@ -9,10 +10,10 @@
 # Change this import statement, need to decide how to group the terminals
 # together
 import os
-from linux_story.StepTemplate import StepTemplate
-from linux_story.story.terminals.terminal_mv import TerminalMv
-from linux_story.common import tq_file_system
-from linux_story.step_helper_functions import unblock_commands
+from terminal_quest.step import StepTemplate
+from terminal_quest.terminals import TerminalMv
+from terminal_quest.common import tq_file_system
+from terminal_quest.step_helpers import unblock_commands
 
 
 class StepTemplateMv(StepTemplate):
@@ -25,27 +26,29 @@ class StepTemplateMv(StepTemplate):
 # Thanks you for saving the little girl
 class Step1(StepTemplateMv):
     story = [
-        _("{{wb:Edith:}} {{Bb:\"Thank you for saving her!\"}}"),
-        _("{{wb:Eleanor:}} {{Bb:\"Doggy!\"}}"),
-        _("{{wb:Edith:}} {{Bb:\"Can you save her dog too? I'm worried something " +\
-        "will happen to it if it stays outside.\"}}\n")
+        "{{wb:Edith:}} {{Bb:\"¡Gracias por salvarla!\"}}",
+        "{{wb:Eleanor:}} {{Bb:\"¡Perrito!\"}}",
+        (
+            "{{wb:Edith:}} {{Bb:\"¿Puedes salvar a su perro también? Me preocupa que algo malo "
+            "le suceda si se queda afuera.\"}}\n"
+        )
     ]
-    start_dir = "~/town/.hidden-shelter"
-    end_dir = "~/town/.hidden-shelter"
+    start_dir = "~/pueblo/.refugio-oculto"
+    end_dir = "~/pueblo/.refugio-oculto"
     commands = [
-        "mv ../dog .",
-        "mv ../dog ./",
-        "mv ~/town/dog ~/town/.hidden-shelter",
-        "mv ~/town/dog ~/town/.hidden-shelter/",
-        "mv ~/town/dog .",
-        "mv ~/town/dog ./",
-        "mv ../dog ~/town/.hidden-shelter",
-        "mv ../dog ~/town/.hidden-shelter/",
+        "mv ../perro .",
+        "mv ../perro ./",
+        "mv ~/pueblo/perro ~/pueblo/.refugio-oculto",
+        "mv ~/pueblo/perro ~/pueblo/.refugio-oculto/",
+        "mv ~/pueblo/perro .",
+        "mv ~/pueblo/perro ./",
+        "mv ../perro ~/pueblo/.refugio-oculto",
+        "mv ../perro ~/pueblo/.refugio-oculto/",
     ]
     hints = [
-        _("{{rb:Use the command}} {{yb:mv ../dog ./}} {{rb:to rescue the dog.}}")
+        "{{rb:Usa el comando}} {{yb:mv ../perro ./}} {{rb:para rescatar al perro.}}"
     ]
-    dog_file = os.path.join(tq_file_system, 'town/.hidden-shelter/dog')
+    dog_file = os.path.join(tq_file_system, 'pueblo/.refugio-oculto/perro')
 
     def block_command(self, line):
         return unblock_commands(line, self.commands)
@@ -57,29 +60,24 @@ class Step1(StepTemplateMv):
 # Save both the dog and the little girl
 class Step2(StepTemplateMv):
     story = [
-        _("{{wb:Eleanor:}} {{Bb:\"Yay, Doggie!\"}}"),
-        _("{{wb:Dog:}} {{Bb:\"Ruff!\"}}"),
-        _("{{wb:Edith:}} {{Bb:\"Thank you so much for getting them both back."),
-        _("I was wrong about you. You're a hero!\"}}\n"),
-        _("{{lb:Listen to everyone}} and see if there's anything else you can " +\
-        "do to help.\n")
+        "{{wb:Eleanor:}} {{Bb:\"¡Yay, Perrito!\"}}",
+        "{{wb:Perro:}} {{Bb:\"¡Ruff!\"}}",
+        "{{wb:Edith:}} {{Bb:\"Muchas gracias por hacer que vuelvan.",
+        "Me equivoqué contigo. ¡Eres un héroe!\"}}\n",
+        "{{lb:Escucha a todos}} y fíjate si hay algo más que puedas hacer para ayudarlos.\n"
     ]
-    start_dir = "~/town/.hidden-shelter"
-    end_dir = "~/town/.hidden-shelter"
+    start_dir = "~/pueblo/.refugio-oculto"
+    end_dir = "~/pueblo/.refugio-oculto"
     commands = "cat Edward"
     all_commands = {
-        "cat Edith": _("\n{{wb:Edith:}} {{Bb:\"Thank you so much! " +\
-        "Eleanor, don't wander outside again - you scared the life out " +\
-        "of me!\"}}"),
+        "cat Edith": "\n{{wb:Edith:}} {{Bb:\"¡Muchas gracias! Eleanor, ¡no vuelvas a salir - me has asustado!\"}}",
 
-        "cat Eleanor": _("\n{{wb:Eleanor:}} {{Bb:\"Where do you think the " +\
-        "bell would have taken us?\"}}"),
+        "cat Eleanor": "\n{{wb:Eleanor:}} {{Bb:\"¿Dónde piensas que se habrá llevado la campana a los demás?\"}}",
 
-        "cat dog": _("\n{{wb:Dog:}} {{Bb:\"Woof! Woof woof!\"}}")
+        "cat perro": "\n{{wb:Perro:}} {{Bb:\"¡Guau! ¡Guau Guau!\"}}"
     }
     hints = [
-        _("{{gb:Edward looks like he has something he wants to say. " +\
-        "Listen to Edward with}} {{yb:cat Edward}}")
+        "{{gb:Parece que Edward tiene algo para decir. Escucha a Edward con}} {{yb:cat Edward}}"
     ]
 
     def check_command(self, line):

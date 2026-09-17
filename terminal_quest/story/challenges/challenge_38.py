@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 #
 # Copyright (C) 2014-2017 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
@@ -9,10 +10,10 @@
 
 import os
 
-from linux_story.StepTemplate import StepTemplate
-from linux_story.PlayerLocation import generate_real_path
-from linux_story.step_helper_functions import unblock_cd_commands
-from linux_story.story.terminals.terminal_chmod import TerminalChmod
+from terminal_quest.step import StepTemplate
+from terminal_quest.location import generate_real_path
+from terminal_quest.step_helpers import unblock_cd_commands
+from terminal_quest.terminals import TerminalChmod
 
 
 class StepTemplateChmod(StepTemplate):
@@ -21,15 +22,15 @@ class StepTemplateChmod(StepTemplate):
 
 class Step1(StepTemplateChmod):
     story = [
-        _("{{gb:You've found the answer to the Swordmaster's riddle!}}"),
+        "{{gb:¡Encontraste la respuesta al acertijo del Espadachin!}}",
         "",
-        _("{{lb:Go back to the Swordmaster's clearing.}}")
+        "{{lb:Vuelve al claro del Espadachin.}}"
     ]
-    start_dir = "~/woods/cave"
-    end_dir = "~/woods/clearing"
+    start_dir = "~/bosque/cueva"
+    end_dir = "~/bosque/claro"
     hints = [
-        _("Head back to the {{bb:~/woods/clearing}} where the Swordmaster lives."),
-        _("{{rb:Use}} {{yb:cd ~/woods/clearing}} {{rb:to go back to the Swordmaster's clearing.}}")
+        "Vuelve al {{bb:~/bosque/claro}}, donde vive el Espadachin.",
+        "{{rb:Usa}} {{yb:cd ~/bosque/claro}} {{rb:para volver al claro del Espadachin.}}"
     ]
 
     def block_command(self, line):
@@ -41,15 +42,18 @@ class Step1(StepTemplateChmod):
 
 class Step2(StepTemplateChmod):
     story = [
-        _("Knock on the Swordmaster's door.")
+        "Toca a la puerta del Espadachin."
     ]
-    start_dir = "~/woods/clearing"
-    end_dir = "~/woods/clearing"
+    start_dir = "~/bosque/claro"
+    end_dir = "~/bosque/claro"
     commands = [
-        "echo knock knock"
+        "echo knock knock",
+        "echo toc toc",
+        "echo Toc toc",
+        "echo Toc Toc"
     ]
     hints = [
-        _("{{rb:Use}} {{yb:echo knock knock}} {{rb:to knock on the Swordmaster's door.}}")
+        "{{rb:Usa}} {{yb:echo toc toc}} {{rb:para tocar a la puerta del Espadachin.}}"
     ]
 
     def next(self):
@@ -58,18 +62,18 @@ class Step2(StepTemplateChmod):
 
 class Step3(StepTemplateChmod):
     story = [
-        _("Swordmaster:"),
-        _("{{Bb:\"If you have me, you want to share me."),
-        _("If you share me, you haven't got me."),
-        _("What am I?\"}}"),
+        "Espadachin:",
+        "{{Bb:\"Si me tienes, quieres compartirme.",
+        "Si me compartes, ya no me tienes.",
+        "¿Qué soy?\"}}",
         "",
-        _("{{yb:1. A secret}}"),
-        _("{{yb:2. I don't know}}"),
+        "{{yb:1. Un secreto}}",
+        "{{yb:2. No sé}}",
         "",
-        _("Use {{lb:echo}} to reply.")
+        "Usa {{lb:echo}} para responder."
     ]
-    start_dir = "~/woods/clearing"
-    end_dir = "~/woods/clearing"
+    start_dir = "~/bosque/claro"
+    end_dir = "~/bosque/claro"
     commands = [
         "echo 1",
         "echo secret",
@@ -77,31 +81,38 @@ class Step3(StepTemplateChmod):
         "echo A secret",
         "echo \"secret\"",
         "echo \"a secret\"",
-        "echo \"A secret\""
+        "echo \"A secret\"",
+        "echo secreto",
+        "echo Secreto",
+        "echo un secreto",
+        "echo Un secreto",
+        "echo \"secreto\"",
+        "echo \"un secreto\"",
+        "echo \"Un secreto\""
     ]
 
     def check_command(self, line):
         if line.startswith("echo ") and line not in self.commands:
-            self.send_hint("Swordmaster: {{Bb:\"Incorrect. Did you finish the challenges in the cave? "
-                           "The answer was in there.\"}}")
+            self.send_hint("Espadachin: {{Bb:\"Incorrecto. ¿Terminaste los desafíos de la cueva? "
+                           "La respuesta estaba allí.\"}}")
         return StepTemplateChmod.check_command(self, line)
 
     def next(self):
-        path = generate_real_path("~/woods/clearing/house")
-        os.chmod(path, 0755)
+        path = generate_real_path("~/bosque/claro/casa")
+        os.chmod(path, 0o755)
         return 38, 4
 
 
 class Step4(StepTemplateChmod):
     story = [
-        _("{{wb:Clunck.}} {{gb:It sounds like the door unlocked.}}"),
+        "{{wb:Clonc.}} {{gb:Parece que la puerta se abrió.}}",
         "",
-        _("{{lb:Go in the house.}}")
+        "{{lb:Entra en la casa.}}"
     ]
-    start_dir = "~/woods/clearing"
-    end_dir = "~/woods/clearing/house"
+    start_dir = "~/bosque/claro"
+    end_dir = "~/bosque/claro/casa"
     hints = [
-        _("{{rb:Use}} {{yb:cd house}} {{rb:to go inside.}}")
+        "{{rb:Usa}} {{yb:cd casa}} {{rb:para entrar.}}"
     ]
 
     def block_command(self, line):
@@ -113,12 +124,12 @@ class Step4(StepTemplateChmod):
 
 class Step5(StepTemplateChmod):
     story = [
-        _("{{lb:Look around.}}")
+        "{{lb:Mira alrededor.}}"
     ]
-    start_dir = "~/woods/clearing/house"
-    end_dir = "~/woods/clearing/house"
+    start_dir = "~/bosque/claro/casa"
+    end_dir = "~/bosque/claro/casa"
     hints = [
-        _("{{rb:Use}} {{yb:ls}} {{rb:to look around.}}")
+        "{{rb:Usa}} {{yb:ls}} {{rb:para mirar alrededor.}}"
     ]
     commands = [
         "ls"

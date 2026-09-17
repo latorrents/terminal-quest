@@ -1,6 +1,7 @@
 # challenge_30.py
 #
 # Copyright (C) 2014-2016 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
@@ -8,10 +9,10 @@
 
 import os
 
-from linux_story.common import get_story_file
-from linux_story.story.challenges.CompanionMisc import StepTemplateEleanorBernard
-from linux_story.step_helper_functions import unblock_cd_commands
-from linux_story.story.terminals.terminal_nano import TerminalNano
+from terminal_quest.common import get_story_file
+from terminal_quest.story.challenges.CompanionMisc import StepTemplateEleanorBernard
+from terminal_quest.step_helpers import unblock_cd_commands
+from terminal_quest.terminals import TerminalNano
 
 
 # ----------------------------------------------------------------------------------------
@@ -23,29 +24,29 @@ class StepNano(StepTemplateEleanorBernard):
 
 class Step1(StepNano):
     story = [
-        _("{{pb:Ding. Dong.}}\n"),
-        _("\nEleanor: {{Bb:\"...what was that?\"}}\n"),
-        _("{{lb:Look around.}}")
+        "{{pb:Ding. Dong.}}\n",
+        "\nEleanor: {{Bb:\"¿...qué fue eso?\"}}\n",
+        "{{lb:Mira alrededor.}}"
     ]
-    start_dir = "~/town/east/restaurant/.cellar"
-    end_dir = "~/town/east/restaurant/.cellar"
+    start_dir = "~/pueblo/este/restaurante/.bodega"
+    end_dir = "~/pueblo/este/restaurante/.bodega"
     commands = [
         "ls",
         "ls -a"
     ]
     hints = [
-        _("{{rb:Use}} {{yb:ls}} {{rb:to check everyone is still present.}}")
+        "{{rb:Usa}} {{yb:ls}} {{rb:para asegurarte de que estén todos presentes.}}"
     ]
     deleted_items = [
-        "~/town/east/shed-shop/Bernard"
+        "~/pueblo/este/tienda-de-cobertizos/Bernard"
     ]
     file_list = [
         {
-            "path": "~/town/east/shed-shop/Bernards-hat",
+            "path": "~/pueblo/este/tienda-de-cobertizos/Sombrero-de-Bernard",
             "contents": get_story_file("bernards-hat")
         }
     ]
-    companion_speech = _("Eleanor: {{Bb:......}}")
+    companion_speech = "Eleanor: {{Bb:......}}"
 
     def next(self):
         return 30, 2
@@ -53,20 +54,19 @@ class Step1(StepNano):
 
 class Step2(StepNano):
     story = [
-        _("Everyone seems to be here. What was that bell?"),
-        _("\n{{bb:Clara}} looks like she has something to say. {{lb:Listen to her.}}")
+        "Todos parecen estar aquí. ¿Qué fue ese timbre?",
+        "\nParece que {{bb:Clara}} tiene algo para decir. {{lb:Escúchala.}}"
     ]
     commands = [
         "cat Clara"
     ]
-    start_dir = "~/town/east/restaurant/.cellar"
-    end_dir = "~/town/east/restaurant/.cellar"
+    start_dir = "~/pueblo/este/restaurante/.bodega"
+    end_dir = "~/pueblo/este/restaurante/.bodega"
     hints = [
-        _("{{rb:Use}} {{yb:cat Clara}} {{rb:to see what Clara has to say.}}")
+        "{{rb:Usa}} {{yb:cat Clara}} {{rb:para escuchar lo que Clara tiene para decir.}}"
     ]
     companion_speech = \
-        _("Eleanor: {{Bb:\"....I was so scared. I don't think I want to go " +\
-        "outside now.\"}}")
+        "Eleanor: {{Bb:\"....Tuve tanto miedo. No quiero salir ahora.\"}}"
 
     def next(self):
         return 30, 3
@@ -74,41 +74,45 @@ class Step2(StepNano):
 
 class Step3(StepNano):
     story = [
-        _("Clara: {{Bb:\"Are you two going back out there?\"}}"),
-        _("{{Bb:\"}}{{gb:%s}}" +\
-        "{{Bb:, you look like you can take care of yourself, but " +\
-        "I don't feel happy with Eleanor going outside.\"}}")\
+        "Clara: {{Bb:\"¿Van a volver a salir?\"}}",
+        (
+            "{{Bb:\"}}{{gb:%s}}{{Bb:, parece que sabes cuidarte solo, pero no estoy "
+            "tranquila si Eleanor sale.\"}}"
+        )\
         % os.environ['LOGNAME'],
-        _("\n{{Bb:\"}}{{gb:%s}}{{Bb:, will you leave Eleanor with me? " +\
-        "I'll look after her.\"}}") % os.environ['LOGNAME'],
-        _("\n{{yb:1: \"That's a good idea, take good care of her.\"}}"),
-        _("{{yb:2: \"No I don't trust you, she's safer with me.\"}}"),
-        _("{{yb:3: \"(Ask Eleanor.) Are you happy to stay here?\"}}"),
-        # _("{{yb:4: Do you have enough food here?}}"),
-        _("\n{{lb:Reply to Clara.}}")
+        "\n{{Bb:\"}}{{gb:%s}}{{Bb:, ¿dejarías a Eleanor conmigo? Yo la cuidaré.\"}}" % os.environ['LOGNAME'],
+        "\n{{yb:1: \"Es una buena idea, cuídala muy bien.\"}}",
+        "{{yb:2: \"No, no confío en ti, ella estará más segura conmigo.\"}}",
+        "{{yb:3: \"(Pregunta a Eleanor.) ¿Quieres quedarte aquí?\"}}",
+        # "{{yb:4: ¿Tienes suficiente comida aquí?}}",
+        "\n{{lb:Respóndele a Clara.}}"
     ]
     commands = [
         "echo 1"
     ]
-    start_dir = "~/town/east/restaurant/.cellar"
-    end_dir = "~/town/east/restaurant/.cellar"
+    start_dir = "~/pueblo/este/restaurante/.bodega"
+    end_dir = "~/pueblo/este/restaurante/.bodega"
     hints = [
-        _("{{rb:Use}} {{yb:echo 1}}{{rb:,}} {{yb:echo 2}} {{rb:or}} " +\
-        "{{yb:echo 3}} {{rb:to reply to Clara.}}")
+        (
+            "{{rb:Usa}} {{yb:echo 1}}{{rb:,}} {{yb:echo 2}} {{rb:o}} {{yb:echo 3}} {{rb:para "
+            "responderle a Clara.}}"
+        )
     ]
     companion_speech = (
-        _("Eleanor: {{Bb:\"I'm happy to stay here. I like Clara.\"}}")
+        "Eleanor: {{Bb:\"Estaré bien aquí. Me agrada Clara.\"}}"
     )
 
     def check_command(self, line):
         if line == "echo 2":
             text = (
-                _("\nClara: {{Bb:\"Please let me look after her. " +\
-                "I don't think it's safe for her to go outside.\"}}")
+                (
+                    "\nClara: {{Bb:\"Por favor, déjame cuidarla. No creo que sea seguro para ella "
+                    "volver a salir.\"}}"
+                )
             )
             self.send_hint(text)
         elif line == "echo 3":
-            text = _("\nEleanor: {{Bb:\"I'm happy to stay here. I like Clara.\"}}")
+            text = "\nEleanor: {{Bb:\"Estaré bien aquí. Me agrada Clara.\"}}"
             self.send_hint(text)
         else:
             return StepNano.check_command(self, line)
@@ -119,28 +123,29 @@ class Step3(StepNano):
 
 class Step4(StepNano):
     story = [
-        _("Clara: {{Bb:\"Thank you!\"}}"),
-        _("Eleanor: {{Bb:\"When you find my parents, can you tell them I'm " +\
-        "here?\"}}"),
-        _("Clara: {{Bb:\"Where are you going to go now?\"}}"),
-        _("\nLet's head back to see {{bb:Bernard}} and see if he's heard of " +\
-        "the {{bb:masked swordmaster}}.\n"),
-        _("{{lb:Head to the}} {{bb:shed-shop.}}")
+        "Clara: {{Bb:\"¡Gracias!\"}}",
+        "Eleanor: {{Bb:\"Cuando encuentres a mis padres, ¿puedes decirles que estoy aquí?\"}}",
+        "Clara: {{Bb:\"¿A dónde irás ahora?\"}}",
+        (
+            "\nVolvamos a ver a {{bb:Bernard}} para saber si ha oído hablar del "
+            "{{bb:espadachín enmascarado}}.\n"
+        ),
+        "{{lb:Dirígete a la}} {{bb:tienda-de-cobertizos}}."
     ]
-    start_dir = "~/town/east/restaurant/.cellar"
-    end_dir = "~/town/east/shed-shop"
+    start_dir = "~/pueblo/este/restaurante/.bodega"
+    end_dir = "~/pueblo/este/tienda-de-cobertizos"
 
     path_hints = {
-        "~/town/east/restaurant/.cellar": {
-            "blocked": _("\n{{rb:Use}} {{yb:cd ../}} {{rb:to go back.}}")
+        "~/pueblo/este/restaurante/.bodega": {
+            "blocked": "\n{{rb:Usa}} {{yb:cd ../}} {{rb:para salir.}}"
         },
-        "~/town/east/restaurant": {
-            "not_blocked": _("\n{{gb:You head upstairs}}"),
-            "blocked": _("\n{{rb:Use}} {{yb:cd ../}} {{rb:to go back.}}")
+        "~/pueblo/este/restaurante": {
+            "not_blocked": "\n{{gb:Subiste un nivel. Sigue saliendo.}}",
+            "blocked": "\n{{rb:Usa}} {{yb:cd ../}} {{rb:para salir.}}"
         },
-        "~/town/east": {
-            "not_blocked": _("\n{{gb:Now go into the}} {{bb:shed-shop}}{{gb:.}}"),
-            "blocked": _("\n{{rb:Use}} {{yb:cd shed-shop/}}{{rb:.}}")
+        "~/pueblo/este": {
+            "not_blocked": "\n{{gb:Ahora dirígete a la}} {{bb:tienda-de-cobertizos}}{{gb:.}}",
+            "blocked": "\n{{rb:Usa}} {{yb:cd tienda-de-cobertizos/}}{{rb:.}}"
         }
     }
 

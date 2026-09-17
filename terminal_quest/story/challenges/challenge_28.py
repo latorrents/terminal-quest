@@ -1,13 +1,14 @@
 # challenge_28.py
 #
 # Copyright (C) 2014-2016 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
-from linux_story.story.challenges.CompanionMisc import StepTemplateNano
-from linux_story.common import get_story_file
-from linux_story.step_helper_functions import unblock_cd_commands
-from linux_story.sound_manager import SoundManager
+from terminal_quest.story.challenges.CompanionMisc import StepTemplateNano
+from terminal_quest.common import get_story_file
+from terminal_quest.step_helpers import unblock_cd_commands
+from terminal_quest.sound import SoundManager
 
 
 # ----------------------------------------------------------------------------------------
@@ -15,22 +16,22 @@ from linux_story.sound_manager import SoundManager
 
 class Step1(StepTemplateNano):
     story = [
-        _("You're back in town. {{bb:Eleanor}} looked relieved to be outside."),
-        _("Where could the {{bb:librarian}} be hiding?\n"),
-        _("{{lb:Look around}} to decide where to go next.")
+        "Has vuelto al pueblo. {{bb:Eleanor}} parece más aliviada ahora que está afuera.",
+        "¿Dónde puede estar escondiéndose la {{bb:bibliotecaria}}?\n",
+        "{{lb:Mira alrededor}} para decidir a dónde ir."
     ]
 
-    start_dir = "~/town/east"
-    end_dir = "~/town/east"
+    start_dir = "~/pueblo/este"
+    end_dir = "~/pueblo/este"
 
     hints = [
-        _("{{rb:Use}} {{yb:ls}} {{rb:to look around.}}")
+        "{{rb:Usa}} {{yb:ls}} {{rb:para mirar alrededor.}}"
     ]
 
-    deleted_items = ["~/town/east/shed-shop/Eleanor"]
+    deleted_items = ["~/pueblo/este/tienda-de-cobertizos/Eleanor"]
     file_list = [
         {
-            "path": "~/town/east/Eleanor",
+            "path": "~/pueblo/este/Eleanor",
             "contents": get_story_file("Eleanor")
         }
     ]
@@ -40,7 +41,7 @@ class Step1(StepTemplateNano):
         "ls -a"
     ]
 
-    companion_speech = _("Eleanor: {{Bb:\"I'm hungry. Can you see anywhere we could eat?\"}}")
+    companion_speech = "Eleanor: {{Bb:\"Tengo hambre. ¿Ves algún sitio donde podamos comer algo?\"}}"
 
     def next(self):
         return 28, 2
@@ -48,18 +49,18 @@ class Step1(StepTemplateNano):
 
 class Step2(StepTemplateNano):
     story = [
-        _("We haven't checked out the {{bb:restaurant}} yet.\n"),
-        _("Let's {{lb:go}} into the {{bb:restaurant}}.")
+        "Todavía no has ido al {{bb:restaurante}}.\n",
+        "{{lb:Entra}} al {{bb:restaurante}}."
     ]
 
-    start_dir = "~/town/east"
-    end_dir = "~/town/east/restaurant"
+    start_dir = "~/pueblo/este"
+    end_dir = "~/pueblo/este/restaurante"
 
     hints = [
-        _("{{rb:Use}} {{yb:cd restaurant}} {{rb:to go into the restaurant.}}")
+        "{{rb:Usa}} {{yb:cd restaurante}} {{rb:para ir al restaurante.}}"
     ]
 
-    companion_speech = (_("Eleanor: {{Bb:Ooh, do you think they'll have a sandwich anywhere?}}"))
+    companion_speech = ("Eleanor: {{Bb:Ooh, ¿crees que tendrán un sándwich aquí?}}")
 
     def block_command(self, line):
         return unblock_cd_commands(line)
@@ -70,31 +71,31 @@ class Step2(StepTemplateNano):
 
 class Step3(StepTemplateNano):
     story = [
-        _("You and {{bb:Eleanor}} walk into the {{bb:restaurant}}.\n"),
-        _("Look around {{lb:closely}}.")
+        "Junto con {{bb:Eleanor}} entras al {{bb:restaurante}}.\n",
+        "{{lb:Mira alrededor}} {{lb:más de cerca}}."
     ]
 
-    start_dir = "~/town/east/restaurant"
-    end_dir = "~/town/east/restaurant"
+    start_dir = "~/pueblo/este/restaurante"
+    end_dir = "~/pueblo/este/restaurante"
 
     hints = [
-        _("Eleanor: {{Bb:Do you remember how you found me? You used}} {{yb:ls -a}} {{Bb:right?}}")
+        "Eleanor: {{Bb:¿Recuerdas cómo me encontraste? Usaste}} {{yb:ls -a}} {{Bb:¿no es cierto?}}"
     ]
 
     commands = [
         "ls -a"
     ]
 
-    deleted_items = ["~/town/east/Eleanor"]
+    deleted_items = ["~/pueblo/este/Eleanor"]
     file_list = [
         {
-            "path": "~/town/east/restaurant/Eleanor",
+            "path": "~/pueblo/este/restaurante/Eleanor",
             "contents": get_story_file("Eleanor"),
             "type": "file"
         }
     ]
 
-    companion_speech = _("Eleanor: {{Bb:It seems really empty here...}}")
+    companion_speech = "Eleanor: {{Bb:Está realmente vacío aquí adentro...}}"
 
     def next(self):
         return 28, 4
@@ -102,18 +103,18 @@ class Step3(StepTemplateNano):
 
 class Step4(StepTemplateNano):
     story = [
-        _("Do you see the {{bb:.cellar}}?\n"),
-        _("Let's {{lb:go}} into the {{bb:.cellar}}.")
+        "¿Puedes ver la {{bb:.bodega}}?\n",
+        "{{lb:Entra}} a la {{bb:.bodega}}."
     ]
 
-    start_dir = "~/town/east/restaurant"
-    end_dir = "~/town/east/restaurant/.cellar"
+    start_dir = "~/pueblo/este/restaurante"
+    end_dir = "~/pueblo/este/restaurante/.bodega"
 
     hints = [
-        _("{{rb:Go in the wine cellar using}} {{yb:cd .cellar}}{{rb:.}}")
+        "{{rb:Entra a la bodega usando}} {{yb:cd .bodega}}{{rb:.}}"
     ]
 
-    companion_speech = _("Eleanor: {{Bb:I'm scared...can you hold my hand?}}")
+    companion_speech = "Eleanor: {{Bb:Tengo miedo...¿me tomas de la mano?}}"
 
     def block_command(self, line):
         return unblock_cd_commands(line)
@@ -124,21 +125,21 @@ class Step4(StepTemplateNano):
 
 class Step5(StepTemplateNano):
     story = [
-        _("{{bb:Eleanor}} grabs your hand, and the two of you walk into the {{bb:cellar}}.\n"),
-        _("{{lb:Look around.}}")
+        "{{bb:Eleanor}} toma tu mano y los dos bajan a la {{bb:.bodega}}.\n",
+        "{{lb:Mira alrededor.}}"
     ]
 
-    start_dir = "~/town/east/restaurant/.cellar"
-    end_dir = "~/town/east/restaurant/.cellar"
+    start_dir = "~/pueblo/este/restaurante/.bodega"
+    end_dir = "~/pueblo/este/restaurante/.bodega"
 
     hints = [
-        _("{{rb:Look around with}} {{yb:ls}}{{rb:.}}")
+        "{{rb:Mira alrededor con}} {{yb:ls}}{{rb:.}}"
     ]
 
-    deleted_items = ["~/town/east/restaurant/Eleanor"]
+    deleted_items = ["~/pueblo/este/restaurante/Eleanor"]
     file_list = [
         {
-            "path": "~/town/east/restaurant/.cellar/Eleanor",
+            "path": "~/pueblo/este/restaurante/.bodega/Eleanor",
             "contents": get_story_file("Eleanor"),
             "type": "file"
         }
@@ -148,7 +149,7 @@ class Step5(StepTemplateNano):
         "ls -a"
     ]
 
-    companion_speech = _("Eleanor: {{Bb:\"...is there someone there?\"}}")
+    companion_speech = "Eleanor: {{Bb:\"¿...hay alguien aquí?\"}}"
 
     def _run_at_start(self):
         sound_manager = SoundManager()
@@ -160,22 +161,22 @@ class Step5(StepTemplateNano):
 
 class Step6(StepTemplateNano):
     story = [
-        _("You see a woman {{bb:Clara}} in the {{bb:cellar}}.\n"),
-        _("{{lb:Listen}} to what she has to say.")
+        "Ves a una mujer, {{bb:Clara}}, en la {{bb:.bodega}}.\n",
+        "{{lb:Escucha}} lo que tiene para decir."
     ]
 
-    start_dir = "~/town/east/restaurant/.cellar"
-    end_dir = "~/town/east/restaurant/.cellar"
+    start_dir = "~/pueblo/este/restaurante/.bodega"
+    end_dir = "~/pueblo/este/restaurante/.bodega"
 
     hints = [
-        _("{{rb:Use}} {{yb:cat}} {{rb:to listen what she has to say.}}"),
-        _("{{rb:Use}} {{yb:cat Clara}} {{rb:to listen to Clara.}}")
+        "{{rb:Usa}} {{yb:cat}} {{rb:para escuchar lo que tiene para decir.}}",
+        "{{rb:Usa}} {{yb:cat Clara}} {{rb:para escuchar a Clara.}}"
     ]
 
     commands = [
         "cat Clara"
     ]
-    companion_speech = _("Eleanor: {{Bb:\"...oh! I think I recognise that woman!\"}}")
+    companion_speech = "Eleanor: {{Bb:\"...¡oh! ¡Creo que reconozco a esa mujer!\"}}"
 
     def next(self):
         return 29, 1

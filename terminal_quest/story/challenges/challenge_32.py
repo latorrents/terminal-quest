@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 #
 # Copyright (C) 2014, 2015 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
-from linux_story.StepTemplate import StepTemplate
-from linux_story.common import get_story_file
-from linux_story.step_helper_functions import unblock_cd_commands
-from linux_story.story.terminals.terminal_nano import TerminalNano
+from terminal_quest.step import StepTemplate
+from terminal_quest.common import get_story_file
+from terminal_quest.step_helpers import unblock_cd_commands
+from terminal_quest.terminals import TerminalNano
 
 
 class StepTemplateNano(StepTemplate):
@@ -16,30 +17,30 @@ class StepTemplateNano(StepTemplate):
 
 class Step1(StepTemplateNano):
     story = [
-        _("Enough wandering. Time to find the Swordmaster."),
-        _("Clara said that he was in the woods just off the {{lb:Windy Road}} {{yb:~}}."),
-        _("Use {{yb:cd}} to head there now.")
+        "Basta de dar vueltas. Es hora de encontrar al Espadachin.",
+        "Clara dijo que estaba en el bosque justo al lado de la {{lb:Carretera Ventosa}} {{yb:~}}.",
+        "Usa {{yb:cd}} para ir allí ahora."
     ]
-    start_dir = "~/town/east/shed-shop/basement"
+    start_dir = "~/pueblo/este/tienda-de-cobertizos/sotano"
     end_dir = "~"
     hints = [
-        _("{{rb:Use}} {{yb:cd}} {{rb:by itself to go back to the Windy Road ~}}")
+        "{{rb:Usa}} {{yb:cd}} {{rb:solo para volver a la Carretera Ventosa ~}}"
     ]
 
     file_list = [
         {
-            "path": "~/woods/clearing/house",
-            "permissions": 0000,
+            "path": "~/bosque/claro/casa",
+            "permissions": 0o000,
             "type": "directory"
         },
         {
-            "path": "~/woods/clearing/signpost",
-            "permissions": 0644,
+            "path": "~/bosque/claro/cartel",
+            "permissions": 0o644,
             "type": "file",
-            "contents": get_story_file("signpost")
+            "contents": get_story_file("cartel")
         },
         {
-            "path": "~/woods/clearing/house/Swordmaster",
+            "path": "~/bosque/claro/casa/Espadachin",
             "contents": get_story_file("swordmaster")
         }
     ]
@@ -54,7 +55,7 @@ class Step1(StepTemplateNano):
 
 class Step2(StepTemplateNano):
     story = [
-        _("{{lb:Look around}} to see where the woods are.")
+        "{{lb:Mira alrededor}} para ver dónde está el bosque."
     ]
     start_dir = "~"
     end_dir = "~"
@@ -63,7 +64,7 @@ class Step2(StepTemplateNano):
         "ls -a"
     ]
     hints = [
-        _("{{rb:Look around using}} {{yb:ls}}")
+        "{{rb:Mira alrededor usando}} {{yb:ls}}"
     ]
 
     def next(self):
@@ -72,13 +73,13 @@ class Step2(StepTemplateNano):
 
 class Step3(StepTemplateNano):
     story = [
-        _("You see the {{bb:woods}} in the distance, a set of dark and inhospitable trees."),
-        _("{{lb:Go into the woods}}.")
+        "Ves el {{bb:bosque}} a lo lejos, un montón de árboles oscuros e inhóspitos.",
+        "{{lb:Entra al bosque}}."
     ]
     start_dir = "~"
-    end_dir = "~/woods"
+    end_dir = "~/bosque"
     hints = [
-        _("{{rb:Use}} {{yb:cd woods/}} {{rb:to go to the woods.}}")
+        "{{rb:Usa}} {{yb:cd bosque/}} {{rb:para ir al bosque.}}"
     ]
 
     def block_command(self, line):
@@ -91,16 +92,16 @@ class Step3(StepTemplateNano):
 # Should they use ls -a to find something hidden?
 class Step4(StepTemplateNano):
     story = [
-        _("{{lb:Look around}} and see where to go next.")
+        "{{lb:Mira alrededor}} para ver a dónde ir ahora."
     ]
-    start_dir = "~/woods"
-    end_dir = "~/woods"
+    start_dir = "~/bosque"
+    end_dir = "~/bosque"
     commands = [
         "ls",
         "ls -a"
     ]
     hints = [
-        _("{{rb:Look around using}} {{yb:ls}}")
+        "{{rb:Mira alrededor usando}} {{yb:ls}}"
     ]
 
     def next(self):
@@ -109,17 +110,17 @@ class Step4(StepTemplateNano):
 
 class Step5(StepTemplateNano):
     story = [
-        _("You see a {{bb:clearing}} which reminds you of a garden."),
-        _("{{lb:Go into the}} {{bb:clearing}}{{lb:.}}")
+        "Ves un {{bb:claro}} que te recuerda a un jardín.",
+        "{{lb:Entra al}} {{bb:claro}}{{lb:.}}"
     ]
-    start_dir = "~/woods"
-    end_dir = "~/woods/clearing"
+    start_dir = "~/bosque"
+    end_dir = "~/bosque/claro"
     commands = [
-        "cd clearing/",
-        "cd clearing"
+        "cd claro/",
+        "cd claro"
     ]
     hints = [
-        _("{{rb:Use}} {{yb:cd clearing/}} {{rb:to go into the clearing.}}")
+        "{{rb:Usa}} {{yb:cd claro/}} {{rb:para entrar al claro.}}"
     ]
 
     def block_command(self, line):

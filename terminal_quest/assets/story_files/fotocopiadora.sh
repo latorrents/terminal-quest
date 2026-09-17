@@ -1,1 +1,1 @@
-cp ../best-shed-maker-in-the-world.sh ./
+cp ../el-mejor-constructor-de-cobertizos.sh ./

@@ -1,16 +1,17 @@
 #!/usr/bin/env python
 #
 # Copyright (C) 2014-2017 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
 
-from linux_story.StepTemplate import StepTemplate
-from linux_story.common import get_story_file
-from linux_story.file_creation.FileTree import modify_permissions
-from linux_story.helper_functions import wrap_in_box
-from linux_story.story.terminals.terminal_chmod import TerminalChmod
-from linux_story.story.terminals.terminal_rm import TerminalRm
+from terminal_quest.step import StepTemplate
+from terminal_quest.common import get_story_file
+from terminal_quest.file_tree import modify_permissions
+from terminal_quest.helpers import wrap_in_box
+from terminal_quest.terminals import TerminalChmod
+from terminal_quest.terminals import TerminalRm
 
 
 class StepTemplateChmod(StepTemplate):
@@ -21,26 +22,26 @@ class StepTemplateRm(StepTemplate):
     TerminalClass = TerminalRm
 
 
-REPLY_PRINT_TEXT = _("{{yb:A rabbit came and stole the command in front of me.}}")
+REPLY_PRINT_TEXT = "{{yb:Un conejo vino y robó el comando delante de mí.}}"
 
 
 class Step1(StepTemplateChmod):
     story = [
-        _("You stand alone in the library. The Rabbit has stolen the command."),
-        _("There is a growing sense of impending doom. Then, the Swordmaster runs into the room."),
+        "Estás solo en la biblioteca. El Conejo ha robado el comando.",
+        "Crece la sensación de que algo terrible va a pasar. Entonces, el Espadachin entra corriendo en la sala.",
         "",
-        _("Swordmaster: {{Bb:\"What have you done?\"}}"),
+        "Espadachin: {{Bb:\"¿Qué has hecho?\"}}",
         "",
         "{{yb:1:}} " + REPLY_PRINT_TEXT,
-        _("{{yb:2: Nothing.}}")
+        "{{yb:2: Nada.}}"
     ]
-    start_dir = "~/town/east/library/private-section"
-    end_dir = "~/town/east/library/private-section"
+    start_dir = "~/pueblo/este/biblioteca/seccion-privada"
+    end_dir = "~/pueblo/este/biblioteca/seccion-privada"
     file_list = [
         {
-            "path": "~/town/east/library/private-section/Swordmaster",
+            "path": "~/pueblo/este/biblioteca/seccion-privada/Espadachin",
             "contents": get_story_file("swordmaster"),
-            "permissions": 0644,
+            "permissions": 0o644,
             "type": "file"
         }
     ]
@@ -49,12 +50,12 @@ class Step1(StepTemplateChmod):
         "echo 2"
     ]
     hints = [
-        _("Swordmaster: {{Bb:\"Speak with}} {{lb:echo}} {{Bb:and tell me!\"}}")
+        "Espadachin: {{Bb:\"¡Habla con}} {{lb:echo}} {{Bb:y dímelo!\"}}"
     ]
     dark_theme = True
 
     def _run_at_start(self):
-        modify_permissions("~/woods/thicket/rabbithole", 0000)
+        modify_permissions("~/bosque/matorral/madriguera", 0o000)
 
     def next(self):
         if self._last_user_input == "echo 2":
@@ -65,28 +66,28 @@ class Step1(StepTemplateChmod):
 
 class Step100(StepTemplateChmod):
     story = [
-        _("Swordmaster: {{rb:\"ENOUGH!\"}}"),
-        _("{{Bb:\"Tell me}} {{rb:the truth.\"}}"),
-        _("{{Bb:\"You need my help to fix this....\"}}"),
+        "Espadachin: {{rb:\"¡BASTA!\"}}",
+        "{{Bb:\"Dime}} {{rb:la verdad.\"}}",
+        "{{Bb:\"Necesitas mi ayuda para arreglar esto....\"}}",
         "",
-        _("{{yb:1:}} " + REPLY_PRINT_TEXT),
-        _("{{yb:2: Nothing.}}")
+        "{{yb:1:}} " + REPLY_PRINT_TEXT,
+        "{{yb:2: Nada.}}"
     ]
     commands = [
         "echo 1"
     ]
-    start_dir = "~/town/east/library/private-section"
-    end_dir = "~/town/east/library/private-section"
+    start_dir = "~/pueblo/este/biblioteca/seccion-privada"
+    end_dir = "~/pueblo/este/biblioteca/seccion-privada"
 
     hints = [
-        _("{{rb:Tell the Swordmaster the truth, using}} {{yb:echo 1}}")
+        "{{rb:Dile la verdad al Espadachin usando}} {{yb:echo 1}}"
     ]
     dark_theme = True
 
     def check_command(self, last_user_input):
         if last_user_input == "echo 2":
             self.send_hint(
-                _("Swordmaster: {{Bb:\"We both know that's not true....\"}}")
+                "Espadachin: {{Bb:\"Los dos sabemos que eso no es verdad....\"}}"
             )
             return
         return StepTemplateChmod.check_command(self, last_user_input)
@@ -98,36 +99,36 @@ class Step100(StepTemplateChmod):
 class Step2(StepTemplateChmod):
     print_text = [REPLY_PRINT_TEXT]
     story = [
-        _("Swordmaster: {{Bb:\"A Rabbit? Truth be told, I often see a white rabbit in a thicket near my house.\"}}"),
-        _("{{Bb:\"But it always seemed so innocent, I would never have guessed it could do something like this.\"}}"),
-        _("{{Bb:\"I wonder what has changed? Perhaps...hmm...the bell...\"}}"),
-        _("{{Bb:\"We must remove the source of the problem. I will teach you how.\"}}"),
+        "Espadachin: {{Bb:\"¿Un Conejo? A decir verdad, a menudo veo un conejo blanco en un matorral cerca de mi casa.\"}}",
+        "{{Bb:\"Pero siempre pareció tan inocente, nunca me hubiera imaginado que pudiera hacer algo así.\"}}",
+        "{{Bb:\"¿Qué habrá cambiado? Quizás...mmm...la campana...\"}}",
+        "{{Bb:\"Debemos eliminar el origen del problema. Te enseñaré cómo.\"}}",
         "",
-        _("{{pb:Ding. Dong.}}"),
+        "{{pb:Din. Don.}}",
         "",
-        _("You heard the a bell. {{lb:Look around.}}")
+        "Oíste una campana. {{lb:Mira alrededor.}}"
     ]
-    start_dir = "~/town/east/library/private-section"
-    end_dir = "~/town/east/library/private-section"
+    start_dir = "~/pueblo/este/biblioteca/seccion-privada"
+    end_dir = "~/pueblo/este/biblioteca/seccion-privada"
     commands = [
         "ls",
         "ls .",
         "ls ./"
     ]
     hints = [
-        _("{{rb:Look around with}} {{yb:ls}}")
+        "{{rb:Mira alrededor con}} {{yb:ls}}"
     ]
     file_list = [
         {
-            "path": "~/town/east/library/private-section/sword",
+            "path": "~/pueblo/este/biblioteca/seccion-privada/espada",
             "contents": get_story_file("RM-sword"),
             "type": "file",
-            "permissions": 0644
+            "permissions": 0o644
         }
     ]
     dark_theme = True
 
-    deleted_items = ["~/town/east/library/private-section/Swordmaster"]
+    deleted_items = ["~/pueblo/este/biblioteca/seccion-privada/Espadachin"]
 
     def next(self):
         return 43, 3
@@ -135,20 +136,20 @@ class Step2(StepTemplateChmod):
 
 class Step3(StepTemplateChmod):
     story = [
-        _("The Swordmaster has gone."),
+        "El Espadachin se ha ido.",
         "",
-        _("He left something behind. It looks like the {{lb:sword}} he carries around with him."),
-        _("{{lb:Examine}} it.")
+        "Dejó algo atrás. Parece la {{lb:espada}} que siempre lleva consigo.",
+        "{{lb:Examínala}}."
     ]
-    start_dir = "~/town/east/library/private-section"
-    end_dir = "~/town/east/library/private-section"
+    start_dir = "~/pueblo/este/biblioteca/seccion-privada"
+    end_dir = "~/pueblo/este/biblioteca/seccion-privada"
     commands = [
-        "cat sword"
+        "cat espada"
     ]
     dark_theme = True
 
     hints = [
-        _("{{rb:Use}} {{yb:cat sword}} {{rb:to examine it.}}")
+        "{{rb:Usa}} {{yb:cat espada}} {{rb:para examinarla.}}"
     ]
 
     def next(self):
@@ -157,29 +158,29 @@ class Step3(StepTemplateChmod):
 
 class Step4(StepTemplateRm):
     story = [
-        _("It has a command inscribed on it."),
+        "Tiene un comando grabado.",
         "....{{lb:rm}}...?\n"
     ]
 
     story += wrap_in_box([
-        _("{{gb:New Power:}} Use {{yb:rm}} to"),
-        _(" {{lb:remove an item}}.")
+        "{{gb:Nuevo Poder:}} Usa {{yb:rm}} para",
+        " {{lb:eliminar un objeto}}."
     ])
 
     story += [
-        _("Use {{yb:rm note}}, to test the command out on the note."),
-        _("Be careful though....it looks dangerous.")
+        "Usa {{yb:rm nota}} para probar el comando con la nota.",
+        "Pero ten cuidado....parece peligroso."
     ]
-    start_dir = "~/town/east/library/private-section"
-    end_dir = "~/town/east/library/private-section"
+    start_dir = "~/pueblo/este/biblioteca/seccion-privada"
+    end_dir = "~/pueblo/este/biblioteca/seccion-privada"
     commands = [
-        "rm note"
+        "rm nota"
     ]
     highlighted_commands = ["rm"]
 
     hints = [
         "",
-        _("{{rb:Use the command}} {{yb:rm note}}")
+        "{{rb:Usa el comando}} {{yb:rm nota}}"
     ]
     dark_theme = True
 
@@ -189,16 +190,16 @@ class Step4(StepTemplateRm):
 
 class Step5(StepTemplateRm):
     story = [
-        _("{{lb:Look around.}}")
+        "{{lb:Mira alrededor.}}"
     ]
-    start_dir = "~/town/east/library/private-section"
-    end_dir = "~/town/east/library/private-section"
+    start_dir = "~/pueblo/este/biblioteca/seccion-privada"
+    end_dir = "~/pueblo/este/biblioteca/seccion-privada"
     commands = [
         "ls"
     ]
 
     hints = [
-        _("{{rb:Use the command}} {{yb:ls}}")
+        "{{rb:Usa el comando}} {{yb:ls}}"
     ]
     dark_theme = True
 

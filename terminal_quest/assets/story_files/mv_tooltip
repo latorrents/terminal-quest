@@ -6,13 +6,13 @@
  |_|  |_|   \/
 
 
-The power to move items and rename them.
+Este hechizo te permite mover objetos y renombrarlos
 
 
-Examples
+Ejemplos
 
-<span foreground="yellow">mv item chest/</span>
-If chest exists and is a directory, this moves the item inside the chest
+{{yb:mv objeto cofre/}}
+Si el cofre existe en el directorio, esto mueve el objeto dentro del cofre
 
-<span foreground="yellow">mv item better-item</span>
-If better-item does not exist, then this will rename the item to better-item
+{{yb:mv objeto mejor-objeto}}
+Si mejor-objeto no existe, esto renombra el objeto a mejor-objeto

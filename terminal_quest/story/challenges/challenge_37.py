@@ -1,14 +1,15 @@
 #!/usr/bin/env python
 #
 # Copyright (C) 2014, 2015 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
-from linux_story.PlayerLocation import generate_real_path
-from linux_story.StepTemplate import StepTemplate
-from linux_story.common import get_story_file
-from linux_story.helper_functions import has_write_permissions, has_read_permissions, has_execute_permissions
-from linux_story.story.terminals.terminal_chmod import TerminalChmod
+from terminal_quest.location import generate_real_path
+from terminal_quest.step import StepTemplate
+from terminal_quest.common import get_story_file
+from terminal_quest.helpers import has_write_permissions, has_read_permissions, has_execute_permissions
+from terminal_quest.terminals import TerminalChmod
 
 
 class StepTemplateChmod(StepTemplate):
@@ -17,37 +18,37 @@ class StepTemplateChmod(StepTemplate):
 
 class Step1(StepTemplateChmod):
     story = [
-        _("You set off the firework!"),
-        _("{{gb:You learnt all the chmod commands.}}"),
+        "¡Encendiste el fuego artificial!",
+        "{{gb:Aprendiste todos los comandos chmod.}}",
         "",
-        _("{{lb:Thunk.}}"),
+        "{{lb:¡Pum!}}",
         "",
-        _("Something new landed in front of you."),
-        _("{{lb:Look around}} to see what it is.")
+        "Algo nuevo cayó delante de ti.",
+        "{{lb:Mira alrededor}} para ver qué es."
     ]
     file_list = [
         {
-            "path": "~/woods/cave/chest",
-            "permissions": 0000,
+            "path": "~/bosque/cueva/cofre",
+            "permissions": 0o000,
             "type": "directory"
         },
         {
-            "path": "~/woods/cave/chest/answer",
+            "path": "~/bosque/cueva/cofre/respuesta",
             "type": "file",
-            "permissions": 0644,
+            "permissions": 0o644,
             "contents": get_story_file("answer-cave")
         },
         {
-            "path": "~/woods/cave/chest/riddle",
+            "path": "~/bosque/cueva/cofre/acertijo",
             "type": "file",
-            "permissions": 0644,
+            "permissions": 0o644,
             "contents": get_story_file("riddle-cave")
         }
     ]
-    start_dir = "~/woods/cave"
-    end_dir = "~/woods/cave"
+    start_dir = "~/bosque/cueva"
+    end_dir = "~/bosque/cueva"
     hints = [
-        _("{{rb:Use}} {{yb:ls}} {{rb:to see what landed in front of you.}}")
+        "{{rb:Usa}} {{yb:ls}} {{rb:para ver qué cayó delante de ti.}}"
     ]
     commands = [
         "ls",
@@ -61,18 +62,18 @@ class Step1(StepTemplateChmod):
 
 class Step2(StepTemplateChmod):
     story = [
-        _("There is a {{bb:chest}} in front of you."),
-        _("It is wrapped tightly by a big chain."),
-        _("{{lb:Look inside the chest.}}")
+        "Hay un {{bb:cofre}} delante de ti.",
+        "Está bien amarrado con una gran cadena.",
+        "{{lb:Mira dentro del cofre.}}"
     ]
-    start_dir = "~/woods/cave"
-    end_dir = "~/woods/cave"
+    start_dir = "~/bosque/cueva"
+    end_dir = "~/bosque/cueva"
     hints = [
-        _("{{rb:Use}} {{yb:ls chest}} {{rb:to see inside the chest.}}")
+        "{{rb:Usa}} {{yb:ls cofre}} {{rb:para ver dentro del cofre.}}"
     ]
     commands = [
-        "ls chest",
-        "ls chest/"
+        "ls cofre",
+        "ls cofre/"
     ]
 
     def next(self):
@@ -81,19 +82,19 @@ class Step2(StepTemplateChmod):
 
 class Step3(StepTemplateChmod):
     story = [
-        _("The chain won't budge. You cannot see inside, nor access its contents."),
+        "La cadena no se mueve. No puedes ver dentro ni sacar lo que hay.",
         "",
-        _("Break the chain."),
-        _("{{lb:You'll need to combine all the chmod flags you've just learned: r, w, and x.}}")
+        "Rompe la cadena.",
+        "{{lb:Tendrás que combinar todas las opciones de chmod que acabas de aprender: r, w y x.}}"
     ]
-    start_dir = "~/woods/cave"
-    end_dir = "~/woods/cave"
+    start_dir = "~/bosque/cueva"
+    end_dir = "~/bosque/cueva"
     hints = [
-        "{{rb:Use}} {{yb:chmod +rwx chest}} {{rb:to unlock the chest.}}"
+        "{{rb:Usa}} {{yb:chmod +rwx cofre}} {{rb:para abrir el cofre.}}"
     ]
 
     def check_command(self, line):
-        chest = generate_real_path("~/woods/cave/chest")
+        chest = generate_real_path("~/bosque/cueva/cofre")
         if has_write_permissions(chest) and has_read_permissions(chest) and has_execute_permissions(chest):
             return True
         self.send_stored_hint()
@@ -104,19 +105,19 @@ class Step3(StepTemplateChmod):
 
 class Step4(StepTemplateChmod):
     story = [
-        _("{{gb:You opened it!}}"),
-        _("Now {{lb:look inside}} the chest.")
+        "{{gb:¡Lo abriste!}}",
+        "Ahora {{lb:mira dentro}} del cofre."
     ]
-    start_dir = "~/woods/cave"
-    end_dir = "~/woods/cave"
+    start_dir = "~/bosque/cueva"
+    end_dir = "~/bosque/cueva"
 
     commands = [
-        "ls chest",
-        "ls chest/"
+        "ls cofre",
+        "ls cofre/"
     ]
 
     hints = [
-        _("{{rb:Use}} {{yb:ls chest/}} {{rb:to look inside the chest.}}")
+        "{{rb:Usa}} {{yb:ls cofre/}} {{rb:para mirar dentro del cofre.}}"
     ]
 
     def next(self):
@@ -125,21 +126,21 @@ class Step4(StepTemplateChmod):
 
 class Step5(StepTemplateChmod):
     story = [
-        _("You see a riddle, and an answer. {{lb:Examine}} them.")
+        "Ves un acertijo y una respuesta. {{lb:Examínalos.}}"
     ]
-    start_dir = "~/woods/cave"
-    end_dir = "~/woods/cave"
+    start_dir = "~/bosque/cueva"
+    end_dir = "~/bosque/cueva"
     commands = [
-        "cat chest/answer"
+        "cat cofre/respuesta"
     ]
     hints = [
-        _("{{rb:Use}} {{yb:cat chest/answer}} {{rb:to examine the answer in the chest.}}")
+        "{{rb:Usa}} {{yb:cat cofre/respuesta}} {{rb:para examinar la respuesta del cofre.}}"
     ]
 
     def check_command(self, last_user_input):
-        if last_user_input == "cat chest/riddle":
+        if last_user_input == "cat cofre/acertijo":
             self.send_hint(
-                _("{{gb:That looks like the riddle the swordmaster asked you.}}")
+                "{{gb:Parece el acertijo que te hizo el Espadachin.}}"
             )
             return
         return StepTemplateChmod.check_command(self, last_user_input)

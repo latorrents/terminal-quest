@@ -1,12 +1,13 @@
 # challenge_13.py
 #
 # Copyright (C) 2014-2016 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
-from linux_story.StepTemplate import StepTemplate
-from linux_story.story.terminals.terminal_mv import TerminalMv
-from linux_story.step_helper_functions import unblock_commands_with_cd_hint, unblock_commands
+from terminal_quest.step import StepTemplate
+from terminal_quest.terminals import TerminalMv
+from terminal_quest.step_helpers import unblock_commands_with_cd_hint, unblock_commands
 
 
 class StepTemplateMv(StepTemplate):
@@ -18,35 +19,43 @@ class StepTemplateMv(StepTemplate):
 
 class Step1(StepTemplateMv):
     story = [
-        _("{{wb:Edward:}} {{Bb:\"Thank you so much for saving my little girl!"),
-        _("I have another favour to ask..."),
+        "{{wb:Edward:}} {{Bb:\"¡Muchas gracias por salvar a mi niña!",
+        "Tengo que pedirte otro favor...",
 
-        _("We haven't got any food. Could you gather some for us? " +\
-        "We didn't have time to grab any before we went into hiding.\""),
+        (
+            "No tenemos comida. ¿Puedes traernos algo? No tuvimos tiempo de agarrar nada "
+            "antes de escondernos.\""
+        ),
 
-        _("\"Do you remember seeing any food in your travels?\"}}"),
+        "\"¿Recuerdas haber visto comida en tus viajes?\"}}",
 
-        _("\n...ah! You have all that food in your {{bb:kitchen}}! " +\
-        "We could give that to this family."),
+        (
+            "\n...¡ah! ¡Tienes un montón de comida en tu {{bb:cocina}}! Podemos traérsela a "
+            "esta familia."
+        ),
 
-        _("\nStart by {{lb:moving}} the {{bb:basket}} to {{bb:~}}. " +\
-        "Use the command {{yb:mv basket ~/}}\n")
+        (
+            "\nEmpieza por {{lb:mover}} la {{bb:canasta}} a {{bb:~}} usando el comando {{yb:mv "
+            "canasta ~/}}\n"
+        )
     ]
-    start_dir = "~/town/.hidden-shelter"
-    end_dir = "~/town/.hidden-shelter"
+    start_dir = "~/pueblo/.refugio-oculto"
+    end_dir = "~/pueblo/.refugio-oculto"
     commands = [
-        "mv basket ~",
-        "mv basket/ ~",
-        "mv basket ~/",
-        "mv basket/ ~/",
-        "mv basket ../..",
-        "mv basket/ ../..",
-        "mv basket ../../",
-        "mv basket/ ../../"
+        "mv canasta ~",
+        "mv canasta/ ~",
+        "mv canasta ~/",
+        "mv canasta/ ~/",
+        "mv canasta ../..",
+        "mv canasta/ ../..",
+        "mv canasta ../../",
+        "mv canasta/ ../../"
     ]
     hints = [
-        _("{{rb:Use the command}} {{yb:mv basket ~/}} " +\
-        "{{rb:to move the}} {{bb:basket}} {{rb:to the windy road}} {{bb:~}}")
+        (
+            "{{rb:Usa el comando}} {{yb:mv canasta ~/}} {{rb:para mover la}} {{bb:canasta}} "
+            "{{rb:a la carretera ventosa}} {{bb:~}}"
+        )
     ]
 
     def block_command(self, line):
@@ -58,10 +67,12 @@ class Step1(StepTemplateMv):
 
 class Step2(StepTemplateMv):
     story = [
-        _("Now follow the {{bb:basket}}. Use {{yb:cd}} by itself " +\
-        "to {{lb:go}} to the windy road Tilde {{bb:~}}.\n")
+        (
+            "Ahora sigue a la {{bb:canasta}}. Usa {{yb:cd}} solo para {{lb:ir}} hacia "
+            "la carretera ventosa {{bb:~}}.\n"
+        )
     ]
-    start_dir = "~/town/.hidden-shelter"
+    start_dir = "~/pueblo/.refugio-oculto"
     end_dir = "~"
     commands = [
         "cd",
@@ -69,8 +80,7 @@ class Step2(StepTemplateMv):
         "cd ~/"
     ]
     hints = [
-        _("{{rb:Use the command}} {{yb:cd}} {{rb:by itself " +\
-        "to move yourself to the road ~}}")
+        "{{rb:Usa el comando}} {{yb:cd}} {{rb:solo para moverte por la carretera ~}}"
     ]
 
     def block_command(self, line):
@@ -82,8 +92,10 @@ class Step2(StepTemplateMv):
 
 class Step3(StepTemplateMv):
     story = [
-        _("You are now back on the long windy road. {{lb:Look around}} " +\
-        "with {{yb:ls}} to check that you have your {{bb:basket}} with you.\n")
+        (
+            "Estás solo en la carretera. {{lb:Mira alrededor}} con {{yb:ls}} para asegurarte "
+            "de que tienes la {{bb:canasta}} contigo.\n"
+        )
     ]
 
     start_dir = "~"
@@ -92,7 +104,7 @@ class Step3(StepTemplateMv):
         "ls"
     ]
     hints = [
-        _("{{rb:Use}} {{yb:ls}} {{rb:by itself to look around.}}")
+        "{{rb:Usa}} {{yb:ls}} {{rb:solo para mirar alrededor.}}"
     ]
 
     def next(self):
@@ -101,27 +113,28 @@ class Step3(StepTemplateMv):
 
 class Step4(StepTemplateMv):
     story = [
-        _("You have your {{bb:basket}} safely alongside you, and " +\
-        "you see {{bb:my-house}} close by."),
-        _("Move the {{bb:basket}} to {{bb:my-house/kitchen}}."),
-        _("Don't forget to use the {{ob:TAB}} key to autocomplete your commands.\n")
+        "Tienes la {{bb:canasta}} a tu lado, y ves {{bb:mi-casa}} cerca.",
+        "Mueve la {{bb:canasta}} a {{bb:mi-casa/cocina}}.",
+        "No olvides usar la tecla {{ob:Tab}} para autocompletar los comandos.\n"
     ]
 
     start_dir = "~"
     end_dir = "~"
     commands = [
-        "mv basket my-house/kitchen",
-        "mv basket/ my-house/kitchen",
-        "mv basket my-house/kitchen/",
-        "mv basket/ my-house/kitchen/",
-        "mv basket ~/my-house/kitchen",
-        "mv basket/ ~/my-house/kitchen",
-        "mv basket ~/my-house/kitchen/",
-        "mv basket/ ~/my-house/kitchen/"
+        "mv canasta mi-casa/cocina",
+        "mv canasta/ mi-casa/cocina",
+        "mv canasta mi-casa/cocina/",
+        "mv canasta/ mi-casa/cocina/",
+        "mv canasta ~/mi-casa/cocina",
+        "mv canasta/ ~/mi-casa/cocina",
+        "mv canasta ~/mi-casa/cocina/",
+        "mv canasta/ ~/mi-casa/cocina/"
     ]
     hints = [
-        _("{{rb:Use}} {{yb:mv basket my-house/kitchen/}} " +\
-        "{{rb:to move the basket to your kitchen.}}"),
+        (
+            "{{rb:Usa}} {{yb:mv canasta mi-casa/cocina/}} {{rb:para mover la canasta hacia "
+            "tu cocina.}}"
+        ),
     ]
 
     def block_command(self, line):
@@ -133,20 +146,19 @@ class Step4(StepTemplateMv):
 
 class Step5(StepTemplateMv):
     story = [
-        _("Now {{lb:go}} into {{bb:my-house/kitchen}} using {{yb:cd}}.\n"),
+        "Ahora {{lb:ve}} a {{bb:mi-casa/cocina}} usando {{yb:cd}}.\n",
     ]
 
     start_dir = "~"
-    end_dir = "~/my-house/kitchen"
+    end_dir = "~/mi-casa/cocina"
     commands = [
-        "cd my-house/kitchen",
-        "cd my-house/kitchen/",
-        "cd ~/my-house/kitchen",
-        "cd ~/my-house/kitchen/"
+        "cd mi-casa/cocina",
+        "cd mi-casa/cocina/",
+        "cd ~/mi-casa/cocina",
+        "cd ~/mi-casa/cocina/"
     ]
     hints = [
-        _("{{rb:Use}} {{yb:cd my-house/kitchen}} " +\
-        "{{rb:to go to your kitchen.}}"),
+        "{{rb:Usa}} {{yb:cd mi-casa/cocina}} {{rb:para ir a tu cocina.}}",
     ]
 
     def block_command(self, line):

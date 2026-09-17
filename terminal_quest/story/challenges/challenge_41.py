@@ -1,36 +1,37 @@
 #!/usr/bin/env python
 #
 # Copyright (C) 2014-2017 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
-from linux_story.StepTemplate import StepTemplate
-from linux_story.story.terminals.terminal_chmod import TerminalChmod
-from linux_story.step_helper_functions import unblock_cd_commands
+from terminal_quest.step import StepTemplate
+from terminal_quest.terminals import TerminalChmod
+from terminal_quest.step_helpers import unblock_cd_commands
 
 
 GO_TO_THE_LIBRARY = [
-    _("The Rabbit wants to know where the Super User command is kept?"),
+    "¿El Conejo quiere saber dónde se guarda el comando de Super Usuario?",
     "....",
-    _("Let's head to the {{bb:~/town/east/library}}."),
-    _("It looks as if the Rabbit will follow.")
+    "Vamos a la {{bb:~/pueblo/este/biblioteca}}.",
+    "Parece que el Conejo te seguirá."
 ]
 
 RABBITS_ARE_QUIET = [
-    _("Rabbit: {{Bb:...}}"),
+    "Conejo: {{Bb:...}}",
     "",
-    _("It seems the Rabbit doesn't say very much."),
-    _("That's quite normal for rabbits.")
+    "Parece que el Conejo no habla mucho.",
+    "Eso es bastante normal en los conejos."
 ]
 
-RABBIT_BLOCKING_RABBITHOLE = _("The rabbit is in front of the rabbithole and won't let you pass.")
+RABBIT_BLOCKING_RABBITHOLE = "El Conejo está delante de la madriguera y no te deja pasar."
 
 
 class TerminalRabbit(TerminalChmod):
     def _autocomplete_files(self, text, line, begidx, endidx, only_dirs=False, only_exe=False):
         completions = TerminalChmod._autocomplete_files(self, text, line, begidx, endidx, only_dirs, only_exe)
-        if "cage/" in completions or "Mum" in completions:
-            print "\n" + RABBIT_BLOCKING_RABBITHOLE
+        if "jaula/" in completions or "Mama" in completions:
+            print("\n" + RABBIT_BLOCKING_RABBITHOLE)
             return []
         else:
             return completions
@@ -40,8 +41,8 @@ class StepTemplateChmod(StepTemplate):
     TerminalClass = TerminalChmod
 
     def block_command(self, line):
-        if "rabbithole" in line and ("ls" in line or "cat" in line):
-            print RABBIT_BLOCKING_RABBITHOLE
+        if "madriguera" in line and ("ls" in line or "cat" in line):
+            print(RABBIT_BLOCKING_RABBITHOLE)
             return True
         else:
             return StepTemplate.block_command(self, line)
@@ -50,23 +51,23 @@ class StepTemplateChmod(StepTemplate):
 # Same as the towns people, and the last challenge?
 class Step1(StepTemplateChmod):
     story = [
-        _("You see a Rabbit, a piece of paper and a rabbithole."),
-        _("This Rabbit looks somewhat familiar..."),
-        _("{{lb:Listen}} to the Rabbit.")
+        "Ves un Conejo, un trozo de papel y una madriguera.",
+        "Este Conejo te resulta algo conocido...",
+        "{{lb:Escucha}} al Conejo."
     ]
-    start_dir = "~/woods/thicket"
-    end_dir = "~/woods/thicket"
+    start_dir = "~/bosque/matorral"
+    end_dir = "~/bosque/matorral"
     hints = [
-        _("{{rb:Use}} {{yb:cat Rabbit}} {{rb:to listen to the Rabbit.}}")
+        "{{rb:Usa}} {{yb:cat Conejo}} {{rb:para escuchar al Conejo.}}"
     ]
 
     read_note = False
     commands = [
-        "cat Rabbit"
+        "cat Conejo"
     ]
 
     def check_command(self, line):
-        if line == "cat note":
+        if line == "cat nota":
             self.read_note = True
 
         return StepTemplateChmod.check_command(self, line)
@@ -79,14 +80,14 @@ class Step1(StepTemplateChmod):
 
 
 class Step2(StepTemplateChmod):
-    story = RABBITS_ARE_QUIET + ["", _("{{lb:Examine}} the note.")]
-    start_dir = "~/woods/thicket"
-    end_dir = "~/woods/thicket"
+    story = RABBITS_ARE_QUIET + ["", "{{lb:Examina}} la nota."]
+    start_dir = "~/bosque/matorral"
+    end_dir = "~/bosque/matorral"
     commands = [
-        "cat note"
+        "cat nota"
     ]
     hints = [
-        _("{{rb:Use}} {{yb:cat note}} {{rb:to examine the note.}}")
+        "{{rb:Usa}} {{yb:cat nota}} {{rb:para examinar la nota.}}"
     ]
 
     def next(self):
@@ -95,10 +96,10 @@ class Step2(StepTemplateChmod):
 
 class Step3(StepTemplateChmod):
     story = GO_TO_THE_LIBRARY
-    start_dir = "~/woods/thicket"
-    end_dir = "~/town/east/library"
+    start_dir = "~/bosque/matorral"
+    end_dir = "~/pueblo/este/biblioteca"
     hints = [
-        _("{{rb:Use}} {{yb:cd ~/town/east/library}} {{rb:to go to the library}}")
+        "{{rb:Usa}} {{yb:cd ~/pueblo/este/biblioteca}} {{rb:para ir a la biblioteca.}}"
     ]
 
     def block_command(self, line):
@@ -110,11 +111,11 @@ class Step3(StepTemplateChmod):
 
 class Step4(StepTemplateChmod):
     story = RABBITS_ARE_QUIET + [""] + GO_TO_THE_LIBRARY
-    start_dir = "~/woods/thicket"
-    end_dir = "~/town/east/library"
+    start_dir = "~/bosque/matorral"
+    end_dir = "~/pueblo/este/biblioteca"
     hints = [
-        _("{{rb:Is this the same place the swordmaster referred to?}}"),
-        _("{{rb:Use}} {{yb:cd ~/town/east/library}} {{rb:to go to the library}}")
+        "{{rb:¿Será el mismo lugar del que habló el Espadachin?}}",
+        "{{rb:Usa}} {{yb:cd ~/pueblo/este/biblioteca}} {{rb:para ir a la biblioteca.}}"
     ]
 
     def block_command(self, line):

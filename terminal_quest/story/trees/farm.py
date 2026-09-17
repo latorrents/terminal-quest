@@ -1,14 +1,15 @@
 # farm.py
 #
 # Copyright (C) 2014-2017 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 
 
-from linux_story.common import get_story_file
+from terminal_quest.common import get_story_file
 
 shelter = {
-    "name": ".shelter",
+    "name": ".refugio",
     "challenges": [
         {
             "challenge": 0,
@@ -66,7 +67,7 @@ shelter = {
 
 
 farm = {
-    "name": "farm",
+    "name": "granja",
     "challenges": [
         {
             "challenge": 0,
@@ -80,7 +81,7 @@ farm = {
     ],
     "children": [
         {
-            "name": "barn",
+            "name": "granero",
             "challenges": [
                 {
                     "challenge": 17,
@@ -132,39 +133,39 @@ farm = {
             ]
         },
         {
-            "name": "farmhouse",
+            "name": "casa-de-campo",
             "children": [
                 {
-                    "name": "bed",
+                    "name": "cama",
                     "contents": get_story_file("bed_farmhouse")
                 }
             ]
         },
         {
-            "name": "toolshed",
+            "name": "taller",
             "children": [
                 {
                     "name": "MKDIR",
                     "contents": get_story_file("MKDIR")
                 },
                 {
-                    "name": "spanner",
-                    "contents": get_story_file("spanner")
+                    "name": "llave-inglesa",
+                    "contents": get_story_file("llave-inglesa")
                 },
                 {
-                    "name": "hammer",
-                    "contents": get_story_file("hammer")
+                    "name": "martillo",
+                    "contents": get_story_file("martillo")
                 },
                 {
-                    "name": "saw",
-                    "contents": get_story_file("saw")
+                    "name": "serrucho",
+                    "contents": get_story_file("serrucho")
                 },
                 {
-                    "name": "tape-measure",
-                    "contents": get_story_file("tape-measure")
+                    "name": "cinta-metrica",
+                    "contents": get_story_file("cinta-metrica")
                 },
                 {
-                    "name": "igloo",
+                    "name": "iglu",
                     "type": "directory",
                     "challenges": [
                         {

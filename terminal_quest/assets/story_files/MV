@@ -1,22 +1,23 @@
- ,------------------------------------------,
-/                                            \
-|   __  ____      __                         |
-|  |  \/  \ \    / /                         |
-|  | \  / |\ \  / /                          |
-|  | |\/| | \ \/ /                           |
-|  | |  | |  \  /                            |
-|  |_|  |_|   \/                             |
-|                                            |
-|  The power to move items and rename them   |
-|                                            |
-|  Examples                                  |
-|                                            |
-|  mv item chest/                            |
-|  If chest exists and is a directory,       |
-|  this moves the item inside the chest      |
-|                                            |
-|  mv item better-item                       |
-|  If better-item does not exist, then this  |
-|  will rename the item to better-item       |
-\                                           /
- `-----------------------------------------'
+ ,---------------------------------------------.
+/                                               \
+|   __  ____      __                            |
+|  |  \/  \ \    / /                            |
+|  | \  / |\ \  / /                             |
+|  | |\/| | \ \/ /                              |
+|  | |  | |  \  /                               |
+|  |_|  |_|   \/                                |
+|                                               |
+|  Este hechizo te permite mover objetos        |
+|  y renombrarlos                               |
+|                                               |
+|  Ejemplos                                     |
+|                                               |
+|  mv objeto cofre/                             |
+|  Si el cofre existe en el directorio,         |
+|  esto mueve el objeto dentro del cofre        |
+|                                               |
+|  mv objeto mejor-objeto                       |
+|  Si mejor-objeto no existe, esto              |
+|  renombra el objeto a mejor-objeto            |
+\                                               /
+ `---------------------------------------------'

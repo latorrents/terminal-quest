@@ -1,29 +1,30 @@
 # introduction.py
 #
 # Copyright (C) 2014-2017 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
 
 
 import os
-from linux_story.KanoCmd import KanoCmd
-from linux_story.StepTemplate import StepTemplate
+from terminal_quest.terminals import Terminal
+from terminal_quest.step import StepTemplate
 
 
 class StepTemplateLs(StepTemplate):
-    TerminalClass = KanoCmd
+    TerminalClass = Terminal
 
 
 class Step1(StepTemplateLs):
     story = [
-        _("Hello {}.").format("{{yb:" + os.environ['LOGNAME'] + "}}"),
-        _("Welcome to the Terminal."),
-        _("A wild and wondrous world where words wield power. These words are called commands."),
-        _("Want new powers? Press {{gb:Enter}} to begin.")
+        "Hola {}.".format("{{yb:" + os.environ['LOGNAME'] + "}}"),
+        "Bienvenido a la Terminal.",
+        "Un mundo salvaje y maravilloso donde las palabras tienen poder. Estas palabras se llaman comandos.",
+        "¿Quieres nuevos poderes? Presiona {{gb:Enter}} para comenzar."
     ]
-    start_dir = "~/my-house/my-room"
-    end_dir = "~/my-house/my-room"
+    start_dir = "~/mi-casa/mi-cuarto"
+    end_dir = "~/mi-casa/mi-cuarto"
 
     def next(self):
         return 1, 1

@@ -1,17 +1,17 @@
            .--._..--.
           ( _'-_  -_.'
            |  - :- |
-    <''''''''''''''''''''''''-._
-   | Without write permissions, |\
-   | a room becomes a cage.     | |
-   |                            | |
-  .'    chmod +w cage         _.' |
-  `._                           |:.'
-    |  unlocks the cage       _.' |
-    |  and frees any captives |  |
-    `|                        |  |
-      `=''"=---.._.--.      _|  |
-           | _   - | `-...-__|_.'
+    <''''''''''''''''''''''''''''''-._
+   | Sin permisos de escritura,       |\
+   | un cuarto se vuelve jaula.       | |
+   |                                  | |
+  .'    chmod +w jaula              _.' |
+  `._                                 |:.'
+    |  abre la jaula                _.' |
+    |  y libera a los cautivos      |  |
+    `|                              |  |
+      `=''"=---.._.--.            _|  |
+           | _   - | `-...-________|_.'
            |  -    |
            |    -  |
            | _  -  |

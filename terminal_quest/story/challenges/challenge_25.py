@@ -1,13 +1,14 @@
 # challenge_25.py
 #
 # Copyright (C) 2014-2016 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
 
 
-from linux_story.story.challenges.CompanionMisc import StepTemplateMkdir
-from linux_story.step_helper_functions import unblock_cd_commands
+from terminal_quest.story.challenges.CompanionMisc import StepTemplateMkdir
+from terminal_quest.step_helpers import unblock_cd_commands
 
 
 # ----------------------------------------------------------------------------------------
@@ -15,44 +16,44 @@ from linux_story.step_helper_functions import unblock_cd_commands
 
 class Step1(StepTemplateMkdir):
     story = [
-        _("Bernard: {{Bb:\"Hello! Shush, don't say a word.\"}}"),
+        "Bernard: {{Bb:\"¡Hola! Shhh, no digan ni una palabra.\"}}",
 
-        _("{{Bb:\"I know why you're here. You want a shed!\""),
+        "{{Bb:\"Sé por qué están aquí. ¡Necesitan un cobertizo!\"",
 
-        _("\"I have just the thing for you. I have the}} " +\
-        "{{bb:best-shed-maker-in-the-world.sh}}{{Bb:\"}}"),
+        "\"Tengo justo lo que buscan:}} {{bb:el-mejor-constructor-de-cobertizos.sh}}{{Bb:.\"}}",
 
-        _("\nHe seems pretty enthusiastic about it. {{lb:Examine}} the tool " +\
-        "{{bb:best-shed-maker-in-the-world.sh}}"),
+        (
+            "\nSe ve muy entusiasmado con la idea. {{lb:Examina}} el utensilio "
+            "{{bb:el-mejor-constructor-de-cobertizos.sh}}"
+        ),
 
-        _("\n{{gb:Use}} {{ob:TAB}} {{gb:to speed up your typing.}}")
+        "\n{{gb:Usa}} {{ob:TAB}} {{gb:para acelerar la escritura.}}"
     ]
 
-    start_dir = "~/town/east/shed-shop"
-    end_dir = "~/town/east/shed-shop"
+    start_dir = "~/pueblo/este/tienda-de-cobertizos"
+    end_dir = "~/pueblo/este/tienda-de-cobertizos"
 
     hints = [
-        _("{{rb:Use}} {{yb:cat}} {{rb:to examine the}} " +\
-        "{{bb:best-shed-maker-in-the-world.sh}}"),
+        "{{rb:Usa}} {{yb:cat}} {{rb:para examinar}} {{bb:el-mejor-constructor-de-cobertizos.sh}}",
 
-        _("{{rb:Use}} {{yb:cat best-shed-maker-in-the-world.sh}} " +\
-        "{{rb:to examine the tool.}}")
+        "{{rb:Usa}} {{yb:cat el-mejor-constructor-de-cobertizos.sh}} {{rb:para examinar el utensilio.}}"
     ]
 
     commands = [
-        "cat best-shed-maker-in-the-world.sh",
-        "cat ./best-shed-maker-in-the-world.sh"
+        "cat el-mejor-constructor-de-cobertizos.sh",
+        "cat ./el-mejor-constructor-de-cobertizos.sh"
     ]
-    companion_speech = _("Eleanor: {{Bb:Bernard scares me a bit...}}")
+    companion_speech = "Eleanor: {{Bb:Bernard me asusta un poco...}}"
 
     def check_command(self, line):
-        if line == "cat best-horn-in-the-world.sh" or \
-                        line == "cat ./best-horn-in-the-world.sh":
+        if line == "cat la-mejor-bocina-del-mundo.sh" or \
+                        line == "cat ./la-mejor-bocina-del-mundo.sh":
 
             self.send_hint(
-                _("\n{{rb:You are reading the wrong file! " +\
-                "You want to read}} {{bb:best-shed-maker-in-the-world.sh}}" +\
-                "{{rb:.}}")
+                (
+                    "\n{{rb:¡Estás buscando archivos equivocados! Quieres ver}} "
+                    "{{bb:el-mejor-constructor-de-cobertizos.sh}}{{rb:.}}"
+                )
             )
         else:
             return StepTemplateMkdir.check_command(self, line)
@@ -63,33 +64,40 @@ class Step1(StepTemplateMkdir):
 
 class Step2(StepTemplateMkdir):
     story = [
-        _("The tool has an inscription that reads \"mkdir shed\"."),
-        _("You recognise the command {{yb:mkdir}}. It's what you used to help {{bb:Ruth}} in the farm."),
+        "El utensilio tiene una etiqueta que dice \"mkdir cobertizo\".",
+        (
+            "Reconoces el comando {{yb:mkdir}}. Fue el que usaste para ayudar a {{bb:Ruth}} "
+            "en la granja."
+        ),
 
-        _("Bernard: {{Bb:\"This tool is called a script. It's incredible. Just run the command, "
-          "and you get a new shed.\"}}"),
-        _("{{Bb:\"Try it out. Use it with ./best-shed-maker-in-the-world.sh\"}}"),
+        (
+            "Bernard: {{Bb:\"Este utensilio se llama script. Es increíble. Solo ejecuta el comando "
+            "y obtienes un cobertizo nuevo.\"}}"
+        ),
+        "{{Bb:\"Pruébalo. Úsalo con ./el-mejor-constructor-de-cobertizos.sh\"}}",
 
-        _("\n{{gb:Use}} {{ob:TAB}} {{gb:to speed up your typing.}}")
+        "\n{{gb:Usa}} {{ob:TAB}} {{gb:para acelerar la escritura.}}"
     ]
 
-    start_dir = "~/town/east/shed-shop"
-    end_dir = "~/town/east/shed-shop"
+    start_dir = "~/pueblo/este/tienda-de-cobertizos"
+    end_dir = "~/pueblo/este/tienda-de-cobertizos"
 
     hints = [
-        _("{{rb:Do as Bernard says - use}} {{yb:./best-shed-maker-in-the-world.sh}} {{rb:to run his script}}")
+        (
+            "{{rb:Haz lo que dice Bernard: usa}} {{yb:./el-mejor-constructor-de-cobertizos.sh}} "
+            "{{rb:para ejecutar el comando}}"
+        )
     ]
     commands = [
-        "./best-shed-maker-in-the-world.sh"
+        "./el-mejor-constructor-de-cobertizos.sh"
     ]
     companion_speech = \
-        _("Eleanor: {{Bb:Isn't that just the same as running}} {{yb:mkdir shed}}{{Bb:?}}")
+        "Eleanor: {{Bb:¿No es eso lo mismo que poner}} {{yb:mkdir cobertizo}}{{Bb:?}}"
 
     def check_command(self, line):
-        if line == "./best-horn-in-the-world.sh":
+        if line == "./la-mejor-bocina-del-mundo.sh":
             self.send_hint(
-                _("\n{{rb:You're trying to run the wrong script. You want to run}} "
-                  "{{yb:./best-shed-maker-in-the-world.sh}}")
+                "\n{{rb:Te estás equivocando. Quieres ejecutar}} {{yb:./el-mejor-constructor-de-cobertizos.sh}}"
             )
         else:
             return StepTemplateMkdir.check_command(self, line)
@@ -100,18 +108,18 @@ class Step2(StepTemplateMkdir):
 
 class Step3(StepTemplateMkdir):
     story = [
-        _("{{lb:Look around}} to see if it created a {{bb:shed}}.")
+        "{{lb:Mira alrededor}} para ver si creaste el {{bb:cobertizo}}."
     ]
-    start_dir = "~/town/east/shed-shop"
-    end_dir = "~/town/east/shed-shop"
+    start_dir = "~/pueblo/este/tienda-de-cobertizos"
+    end_dir = "~/pueblo/este/tienda-de-cobertizos"
     commands = [
         "ls",
         "ls -a"
     ]
     hints = [
-        _("{{rb:Use}} {{yb:ls}} {{rb:to look around.}}")
+        "{{rb:Usa}} {{yb:ls}} {{rb:para mirar alrededor.}}"
     ]
-    companion_speech = _("Eleanor: {{Bb:Ah, look over there!}}")
+    companion_speech = "Eleanor: {{Bb:Ah, ¡mira allí!}}"
 
     def next(self):
         return 25, 4
@@ -119,25 +127,26 @@ class Step3(StepTemplateMkdir):
 
 class Step4(StepTemplateMkdir):
     story = [
-        _("It worked! You can see a new {{bb:shed}} in the room.\n"),
-        _("What happens if you run it again?\n"),
-        _("{{gb:Press}} {{ob:UP}} {{gb:twice to replay the command.}}")
+        "¡Funcionó! Puedes ver un nuevo {{bb:cobertizo}}.\n",
+        "¿Qué sucede si lo ejecutas otra vez?\n",
+        "{{gb:Presiona la flecha hacia}} {{ob:ARRIBA}} {{gb:dos veces para repetir el comando.}}"
     ]
 
-    start_dir = "~/town/east/shed-shop"
-    end_dir = "~/town/east/shed-shop"
+    start_dir = "~/pueblo/este/tienda-de-cobertizos"
+    end_dir = "~/pueblo/este/tienda-de-cobertizos"
 
     hints = [
-        _("{{rb:See what happens when you run the script again.}}"),
+        "{{rb:Mira lo que pasa cuando ejecutas el comando otra vez.}}",
 
-        _("{{rb:Run the script again using}} " +\
-        "{{yb:./best-shed-maker-in-the-world.sh}} " +\
-        "{{rb:to see what happens.}}")
+        (
+            "{{rb:Ejecuta el comando otra vez usando}} "
+            "{{yb:./el-mejor-constructor-de-cobertizos.sh}} {{rb:para ver qué sucede.}}"
+        )
     ]
     commands = [
-        "./best-shed-maker-in-the-world.sh"
+        "./el-mejor-constructor-de-cobertizos.sh"
     ]
-    companion_speech = _("Eleanor: {{Bb:I don't think this will work...}}")
+    companion_speech = "Eleanor: {{Bb:No creo que esto funcione...}}"
 
     def next(self):
         return 25, 5
@@ -145,48 +154,49 @@ class Step4(StepTemplateMkdir):
 
 class Step5(StepTemplateMkdir):
     story = [
-        _("You get the error {{yb:mkdir: cannot create directory `shed': " +\
-        "File exists}}"),
-        _("\nBernard: {{Bb:\"Of course it won't work a second time - " +\
-        "you already have a shed!\""),
+        "Error {{yb:mkdir: no se puede crear el directorio «cobertizo»: El archivo ya existe}}",
+        "\nBernard: {{Bb:\"Claro que no va a funcionar una segunda vez - ¡ya tienes un cobertizo!\"",
 
-        _("\"I'm working on the next big thing,}} " +\
-        "{{bb:best-horn-in-the-world.sh}}{{Bb:.\"}}"),
+        "\"Estoy trabajando en algo nuevo,}} {{bb:la-mejor-bocina-del-mundo.sh}}{{Bb:.\"}}",
 
-        _("{{Bb:\"It can be used to alert anyone that you're coming. " +\
-        "I'm having some teething problems, " +\
-        "but I'm sure I'll fix them soon.\"}}"),
+        (
+            "{{Bb:\"Puede ser utilizada para avisarle a quien quieras que estás llegando. "
+            "Tiene algunos problemitas, pero seguro que pronto los arreglaré.\"}}"
+        ),
 
-        _("\n{{lb:Examine}} {{bb:best-horn-in-the-world.sh}} {{lb:and see if you " +\
-        "can identify the problem.}}\n"),
+        (
+            "\n{{lb:Examina}} {{bb:la-mejor-bocina-del-mundo.sh}} {{lb:y fíjate si "
+            "puedes encontrar el problema.}}\n"
+        ),
 
-        _("{{gb:Remember to use}} {{ob:TAB}}{{gb:!}}")
+        "{{gb:Recuerda usar}} {{ob:TAB}}{{gb:!}}"
     ]
 
-    start_dir = "~/town/east/shed-shop"
-    end_dir = "~/town/east/shed-shop"
+    start_dir = "~/pueblo/este/tienda-de-cobertizos"
+    end_dir = "~/pueblo/este/tienda-de-cobertizos"
     commands = [
-        "cat best-horn-in-the-world.sh",
-        "cat ./best-horn-in-the-world.sh"
+        "cat la-mejor-bocina-del-mundo.sh",
+        "cat ./la-mejor-bocina-del-mundo.sh"
     ]
 
     hints = [
-        _("{{rb:Use}} {{yb:cat}} {{rb:to examine the tool.}}"),
-        _("{{rb:Use}} {{yb:cat best-horn-in-the-world.sh}} {{rb:to examine the " +\
-        "tool.}}")
+        "{{rb:Usa}} {{yb:cat}} {{rb:para examinar el utensilio.}}",
+        "{{rb:Usa}} {{yb:cat la-mejor-bocina-del-mundo.sh}} {{rb:para examinar el utensilio.}}"
     ]
 
     companion_speech = (
-        _("Eleanor: {{Bb:I think this tool is a bit broken.}}")
+        "Eleanor: {{Bb:Creo que este utensilio está un poco roto.}}"
     )
 
     def check_command(self, line):
-        if line == "cat best-shed-maker-in-the-world.sh" or \
-           line == "cat ./best-shed-maker-in-the-world.sh":
+        if line == "cat el-mejor-constructor-de-cobertizos.sh" or \
+           line == "cat ./el-mejor-constructor-de-cobertizos.sh":
 
             self.send_hint(
-                _("\n{{rb:You're examining the wrong tool. You want to look " +\
-                "at}} {{yb:best-horn-in-the-world.sh}}")
+                (
+                    "\n{{rb:Estás examinando el utensilio equivocado. Quieres ver}} "
+                    "{{yb:la-mejor-bocina-del-mundo.sh}}"
+                )
             )
 
         else:
@@ -198,31 +208,31 @@ class Step5(StepTemplateMkdir):
 
 class Step6(StepTemplateMkdir):
     story = [
-        _("The script reads {{yb:eco \"Honk!\"}}"),
-        _("Maybe it should read {{yb:echo \"Honk!\"}} instead..."),
-        _("How could we make changes to this script?"),
-        _("\nBernard: {{Bb:\"Ho ho, you look like you understand the problem.\"}}"),
-        _("Eleanor: {{Bb:\"If we need extra help, we can go to the library, it was just outside.\"}}"),
-        _("\nBefore we go, have a {{lb:look}} in the {{bb:basement}}.")
+        "El script dice {{yb:eco \"Piii!\"}}",
+        "Tal vez debería decir {{yb:echo \"Piii!\"}} ...",
+        "¿Cómo podríamos hacer cambios en este script?",
+        "\nBernard: {{Bb:\"Oh, parece que comprendes cuál es el problema.\"}}",
+        "Eleanor: {{Bb:\"Si necesitamos ayuda, podemos ir a la biblioteca, está justo aquí afuera.\"}}",
+        "\nAntes de irte, {{lb:mira}} en el {{bb:sotano}}."
     ]
 
-    start_dir = "~/town/east/shed-shop"
-    end_dir = "~/town/east/shed-shop"
+    start_dir = "~/pueblo/este/tienda-de-cobertizos"
+    end_dir = "~/pueblo/este/tienda-de-cobertizos"
 
     commands = [
-        "ls basement",
-        "ls basement/",
-        "ls -a basement",
-        "ls -a basement/",
+        "ls sotano",
+        "ls sotano/",
+        "ls -a sotano",
+        "ls -a sotano/",
     ]
 
     hints = [
-        _("{{rb:Use}} {{yb:ls}} {{rb:to look through.}}"),
-        _("{{rb:Use}} {{yb:ls basement/}} {{rb:to look inside.}}")
+        "{{rb:Usa}} {{yb:ls}} {{rb:para mirar.}}",
+        "{{rb:Usa}} {{yb:ls sotano/}} {{rb:para mirar dentro.}}"
     ]
 
     companion_speech = (
-        _("Eleanor: {{Bb:OooOOoh, are there sweets in there?}}")
+        "Eleanor: {{Bb:OooOOoh, ¿hay caramelos allí adentro?}}"
     )
 
     def check_command(self, line):
@@ -237,17 +247,17 @@ class Step6(StepTemplateMkdir):
 
 class Step7(StepTemplateMkdir):
     story = [
-        _("Bernard: {{Bb:\"Oooh naughty, you can't look in there.\"}}"),
-        _("\nLet's {{lb:leave}} the shed shop and go back to {{bb:east}} of town.")
+        "Bernard: {{Bb:\"Oooh, qué atrevidos. No pueden husmear aquí.\"}}",
+        "\n{{lb:Sal}} de la tienda de cobertizos y vuelve a la parte {{bb:este}} del pueblo."
     ]
 
-    start_dir = "~/town/east/shed-shop"
-    end_dir = "~/town/east"
+    start_dir = "~/pueblo/este/tienda-de-cobertizos"
+    end_dir = "~/pueblo/este"
     hints = [
-        _("{{rb:Leave the shed-shop using}} {{yb:cd ..}}")
+        "{{rb:Sal de la tienda de cobertizos usando}} {{yb:cd ..}}"
     ]
     companion_speech = (
-        _("Eleanor: {{Bb:\"Yay, I like the library. Let's go back to town!\"}}")
+        "Eleanor: {{Bb:\"Sí, me gusta la biblioteca. ¡Volvamos al pueblo!\"}}"
     )
 
     def block_command(self, line):

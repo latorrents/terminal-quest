@@ -1,14 +1,15 @@
 #!/usr/bin/env python
 #
 # Copyright (C) 2014-2017 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
 
-from linux_story.StepTemplate import StepTemplate
-from linux_story.common import get_story_file
-from linux_story.step_helper_functions import unblock_commands
-from linux_story.story.terminals.terminal_chmod import TerminalChmod
+from terminal_quest.step import StepTemplate
+from terminal_quest.common import get_story_file
+from terminal_quest.step_helpers import unblock_commands
+from terminal_quest.terminals import TerminalChmod
 
 
 class StepTemplateChmod(StepTemplate):
@@ -17,26 +18,26 @@ class StepTemplateChmod(StepTemplate):
 
 class Step1(StepTemplateChmod):
     story = [
-        _("The bird dropped a {{bb:scroll}} in the {{bb:cage}}."),
-        _("{{lb:Examine}} the scroll.")
+        "El pájaro dejó caer un {{bb:pergamino}} en la {{bb:jaula}}.",
+        "{{lb:Examina}} el pergamino."
     ]
 
-    start_dir = "~/woods/cave"
-    end_dir = "~/woods/cave"
+    start_dir = "~/bosque/cueva"
+    end_dir = "~/bosque/cueva"
     commands = [
-        "cat cage/scroll"
+        "cat jaula/pergamino"
     ]
     hints = [
-        _("{{rb:Use}} {{yb:cat cage/scroll}} {{rb:to examine the scroll.}}")
+        "{{rb:Usa}} {{yb:cat jaula/pergamino}} {{rb:para examinar el pergamino.}}"
     ]
     file_list = [
         {
-            "path": "~/woods/cave/cage/scroll",
+            "path": "~/bosque/cueva/jaula/pergamino",
             "contents": get_story_file("scroll-cage")
         }
     ]
     deleted_items = [
-        "~/woods/cave/bird"
+        "~/bosque/cueva/pajaro"
     ]
 
     def next(self):
@@ -45,15 +46,15 @@ class Step1(StepTemplateChmod):
 
 class Step2(StepTemplateChmod):
     story = [
-        _("Follow the instructions. Use {{yb:chmod +x}} on the {{bb:lighter}} in the {{bb:locked-room}}.")
+        "Sigue las instrucciones. Usa {{yb:chmod +x}} en el {{bb:encendedor}} del {{bb:cuarto-cerrado}}."
     ]
-    start_dir = "~/woods/cave"
-    end_dir = "~/woods/cave"
+    start_dir = "~/bosque/cueva"
+    end_dir = "~/bosque/cueva"
     commands = [
-        "chmod +x locked-room/lighter"
+        "chmod +x cuarto-cerrado/encendedor"
     ]
     hints = [
-        _("{{rb:Use}} {{yb:chmod +x locked-room/lighter}} {{rb:to activate the lighter.}}")
+        "{{rb:Usa}} {{yb:chmod +x cuarto-cerrado/encendedor}} {{rb:para activar el encendedor.}}"
     ]
     highlighted_commands = "chmod"
 
@@ -66,19 +67,19 @@ class Step2(StepTemplateChmod):
 
 class Step3(StepTemplateChmod):
     story = [
-        _("{{lb:Look in the locked-room}} to see what happened to the lighter.")
+        "{{lb:Mira dentro del cuarto-cerrado}} para ver qué le pasó al encendedor."
     ]
 
-    start_dir = "~/woods/cave"
-    end_dir = "~/woods/cave"
+    start_dir = "~/bosque/cueva"
+    end_dir = "~/bosque/cueva"
 
     commands = [
-        "ls locked-room",
-        "ls locked-room/"
+        "ls cuarto-cerrado",
+        "ls cuarto-cerrado/"
     ]
 
     hints = [
-        _("{{rb:Use}} {{yb:ls locked-room/}} {{rb:to look in the locked-room.}}")
+        "{{rb:Usa}} {{yb:ls cuarto-cerrado/}} {{rb:para mirar dentro del cuarto-cerrado.}}"
     ]
 
     def next(self):
@@ -87,14 +88,14 @@ class Step3(StepTemplateChmod):
 
 class Step4(StepTemplateChmod):
     story = [
-        _("The lighter went {{gb:bright green}} after you activated it."),
-        _("Now use it with {{yb:./locked-room/lighter}}")
+        "El encendedor se puso {{gb:verde brillante}} cuando lo activaste.",
+        "Ahora úsalo con {{yb:./cuarto-cerrado/encendedor}}"
     ]
-    start_dir = "~/woods/cave"
-    end_dir = "~/woods/cave"
+    start_dir = "~/bosque/cueva"
+    end_dir = "~/bosque/cueva"
 
     commands = [
-        "./locked-room/lighter"
+        "./cuarto-cerrado/encendedor"
     ]
 
     def next(self):

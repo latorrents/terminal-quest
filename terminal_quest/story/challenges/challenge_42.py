@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 #
 # Copyright (C) 2014-2017 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
@@ -8,11 +9,11 @@
 import time
 from threading import Thread
 
-from linux_story.Animation import Animation
-from linux_story.StepTemplate import StepTemplate
-from linux_story.common import get_story_file
-from linux_story.step_helper_functions import unblock_cd_commands
-from linux_story.story.terminals.terminal_chmod import TerminalChmod
+from terminal_quest.animation import Animation
+from terminal_quest.step import StepTemplate
+from terminal_quest.common import get_story_file
+from terminal_quest.step_helpers import unblock_cd_commands
+from terminal_quest.terminals import TerminalChmod
 
 
 class StepTemplateChmod(StepTemplate):
@@ -21,28 +22,28 @@ class StepTemplateChmod(StepTemplate):
 
 class Step1(StepTemplateChmod):
     story = [
-        _("Now, which is the locked room? {{lb:Look around}} to remind yourself.")
+        "Ahora, ¿cuál es el cuarto cerrado? {{lb:Mira alrededor}} para recordarlo."
     ]
-    start_dir = "~/town/east/library"
-    end_dir = "~/town/east/library"
+    start_dir = "~/pueblo/este/biblioteca"
+    end_dir = "~/pueblo/este/biblioteca"
     commands = [
         "ls",
         "ls -a"
     ]
     hints = [
-        _("{{rb:Use}} {{yb:ls}} {{rb:to look around.}}")
+        "{{rb:Usa}} {{yb:ls}} {{rb:para mirar alrededor.}}"
     ]
     file_list = [
         {
-            "path": "~/town/east/library/Rabbit",
-            "contents": get_story_file("Rabbit"),
-            "permissions": 0644,
+            "path": "~/pueblo/este/biblioteca/Conejo",
+            "contents": get_story_file("Conejo"),
+            "permissions": 0o644,
             "type": "file"
         }
     ]
     deleted_items = [
-        "~/woods/thicket/Rabbit",
-        "~/woods/thicket/note"
+        "~/bosque/matorral/Conejo",
+        "~/bosque/matorral/nota"
     ]
 
     def next(self):
@@ -51,31 +52,31 @@ class Step1(StepTemplateChmod):
 
 class Step2(StepTemplateChmod):
     story = [
-        _("Ah, it's the {{lb:private-section}}."),
-        _("The Rabbit looks very excited. His eyes are sparkling."),
+        "Ah, es la {{lb:seccion-privada}}.",
+        "El Conejo se ve muy emocionado. Le brillan los ojos.",
         "",
-        _("Unlock the {{lb:private-section}}.")
+        "Desbloquea la {{lb:seccion-privada}}."
     ]
-    start_dir = "~/town/east/library"
-    end_dir = "~/town/east/library"
+    start_dir = "~/pueblo/este/biblioteca"
+    end_dir = "~/pueblo/este/biblioteca"
     commands = [
-        "chmod +rwx private-section",
-        "chmod +rwx private-section/",
-        "chmod +wxr private-section",
-        "chmod +wxr private-section/",
-        "chmod +xrw private-section",
-        "chmod +xrw private-section/",
-        "chmod +rxw private-section",
-        "chmod +rxw private-section/",
-        "chmod +xwr private-section",
-        "chmod +xwr private-section/",
-        "chmod +wxr private-section",
-        "chmod +wxr private-section/"
+        "chmod +rwx seccion-privada",
+        "chmod +rwx seccion-privada/",
+        "chmod +wxr seccion-privada",
+        "chmod +wxr seccion-privada/",
+        "chmod +xrw seccion-privada",
+        "chmod +xrw seccion-privada/",
+        "chmod +rxw seccion-privada",
+        "chmod +rxw seccion-privada/",
+        "chmod +xwr seccion-privada",
+        "chmod +xwr seccion-privada/",
+        "chmod +wxr seccion-privada",
+        "chmod +wxr seccion-privada/"
     ]
 
     hints = [
-        _("{{rb:The command is}} {{yb:chmod +rwx private-section}} {{rb:to "
-        "enable all the permissions.}}")
+        "{{rb:El comando es}} {{yb:chmod +rwx seccion-privada}} {{rb:para "
+        "activar todos los permisos.}}"
     ]
 
     def next(self):
@@ -84,24 +85,24 @@ class Step2(StepTemplateChmod):
 
 class Step3(StepTemplateChmod):
     story = [
-        _("Awesome, you unlocked it! {{lb:Go inside the private-section.}}")
+        "¡Genial, la desbloqueaste! {{lb:Entra en la seccion-privada.}}"
     ]
-    start_dir = "~/town/east/library"
-    end_dir = "~/town/east/library/private-section"
+    start_dir = "~/pueblo/este/biblioteca"
+    end_dir = "~/pueblo/este/biblioteca/seccion-privada"
     hints = [
-        "{{rb:Use}} {{yb:cd private-section/}} {{rb:to go inside.}}"
+        "{{rb:Usa}} {{yb:cd seccion-privada/}} {{rb:para entrar.}}"
     ]
     file_list = [
         {
-            "path": "~/town/east/library/private-section/chest/scroll",
-            "contents": get_story_file("scroll"),
-            "permissions": 0644,
+            "path": "~/pueblo/este/biblioteca/seccion-privada/cofre/pergamino",
+            "contents": get_story_file("pergamino"),
+            "permissions": 0o644,
             "type": "file"
         },
         {
-            "path": "~/town/east/library/private-section/chest/torn-note",
-            "contents": get_story_file("torn-note"),
-            "permissions": 0644,
+            "path": "~/pueblo/este/biblioteca/seccion-privada/cofre/nota-rota",
+            "contents": get_story_file("nota-rota"),
+            "permissions": 0o644,
             "type": "file"
         }
     ]
@@ -115,47 +116,47 @@ class Step3(StepTemplateChmod):
 
 class Step4(StepTemplateChmod):
     story = [
-        _("Have a {{lb:look around.}}")
+        "{{lb:Mira alrededor.}}"
     ]
-    start_dir = "~/town/east/library/private-section"
-    end_dir = "~/town/east/library/private-section"
+    start_dir = "~/pueblo/este/biblioteca/seccion-privada"
+    end_dir = "~/pueblo/este/biblioteca/seccion-privada"
     commands = [
         "ls",
         "ls -a",
-        "cat chest/scroll",
-        "cat chest/torn-note",
-        "ls chest",
-        "ls chest/",
-        "ls chest/scroll",
-        "ls chest/torn-note"
+        "cat cofre/pergamino",
+        "cat cofre/nota-rota",
+        "ls cofre",
+        "ls cofre/",
+        "ls cofre/pergamino",
+        "ls cofre/nota-rota"
     ]
     file_list = [
         {
-            "path": "~/town/east/library/private-section/Rabbit",
-            "contents": get_story_file("Rabbit"),
-            "permissions": 0644,
+            "path": "~/pueblo/este/biblioteca/seccion-privada/Conejo",
+            "contents": get_story_file("Conejo"),
+            "permissions": 0o644,
             "type": "file"
         }
     ]
-    deleted_items = ["~/town/east/library/Rabbit"]
+    deleted_items = ["~/pueblo/este/biblioteca/Conejo"]
     hints = [
-        "{{rb:Use}} {{yb:ls}} {{rb:to look around.}}"
+        "{{rb:Usa}} {{yb:ls}} {{rb:para mirar alrededor.}}"
     ]
 
     def block_command(self, line):
-        if line == "cat chest/scroll":
+        if line == "cat cofre/pergamino":
             self.set_last_user_input(line)
-            print _("The Rabbit snatched the chest away!")
+            print("¡El Conejo te arrebató el cofre!")
             return True
         return StepTemplateChmod.block_command(self, line)
 
     def check_command(self, line):
-        if self.get_last_user_input() == "cat chest/scroll":
+        if self.get_last_user_input() == "cat cofre/pergamino":
             return True
         return StepTemplateChmod.check_command(self, line)
 
     def next(self):
-        if self.get_last_user_input() == "cat chest/scroll":
+        if self.get_last_user_input() == "cat cofre/pergamino":
             return 42, 5
         else:
             return 42, 6
@@ -163,11 +164,11 @@ class Step4(StepTemplateChmod):
 
 class RabbitTakesChest(StepTemplateChmod):
 
-    start_dir = "~/town/east/library/private-section"
-    end_dir = "~/town/east/library/private-section"
+    start_dir = "~/pueblo/este/biblioteca/seccion-privada"
+    end_dir = "~/pueblo/este/biblioteca/seccion-privada"
     deleted_items = [
-        "~/town/east/library/private-section/Rabbit",
-        "~/town/east/library/private-section/chest"
+        "~/pueblo/este/biblioteca/seccion-privada/Conejo",
+        "~/pueblo/este/biblioteca/seccion-privada/cofre"
     ]
 
     def next(self):
@@ -176,40 +177,40 @@ class RabbitTakesChest(StepTemplateChmod):
 
 class Step5(RabbitTakesChest):
     story = [
-        _("You try and examine the contents of the chest, but the Rabbit snatches it and runs off!")
+        "Intentas examinar el contenido del cofre, ¡pero el Conejo te lo arrebata y sale corriendo!"
     ]
 
 
 class Step6(RabbitTakesChest):
     story = [
-        _("You see a {{bb:chest}}."),
-        _("It looks like it might contain the powers we need."),
-        _("The Rabbit's excitement grows, he jumps up and down. Then suddenly he snatches the chest and runs off!"),
+        "Ves un {{bb:cofre}}.",
+        "Parece que podría contener los poderes que necesitamos.",
+        "La emoción del Conejo crece, salta de arriba abajo. ¡De pronto te arrebata el cofre y sale corriendo!",
         "",
-        _("Press Enter to watch him run off.")
+        "Presiona Enter para verlo huir."
     ]
 
 
 class Step7(StepTemplateChmod):
     story = [
-        _("A {{bb:note}} flutters through the air. You catch it. {{lb:Read it}}.")
+        "Una {{bb:nota}} revolotea por el aire. La atrapas. {{lb:Léela}}."
     ]
 
-    start_dir = "~/town/east/library/private-section"
-    end_dir = "~/town/east/library/private-section"
+    start_dir = "~/pueblo/este/biblioteca/seccion-privada"
+    end_dir = "~/pueblo/este/biblioteca/seccion-privada"
 
     commands = [
-        "cat note"
+        "cat nota"
     ]
 
     hints = [
-        _("{{rb:Read the note with}} {{yb:cat note}}")
+        "{{rb:Lee la nota con}} {{yb:cat nota}}"
     ]
 
     file_list = [
         {
             "contents": get_story_file("note_private-section"),
-            "path": "~/town/east/library/private-section/note"
+            "path": "~/pueblo/este/biblioteca/seccion-privada/nota"
         }
     ]
 
@@ -222,13 +223,13 @@ class Step7(StepTemplateChmod):
 
 class Step8(StepTemplateChmod):
     story = [
-        _("The world shivers... everything goes dark red"),
+        "El mundo se estremece... todo se vuelve rojo oscuro",
         "",
-        _("{{gb:Press Enter to continue.}}")
+        "{{gb:Presiona Enter para continuar.}}"
     ]
 
-    start_dir = "~/town/east/library/private-section"
-    end_dir = "~/town/east/library/private-section"
+    start_dir = "~/pueblo/este/biblioteca/seccion-privada"
+    end_dir = "~/pueblo/este/biblioteca/seccion-privada"
 
     def _run_at_start(self):
         t = Thread(target=self.__timeout_dark_theme)

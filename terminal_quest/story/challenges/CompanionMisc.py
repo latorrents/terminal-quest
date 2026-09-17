@@ -1,13 +1,19 @@
-from linux_story.StepTemplate import StepTemplate
-from linux_story.story.terminals.terminal_mkdir import TerminalMkdir
-from linux_story.story.terminals.terminal_nano import TerminalNano
+# CompanionMisc.py
+#
+# Copyright (C) 2014-2017 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
+# License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 
-bernard_text = _("Bernard stopped you looking in the basement!")
+from terminal_quest.step import StepTemplate
+from terminal_quest.terminals import TerminalMkdir
+from terminal_quest.terminals import TerminalNano
+
+bernard_text = "¡Bernard te impidió mirar dentro del sótano!"
 
 
 def bernard_autocomplete(completions):
-    if "photocopier.sh" in completions:
-        print "\n" + bernard_text
+    if "fotocopiadora.sh" in completions:
+        print("\n" + bernard_text)
         return []
     else:
         return completions
@@ -34,8 +40,8 @@ class StepTemplateEleanorBernard(StepTemplate):
             return self._default_check_command(last_user_input)
 
     def block_command(self, line):
-        if "basement" in line and ("ls" in line or "cat" in line):
-            print bernard_text
+        if "sotano" in line and ("ls" in line or "cat" in line):
+            print(bernard_text)
             return True
         else:
             return StepTemplate.block_command(self, line)

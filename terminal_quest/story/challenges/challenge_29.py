@@ -1,6 +1,7 @@
 # challenge_29.py
 #
 # Copyright (C) 2014-2016 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
@@ -8,85 +9,95 @@
 
 import os
 
-from linux_story.story.challenges.CompanionMisc import StepTemplateNano
-from linux_story.helper_functions import record_user_interaction
+from terminal_quest.story.challenges.CompanionMisc import StepTemplateNano
+from terminal_quest.helpers import record_user_interaction
 
 
 story_replies = {
     "echo 1": [
         {
-            "user": _("\"Why is the private section in the library locked?\""),
+            "user": "\"¿Por qué la sección privada de la biblioteca está cerrada?\"",
             "clara": \
-                _("Clara: {{Bb:\"It contains some dangerous information.\"" +\
-                "\n\"...I'm sorry, I shouldn't say more. The head librarian " +\
-                "was quite concerned that no one should go in. He was the " +\
-                "only one who could lock and unlock it.\"}}")
+                (
+                    "Clara: {{Bb:\"Contiene información peligrosa.\"\n\"...Lo siento, no debería hablar "
+                    "mucho más. El director de la biblioteca se preocupa mucho por que nadie entre "
+                    "allí. Él es el único que puede cerrar y abrir la sección.\"}}"
+                )
         },
         {
-            "user": _("\"How did he lock it?\""),
+            "user": "\"¿Cómo la cerró?\"",
             "clara": \
-                _("Clara: {{Bb:\"I don't know, it's a very special lock. But, I think he learnt the secrets of the "
-                  "lock from a masked swordmaster living outside of town.\"}}")
+                (
+                    "Clara: {{Bb:\"No lo sé, es un cerrojo muy especial. Pero creo que aprendió los secretos del "
+                    "cerrojo de un espadachín enmascarado que vive fuera del pueblo.\"}}"
+                )
         },
         {
-            "user": _("\"Where would I find this masked swordmaster?\""),
+            "user": "\"¿Dónde puedo encontrar a ese espadachín enmascarado?\"",
             "clara": \
-                _("Clara: {{Bb:\"He said the}} " +\
-                "{{bb:masked swordmaster}} {{Bb:lived in the woods.\"}}" +\
-                "\n{{Bb:\"I presume he meant the woods just off the}} " +\
-                "{{lb:Windy Road}}{{Bb:? The one " +\
-                "near the farm and that funny lonely house outside town.\"}}")
+                (
+                    "Clara: {{Bb:\"Él dijo que el}} "
+                    "{{bb:espadachín enmascarado}} {{Bb:vivía en el bosque.\"}}"
+                    "\n{{Bb:\"Supongo que se refería al bosque que está justo al lado de la}} "
+                    "{{lb:Carretera Ventosa}}{{Bb:. El que está "
+                    "cerca de la granja y de aquella extraña casa solitaria fuera del pueblo.\"}}"
+                )
         }
     ],
 
     "echo 2": [
         {
-            "user": _("\"Why are you hiding down here?\""),
+            "user": "\"¿Por qué te escondes aquí abajo?\"",
             "clara": \
-                _("Clara: {{Bb:\"I heard a bell ring, and saw the " +\
-                "lead librarian disappear in front of me. I was " +\
-                "so scared I ran away, and found this}} {{bb:.cellar}}" +\
-                "{{Bb:.\"}}")
+                (
+                    "Clara: {{Bb:\"Escuché un timbre sonar y vi cómo alguien desaparecía delante de "
+                    "mí. Estaba tan asustada que corrí, y encontré esta}} {{bb:.bodega}}{{Bb:.\"}}"
+                )
         },
         {
-            "user": _("\"Do you have any relatives in town?\""),
+            "user": "\"¿Tienes algún pariente en el pueblo?\"",
             "clara": \
-                _("Clara: {{Bb:\"I have a couple of children, a}} " +\
-                "{{bb:little-boy}} {{Bb:and a}} " +\
-                "{{bb:young-girl}}{{Bb:. I hope they are alright.\"}}")
+                (
+                    "Clara: {{Bb:\"Tengo dos hijos, un}} {{bb:chico}} {{Bb:y una}} "
+                    "{{bb:chica}}{{Bb:. Espero que se encuentren bien.\"}}"
+                )
         },
         {
-            "user": _("\"Why is the library so empty?\""),
+            "user": "\"¿Por qué está tan vacía la biblioteca?\"",
             "clara": \
-                _("Clara: {{Bb:\"We should have introduced late fees a long " +\
-                "time ago...\"}}")
+                (
+                    "Clara: {{Bb:\"Hace tiempo empezamos a cobrar multas por "
+                    "devolver tarde los libros...\"}}"
+                )
         }
     ],
 
     "echo 3": [
         {
-            "user": _("\"Do you know any other people in town?\""),
+            "user": "\"¿Conoces a alguien más en el pueblo?\"",
             "clara": \
-                _("Clara: {{Bb:\"There's a man I don't trust that runs the}} " +\
-                "{{bb:shed-shop}}{{Bb:. I think his name is}} {{bb:Bernard}}{{Bb:.\"}}")
+                (
+                    "Clara: {{Bb:\"Hay un hombre en quien no confío, el dueño de la}} "
+                    "{{bb:tienda-de-cobertizos}}{{Bb:. Creo que su nombre es}} {{bb:Bernard}}{{Bb:.\"}}"
+                )
         },
         {
-            "user": _("\"Why don't you like Bernard?\""),
+            "user": "\"¿Por qué no te gusta Bernard?\"",
             "clara": \
-                _("Clara: {{Bb:\"He makes very simple tools and charges a fortune " +\
-                "for them.}}" +\
-                "\n{{Bb:His father was a very clever man and spent all " +\
-                "his time in the library reading up commands. He became a " +\
-                "successful business man as a result.\"}}")
+                (
+                    "Clara: {{Bb:\"Hace utensilios muy simples y cobra una fortuna por "
+                    "ellos.}}\n{{Bb:Su padre era un hombre muy inteligente y pasaba mucho tiempo en la "
+                    "biblioteca leyendo comandos. Se convirtió en un exitoso hombre de negocios.\"}}"
+                )
         },
         {
-            "user": _("\"What happened to Bernard's father?\""),
+            "user": "\"¿Qué le pasó al papá de Bernard?\"",
             "clara": \
-                _("Clara: {{Bb:\"People aren't sure, he disappeared one day. " +\
-                "It was " +\
-                "assumed he had died. I saw him leave the library the day " +\
-                "he went missing, " +\
-                "he left in a hurry. He looked absolutely terrified.\"}}")
+                (
+                    "Clara: {{Bb:\"Nadie lo sabe con seguridad, desapareció un día. Todos asumieron que "
+                    "había muerto. Lo vi abandonar la biblioteca el día que desapareció, se fue muy "
+                    "apurado. Parecía estar muy asustado.\"}}"
+                )
         }
     ]
 }
@@ -97,13 +108,13 @@ def create_story(step):
     print_text = ""
 
     if step > 1:
-        print_text = _("{{yb:%s}}") % story_replies["echo 1"][step - 2]["user"]
+        print_text = "{{yb:%s}}" % story_replies["echo 1"][step - 2]["user"]
 
     story = [
         story_replies["echo 1"][step - 2]["clara"],
-        _("\n{{yb:1: %s}}") % story_replies["echo 1"][step - 1]["user"],
-        _("{{yb:2: %s}}") % story_replies["echo 2"][0]["user"],
-        _("{{yb:3: %s}}") % story_replies["echo 3"][0]["user"]
+        "\n{{yb:1: %s}}" % story_replies["echo 1"][step - 1]["user"],
+        "{{yb:2: %s}}" % story_replies["echo 2"][0]["user"],
+        "{{yb:3: %s}}" % story_replies["echo 3"][0]["user"]
     ]
 
     return print_text, story
@@ -123,10 +134,13 @@ class StepNanoStory(StepTemplateNano):
         "echo 1"
     ]
 
-    start_dir = "~/town/east/restaurant/.cellar"
-    end_dir = "~/town/east/restaurant/.cellar"
+    start_dir = "~/pueblo/este/restaurante/.bodega"
+    end_dir = "~/pueblo/este/restaurante/.bodega"
     hints = [
-        _("{{rb:Talk to Clara using}} {{yb:echo 1}}{{rb:,}} {{yb:echo 2}} {{rb:or}} {{yb:echo 3}}{{rb:.}}")
+        (
+            "{{rb:Habla con Clara usando}} {{yb:echo 1}}{{rb:,}} {{yb:echo 2}} {{rb:o}} "
+            "{{yb:echo 3}}{{rb:.}}"
+        )
     ]
     step_number = None
 
@@ -151,7 +165,7 @@ class StepNanoStory(StepTemplateNano):
                     record_user_interaction(self, state_name)
                 else:
                     self.send_hint(
-                        _("\n{{rb:You've already asked Clara that. Ask her something else.}}")
+                        "\n{{rb:Ya le has preguntado eso a Clara. Pregúntale otra cosa.}}"
                     )
 
         else:
@@ -163,24 +177,25 @@ class StepNanoStory(StepTemplateNano):
 
 class Step1(StepNanoStory):
     story = [
-        _("Clara: {{Bb:\"What? Who are you?\"}}"),
+        "Clara: {{Bb:\"¿Qué? ¿Quién eres?\"}}",
 
-        _("\nEleanor: {{Bb:\"Hello! I'm Eleanor, and this is}} {{gb:%s}}{{Bb:.}}" +\
-        " {{Bb:I recognise you! You used to work in the library!\"}}")\
+        (
+            "\nEleanor: {{Bb:\"¡Hola! Soy Eleanor, y aquí tenemos a mi amigo}} "
+            "{{gb:%s}}{{Bb:.}} {{Bb:¡Te reconozco! ¡Solías trabajar en la biblioteca!\"}}"
+        )\
         % os.environ["LOGNAME"],
 
-        _("\nClara: {{Bb:\"...ah, Eleanor! Yes, I remember you, you used to " +\
-        "come in almost everyday.\"}}"),
+        "\nClara: {{Bb:\"...¡ah, Eleanor! Sí, me acuerdo de ti, solías venir casi todos los días.\"}}",
 
         # Options
-        _("\n{{yb:1: \"Why is the private section in the library locked?\"}}"),
-        _("{{yb:2: \"Why are you hiding down here?\"}}"),
-        _("{{yb:3: \"Do you know about any other people in town?\"}}"),
+        "\n{{yb:1: \"¿Por qué la sección privada de la biblioteca está cerrada?\"}}",
+        "{{yb:2: \"¿Por qué te escondes aquí abajo?\"}}",
+        "{{yb:3: \"¿Conoces a alguien más en el pueblo?\"}}",
 
-        _("\nUse {{yb:echo}} to ask {{bb:Clara}} a question.")
+        "\nUsa {{yb:echo}} para hacerle una pregunta a {{bb:Clara}}."
     ]
 
-    companion_speech = _("Eleanor: {{Bb:\"I'm not scared anymore, I like Clara.\"}}")
+    companion_speech = "Eleanor: {{Bb:\"Ya no estoy asustada, me cae bien Clara.\"}}"
 
     def _run_at_start(self):
         self.echo_hit = {
@@ -196,7 +211,7 @@ class Step1(StepNanoStory):
 
 
 class Step2(StepNanoStory):
-    companion_speech = _("Eleanor: {{Bb:\"What is so dangerous in the private-section?\"}}")
+    companion_speech = "Eleanor: {{Bb:\"¿Qué es aquello tan peligroso que se oculta en la seccion-privada?\"}}"
 
     def _run_at_start(self):
         self.echo_hit = {
@@ -215,7 +230,7 @@ class Step2(StepNanoStory):
 
 
 class Step3(StepNanoStory):
-    companion_speech = _("Eleanor: {{Bb:\"Do we want to unlock something so dangerous?\"}}")
+    companion_speech = "Eleanor: {{Bb:\"¿Quieres descubrir algo tan peligroso?\"}}"
 
     def _run_at_start(self):
         self.echo_hit = {
@@ -236,19 +251,23 @@ class Step3(StepNanoStory):
 class Step4(StepNanoStory):
     last_step = True
 
-    print_text = _("{{yb:\"Where would I find this masked swordmaster?\"}}"),
+    print_text = "{{yb:\"¿Dónde puedo encontrar a ese espadachín enmascarado?\"}}",
     story = [
-        _("Clara: {{Bb:\"He said the}} " +\
-        "{{bb:masked swordmaster}} {{Bb:lived in the woods.\"}}"),
+        (
+            "Clara: {{Bb:\"Él dijo que el}} "
+            "{{bb:espadachín enmascarado}} {{Bb:vivía en el bosque.\"}}"
+        ),
 
-        _("{{Bb:\"I presume he meant the woods just off the}} " +\
-        "{{bb:Windy Road}}{{Bb:? The one " +\
-        "near the farm and that funny lonely house outside town.\"}}"),
+        (
+            "{{Bb:\"Supongo que se refería al bosque que está justo al lado de la}} "
+            "{{lb:Carretera Ventosa}}{{Bb:. El que está cerca de la granja y de aquella "
+            "extraña casa solitaria fuera del pueblo.\"}}"
+        ),
 
-        _("\n{{gb:Press}} {{ob:Enter}} {{gb:to continue.}}")
+        "\n{{gb:Presiona}} {{ob:Enter}} {{gb:para continuar.}}"
     ]
 
-    companion_speech = _("Eleanor: {{Bb:\"A masked swordmaster??\"}}")
+    companion_speech = "Eleanor: {{Bb:\"¿¿Un espadachín enmascarado??\"}}"
 
     commands = []
 

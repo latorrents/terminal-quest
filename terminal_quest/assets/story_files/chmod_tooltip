@@ -6,22 +6,22 @@
   \_____|_|  |_|_|  |_|\____/|_____/
 
 
-This command gives you the power to lock and unlock files.
+Este comando te da el poder de bloquear y desbloquear archivos.
 
 
-Examples
+Ejemplos
 
-<span foreground="yellow">chmod +r dark-room</span>
-allows you to read the contents of dark-room/
+{{yb:chmod +r cuarto-oscuro}}
+te permite leer el contenido de cuarto-oscuro/
 
-<span foreground="yellow">chmod +w cage</span>
-allows you to write to the cage/ directory
+{{yb:chmod +w jaula}}
+te permite escribir en el directorio jaula/
 
-<span foreground="yellow">chmod +x locked-room</span>
-makes locked-room/ executable, so you can enter and view the contents
+{{yb:chmod +x cuarto-cerrado}}
+hace que cuarto-cerrado/ sea ejecutable, para que puedas entrar y ver lo que hay dentro
 
-<span foreground="yellow">chmod +x lighter</span>
-activates lighter executable, so you run it as a script.
+{{yb:chmod +x encendedor}}
+hace que el encendedor sea ejecutable, para que puedas usarlo como un script.
 
-<span foreground="yellow">chmod +rwx chest</span>
-gives you full access to the locked chest.
+{{yb:chmod +rwx cofre}}
+te da acceso total al cofre bloqueado.

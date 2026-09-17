@@ -3,13 +3,15 @@
      '_________________________________'|
        |                                |
        |                                |
-       |   You have one final task.     |
+       |   Tienes una última tarea.     |
        |                                |
-       |   There’s a firework and a     |
-       |   lighter in the locked-room.  |
+       |   Hay un fuego artificial y    |
+       |   un encendedor en el          |
+       |   cuarto-cerrado.              |
        |                                |
-       |   To set off the firework,     |
-       |   activate lighter using       |
+       |   Para lanzar el fuego         |
+       |   artificial, activa el        |
+       |   encendedor usando            |
        |                                |
        |          chmod +x              |
        |                                |

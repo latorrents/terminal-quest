@@ -6,10 +6,10 @@
  |______\_____|_|  |_|\____/
 
 
-This wonderful word gives you the power to speak.
+Este hechizo te permite hablar.
 
 
-Example
+Ejemplo
 
-<span foreground="yellow">echo hello</span>
-This will make you say hello
+{{yb:echo hola}}
+Te hará decir hola

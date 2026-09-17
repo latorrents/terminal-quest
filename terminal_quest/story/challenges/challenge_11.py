@@ -1,18 +1,19 @@
 # challenge_11.py
 #
 # Copyright (C) 2014-2016 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
 
 
 import os
-from linux_story.StepTemplate import StepTemplate
-from linux_story.story.terminals.terminal_cd import TerminalCd
-from linux_story.story.terminals.terminal_mv import TerminalMv
-from linux_story.step_helper_functions import unblock_commands
-from linux_story.common import tq_file_system, get_story_file
-from linux_story.helper_functions import wrap_in_box
+from terminal_quest.step import StepTemplate
+from terminal_quest.terminals import TerminalCd
+from terminal_quest.terminals import TerminalMv
+from terminal_quest.step_helpers import unblock_commands
+from terminal_quest.common import tq_file_system, get_story_file
+from terminal_quest.helpers import wrap_in_box
 
 
 class StepTemplateCd(StepTemplate):
@@ -29,19 +30,19 @@ class StepTemplateMv(StepTemplate):
 # The next few steps should be like the disappearing of people in the town
 class Step1(StepTemplateCd):
     story = [
-        _("You see a group of scared looking people and a {{bb:dog}}.\n"),
-        _("{{lb:Listen}} to what they have to say with {{yb:cat}}.\n")
+        "Ves un grupo de personas asustadas y un {{bb:perro}}.\n",
+        "{{lb:Escucha}} lo que tienen para decir con {{yb:cat}}.\n"
     ]
-    start_dir = "~/town/.hidden-shelter"
-    end_dir = "~/town/.hidden-shelter"
+    start_dir = "~/pueblo/.refugio-oculto"
+    end_dir = "~/pueblo/.refugio-oculto"
 
     # Use functions here
     all_commands = {
-        "cat Edith": _("{{wb:Edith:}} {{Bb:\"You found us! Edward, I told you to keep your voice down.\"}}"),
-        "cat Eleanor": _("{{wb:Eleanor:}} {{Bb:\"My mummy is scared the bell will find us if we go outside.\"}}"),
-        "cat Edward": _("{{wb:Edward:}} {{Bb:\"I'm sorry Edith...but I don't think they mean any harm. "
-                        "Maybe they could help us?\"}}"),
-        "cat dog": _("{{wb:Dog:}} {{Bb:\"Woof woof!\"}}")
+        "cat Edith": "{{wb:Edith:}} {{Bb:\"¡Nos encontraste! Edward, te dije que hablaras en voz baja.\"}}",
+        "cat Eleanor": "{{wb:Eleanor:}} {{Bb:\"Mi mami tiene miedo de que la campana nos encuentre si salimos.\"}}",
+        "cat Edward": ("{{wb:Edward:}} {{Bb:\"Lo siento, Edith...pero no creo que quiera hacernos daño. "
+                       "¿Tal vez pueda ayudarnos?\"}}"),
+        "cat perro": "{{wb:Perro:}} {{Bb:\"¡Guau guau!\"}}"
     }
 
     def check_command(self, line):
@@ -51,7 +52,7 @@ class Step1(StepTemplateCd):
 
         # If they enter ls, say Well Done
         if line == 'ls':
-            hint = _("{{gb:You look around.}}")
+            hint = "{{gb:Miras a tu alrededor.}}"
             self.send_hint(hint)
             return False
 
@@ -64,14 +65,14 @@ class Step1(StepTemplateCd):
             self.all_commands.pop(self._last_user_input, None)
 
             if len(self.all_commands) > 0:
-                hint += _("\n{{gb:Well done! Check on %d more.}}") % len(self.all_commands)
+                hint += "\n{{gb:¡Bien hecho! Fíjate en %d más.}}" % len(self.all_commands)
             else:
-                hint += _("\n{{gb:Press}} {{ob:Enter}} {{gb:to continue.}}")
+                hint += "\n{{gb:Presiona}} {{ob:Enter}} {{gb:para continuar.}}"
 
             self.send_hint(hint)
 
         else:
-            self.send_hint(_("{{rb:Use}} {{yb:%s}} {{rb:to progress.}}") % self.all_commands.keys()[0])
+            self.send_hint("{{rb:Usa}} {{yb:%s}} {{rb:para avanzar.}}" % list(self.all_commands.keys())[0])
 
         # Don't pass unless the user has emptied self.all_commands
         return False
@@ -82,29 +83,32 @@ class Step1(StepTemplateCd):
 
 class Step2(StepTemplateMv):
     story = [
-        _("Edward looks like he has something he wants to say to you.\n"),
-        _("{{wb:Edward:}} {{Bb:\"Hey! Can you help me?\"}}"),
+        "Parece que Edward tiene algo para decirte.\n",
+        "{{wb:Edward:}} {{Bb:\"¡Oye! ¿Puedes ayudarme?\"}}",
 
-        _("{{Bb:\"I've been trying to move this}} {{bb:apple}} {{Bb:into the}} {{bb:basket}}{{Bb:.\"}}"),
+        "{{Bb:\"He estado intentando mover esta}} {{bb:manzana}} {{Bb:dentro de la}} {{bb:canasta}}{{Bb:.\"}}",
 
-        _("{{Bb:\"I was told the command}} {{yb:mv apple basket/}} {{Bb:would make it happen, but I can't seem to make "
-          "it work. Do you have the power to make it happen?\"}}\n"),
+        ("{{Bb:\"Me dijeron que el comando}} {{yb:mv manzana canasta/}} {{Bb:lo lograría, pero no consigo que "
+     "funcione. ¿Tienes tú el poder para hacerlo?\"}}\n"),
     ]
 
     story += wrap_in_box([
-        _("{{gb:New Power}}: to {{lb:move}} objects, type {{yb:mv}}"),
-        _("and the object name."),
+        "{{gb:Nuevo Poder}}: para {{lb:mover}} objetos, escribe {{yb:mv}}",
+        "y el nombre del objeto.",
     ])
 
-    start_dir = "~/town/.hidden-shelter"
-    end_dir = "~/town/.hidden-shelter"
+    start_dir = "~/pueblo/.refugio-oculto"
+    end_dir = "~/pueblo/.refugio-oculto"
     commands = [
-        "mv apple basket",
-        "mv apple basket/"
+        "mv manzana canasta",
+        "mv manzana canasta/"
     ]
     highlighted_commands = ['mv']
     hints = [
-        _("{{rb:Use the command}} {{yb:mv apple basket/}} {{rb:to move the apple into the basket.}}")
+        (
+            "{{rb:Usa el comando}} {{yb:mv manzana canasta/}} {{rb:para mover la manzana dentro "
+            "de la canasta.}}"
+        )
     ]
 
     def block_command(self, line):
@@ -116,21 +120,21 @@ class Step2(StepTemplateMv):
 
 class Step3(StepTemplateMv):
     story = [
-        _("Check you've managed to move the {{bb:apple}}. {{lb:Look around}} in this directory.\n")
+        "Asegúrate de que has podido mover la {{bb:manzana}}. {{lb:Mira alrededor}} para comprobarlo.\n"
     ]
-    start_dir = "~/town/.hidden-shelter"
-    end_dir = "~/town/.hidden-shelter"
+    start_dir = "~/pueblo/.refugio-oculto"
+    end_dir = "~/pueblo/.refugio-oculto"
     commands = [
         "ls",
         "ls -a"
     ]
     hints = [
-        _("{{rb:Use}} {{yb:ls}} {{rb:to look around.}}")
+        "{{rb:Usa}} {{yb:ls}} {{rb:para mirar alrededor.}}"
     ]
     file_list = [
         {
-            "path": "~/town/.hidden-shelter/basket/apple",
-            "contents": get_story_file("apple"),
+            "path": "~/pueblo/.refugio-oculto/canasta/manzana",
+            "contents": get_story_file("manzana"),
             "type": "file"
         }
     ]
@@ -141,19 +145,22 @@ class Step3(StepTemplateMv):
 
 class Step4(StepTemplateMv):
     story = [
-        _("{{gb:Nice work! The apple isn't in this directory anymore.}}\n"),
-        _("{{wn:Now check the apple is in the}} {{bb:basket}} {{wn:using}} {{yb:ls}}{{wn:.}}\n")
+        "{{gb:¡Buen trabajo! La manzana fue movida con éxito.}}\n",
+        (
+            "{{wn:Ahora asegúrate de que la manzana esté en la}} {{bb:canasta}} {{wn:usando}} "
+            "{{yb:ls}}{{wn:.}}\n"
+        )
     ]
-    start_dir = "~/town/.hidden-shelter"
-    end_dir = "~/town/.hidden-shelter"
+    start_dir = "~/pueblo/.refugio-oculto"
+    end_dir = "~/pueblo/.refugio-oculto"
     commands = [
-        "ls basket",
-        "ls basket/",
-        "ls -a basket",
-        "ls -a basket/"
+        "ls canasta",
+        "ls canasta/",
+        "ls -a canasta",
+        "ls -a canasta/"
     ]
     hints = [
-        _("{{rb:Use the command}} {{yb:ls basket/}} {{rb:to look in the basket.}}")
+        "{{rb:Usa el comando}} {{yb:ls canasta/}} {{rb:para mirar dentro de la canasta.}}"
     ]
 
     def next(self):
@@ -162,25 +169,30 @@ class Step4(StepTemplateMv):
 
 class Step5(StepTemplateMv):
     story = [
-        _("{{gb:Excellent, you moved the apple into the basket!}}"),
-        _("\n{{wb:Edward:}} {{Bb:\"Wow, you did it!\"}}"),
-        _("{{Bb:\"Can you also move the}} {{bb:apple}} {{Bb:from the}} {{bb:basket}} "
-          "{{Bb:back to here?\"}}\n")
+        "{{gb:¡Excelente, la manzana está en la canasta!}}",
+        "\n{{wb:Edward:}} {{Bb:\"¡Guau, lo lograste!\"}}",
+        ("{{Bb:\"¿Puedes también mover la}} {{bb:manzana}} {{Bb:de la}} {{bb:canasta}} "
+     "{{Bb:de vuelta aquí?\"}}\n")
     ]
-    start_dir = "~/town/.hidden-shelter"
-    end_dir = "~/town/.hidden-shelter"
+    start_dir = "~/pueblo/.refugio-oculto"
+    end_dir = "~/pueblo/.refugio-oculto"
     commands = [
-        "mv basket/apple .",
-        "mv basket/apple ./"
+        "mv canasta/manzana .",
+        "mv canasta/manzana ./"
     ]
     hints = [
-        _("{{rb:Use the command}} {{yb:mv basket/apple ./}} {{rb:to move the apple from the basket to your current "
-          "position}} {{bb:./}}")
+        (
+            "{{rb:Usa el comando}} {{yb:mv canasta/manzana ./}} {{rb:para mover la manzana de la "
+            "canasta a tu posición actual}} {{bb:./}}"
+        )
     ]
 
     def block_command(self, line):
-        if line == "mv basket/apple":
-            hint = _("{{gb:Nearly! The full command is}} {{yb:mv basket/apple ./}} {{gb:- don't forget the dot!}}")
+        if line == "mv canasta/manzana":
+            hint = (
+                "{{gb:¡Estás cerca! El comando completo es}} {{yb:mv canasta/manzana ./}} {{gb:- "
+                "¡no olvides el punto!}}"
+            )
             self.send_hint(hint)
             return True
         else:
@@ -192,29 +204,32 @@ class Step5(StepTemplateMv):
 
 class Step6(StepTemplateMv):
     story = [
-        _("{{wb:Edith:}} {{Bb:\"You should stop playing with that, that's the last of our food.\"}}"),
-        _("{{Bb:\"Ah! The dog ran outside!\"}}"),
-        _("{{wb:Eleanor:}} {{Bb:\"Doggy!\"}}"),
-        _("{{wb:Edith:}} {{Bb:\"No, honey! Don't go outside!\"}}"),
-        _("\n{{bb:Eleanor}} follows her {{bb:dog}} and leaves the {{bb:.hidden-shelter}}."),
-        _("{{lb:Look around}} to check this.\n")
+        (
+            "{{wb:Edith:}} {{Bb:\"Deberías dejar de jugar con eso, es la última comida que "
+            "nos queda.\"}}"
+        ),
+        "{{Bb:\"¡Ah! ¡El perro se escapó!\"}}",
+        "{{wb:Eleanor:}} {{Bb:\"¡Perrito!\"}}",
+        "{{wb:Edith:}} {{Bb:\"¡No, querido! ¡No salgas!\"}}",
+        "\n{{bb:Eleanor}} sigue a su {{bb:perro}} y sale del {{bb:.refugio-oculto}}.",
+        "{{lb:Mira alrededor}} para ver si está.\n"
     ]
     file_list = [
-        {"path": "~/town/Eleanor"},
-        {"path": "~/town/dog"}
+        {"path": "~/pueblo/Eleanor"},
+        {"path": "~/pueblo/perro"}
     ]
     deleted_items = [
-        '~/town/.hidden-shelter/Eleanor',
-        '~/town/.hidden-shelter/dog'
+        '~/pueblo/.refugio-oculto/Eleanor',
+        '~/pueblo/.refugio-oculto/perro'
     ]
 
-    start_dir = "~/town/.hidden-shelter"
-    end_dir = "~/town/.hidden-shelter"
+    start_dir = "~/pueblo/.refugio-oculto"
+    end_dir = "~/pueblo/.refugio-oculto"
     commands = [
         "ls", "ls -a"
     ]
     hints = [
-        _("{{rb:Look around using}} {{yb:ls}} {{rb:to check if Eleanor is here.}}")
+        "{{rb:Mira alrededor usando}} {{yb:ls}} {{rb:para ver si Eleanor está allí.}}"
     ]
 
     def next(self):
@@ -223,21 +238,21 @@ class Step6(StepTemplateMv):
 
 class Step7(StepTemplateMv):
     story = [
-        _("{{wb:Edith:}} {{Bb:\"No! Honey, come back!!!\"}}"),
-        _("{{Bb:\"You, please, save my little girl!\"}}\n"),
+        "{{wb:Edith:}} {{Bb:\"¡No! ¡Cariño, vuelve!\"}}",
+        "{{Bb:\"¡Tú, por favor, salva a mi niña!\"}}\n",
 
-        _("First, {{lb:look outside}} for {{bb:Eleanor}} with {{yb:ls ../}}"),
+        "Primero, {{lb:mira afuera}} para ver a {{bb:Eleanor}} con {{yb:ls ../}}",
     ]
-    start_dir = "~/town/.hidden-shelter"
+    start_dir = "~/pueblo/.refugio-oculto"
     end_dir = ""
     commands = [
         "ls ..",
         "ls ../",
-        "ls ~/town",
-        "ls ~/town/"
+        "ls ~/pueblo",
+        "ls ~/pueblo/"
     ]
     hints = [
-        _("{{rb:Look in the town directory by using either}} {{yb:ls ../}} {{rb:or}} {{yb:ls ~/town/}}")
+        "{{rb:Mira en el pueblo usando}} {{yb:ls ../}} {{rb:o}} {{yb:ls ~/pueblo/}}"
     ]
 
     def next(self):
@@ -246,24 +261,27 @@ class Step7(StepTemplateMv):
 
 class Step8(StepTemplateMv):
     story = [
-        _("Now {{lb:move}} {{bb:Eleanor}} from the {{bb:town}} outside {{bb:..}} to your current position {{bb:.}}\n")
+        "Ahora {{lb:mueve}} a {{bb:Eleanor}} del {{bb:pueblo}} {{bb:..}} a tu posición actual{{bb:.}}\n"
     ]
-    start_dir = "~/town/.hidden-shelter"
-    end_dir = "~/town/.hidden-shelter"
+    start_dir = "~/pueblo/.refugio-oculto"
+    end_dir = "~/pueblo/.refugio-oculto"
     commands = [
         "mv ../Eleanor .",
         "mv ../Eleanor ./",
-        "mv ~/town/Eleanor ~/town/.hidden-shelter",
-        "mv ~/town/Eleanor ~/town/.hidden-shelter/",
-        "mv ~/town/Eleanor .",
-        "mv ~/town/Eleanor ./",
-        "mv ../Eleanor ~/town/.hidden-shelter",
-        "mv ../Eleanor ~/town/.hidden-shelter/",
+        "mv ~/pueblo/Eleanor ~/pueblo/.refugio-oculto",
+        "mv ~/pueblo/Eleanor ~/pueblo/.refugio-oculto/",
+        "mv ~/pueblo/Eleanor .",
+        "mv ~/pueblo/Eleanor ./",
+        "mv ../Eleanor ~/pueblo/.refugio-oculto",
+        "mv ../Eleanor ~/pueblo/.refugio-oculto/",
     ]
     hints = [
-        _("{{rb:Quick! Use}} {{yb:mv ../Eleanor ./}} {{rb:to move the little girl back to safety.}}")
+        (
+            "{{rb:¡Apúrate! Usa}} {{yb:mv ../Eleanor ./}} {{rb:para mover a la niña a un "
+            "lugar seguro.}}"
+        )
     ]
-    girl_file = os.path.join(tq_file_system, '~/town/.hidden-shelter/Eleanor')
+    girl_file = os.path.join(tq_file_system, '~/pueblo/.refugio-oculto/Eleanor')
 
     def block_command(self, line):
         return unblock_commands(line, self.commands)

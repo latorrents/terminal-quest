@@ -1,15 +1,16 @@
 # kitchen.py
 #
 # Copyright (C) 2014-2017 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 
 
-from linux_story.common import get_story_file
+from terminal_quest.common import get_story_file
 
 
 basket = {
-    "name": "basket",
+    "name": "canasta",
     "challenges": [
         {
             "challenge": 0,
@@ -28,14 +29,14 @@ basket = {
     ],
     "children": [
         {
-            "name": "empty-bottle",
-            "contents": get_story_file("empty-bottle")
+            "name": "botella-vacia",
+            "contents": get_story_file("botella-vacia")
         }
     ]
 }
 
 kitchen = {
-    "name": "kitchen",
+    "name": "cocina",
     "children": [
         basket,
         {
@@ -54,8 +55,8 @@ kitchen = {
             ]
         },
         {
-            "name": "cake",
-            "contents": get_story_file("cake"),
+            "name": "pastel",
+            "contents": get_story_file("pastel"),
             "challenges": [
                 {
                     "challenge": 0,
@@ -84,35 +85,35 @@ kitchen = {
             ]
         },
         {
-            "name": "grapes",
-            "contents": get_story_file("grapes")
+            "name": "uvas",
+            "contents": get_story_file("uvas")
         },
         {
-            "name": "milk",
-            "contents": get_story_file("milk")
+            "name": "leche",
+            "contents": get_story_file("leche")
         },
         {
-            "name": "pie",
-            "contents": get_story_file("pie")
+            "name": "tarta",
+            "contents": get_story_file("tarta")
         },
         {
             "name": "sandwich",
             "contents": get_story_file("sandwich")
         },
         {
-            "name": "newspaper",
-            "contents": get_story_file("newspaper")
+            "name": "periodico",
+            "contents": get_story_file("periodico")
         },
         {
-            "name": "oven",
-            "contents": get_story_file("oven")
+            "name": "horno",
+            "contents": get_story_file("horno")
         },
         {
-            "name": "table",
-            "contents": get_story_file("table")
+            "name": "mesa",
+            "contents": get_story_file("mesa")
         },
         {
-            "name": "note",
+            "name": "nota",
             "contents": get_story_file("note_kitchen"),
             "challenges": [
                 {
@@ -131,8 +132,8 @@ kitchen = {
             ]
         },
         {
-            "name": "Mum",
-            "contents": get_story_file("Mum"),
+            "name": "Mama",
+            "contents": get_story_file("Mama"),
             "challenges": [
                 {
                     "challenge": 0,

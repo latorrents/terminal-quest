@@ -1,11 +1,12 @@
 # challenge_16.py
 #
 # Copyright (C) 2014-2016 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
-from linux_story.StepTemplate import StepTemplate
-from linux_story.story.terminals.terminal_mv import TerminalMv
+from terminal_quest.step import StepTemplate
+from terminal_quest.terminals import TerminalMv
 
 
 class StepTemplateMv(StepTemplate):
@@ -17,25 +18,25 @@ class StepTemplateMv(StepTemplate):
 
 class Step1(StepTemplateMv):
     story = [
-        _("There is an old antique {{bb:.chest}} hidden under your bed, which you don't remember seeing before.\n"),
-        _("You walk into {{bb:my-room}} to have a closer look.\n"),
-        _("{{lb:Peer inside}} the {{bb:.chest}} and see what it contains.")
+        "Hay un antiguo {{bb:.cofre}} oculto debajo de tu cama, no recuerdas haberlo visto antes.\n",
+        "Entras en {{bb:mi-cuarto}} para mirar más de cerca.\n",
+        "{{lb:Mira dentro}} del {{bb:.cofre}} y fíjate qué contiene."
     ]
 
-    start_dir = "~/my-house/my-room"
-    end_dir = "~/my-house/my-room"
+    start_dir = "~/mi-casa/mi-cuarto"
+    end_dir = "~/mi-casa/mi-cuarto"
 
     commands = [
-        'ls .chest',
-        'ls .chest/',
-        'ls -a .chest',
-        'ls -a .chest/',
-        'ls .chest/ -a',
-        'ls .chest -a'
+        'ls .cofre',
+        'ls .cofre/',
+        'ls -a .cofre',
+        'ls -a .cofre/',
+        'ls .cofre/ -a',
+        'ls .cofre -a'
     ]
 
     hints = [
-        _("{{rb:Use}} {{yb:ls .chest}} {{rb:to look inside the .chest}}")
+        "{{rb:Usa}} {{yb:ls .cofre}} {{rb:para mirar dentro del .cofre}}"
     ]
 
     def next(self):
@@ -44,22 +45,24 @@ class Step1(StepTemplateMv):
 
 class Step2(StepTemplateMv):
     story = [
-        _("There are some scrolls, similar to what you found in the {{bb:.hidden-shelter}}. "
-          "They could contain more powerful commands.\n"),
-        _("Use {{yb:cat}} to {{lb:read}} one of the scrolls.\n")
+        (
+            "Hay algunos pergaminos, parecidos al que encontraste en el {{bb:.refugio-oculto}}. "
+            "Podrían contener comandos más poderosos.\n"
+        ),
+        "Usa {{yb:cat}} para {{lb:leer}} uno de los pergaminos.\n"
     ]
 
-    start_dir = "~/my-house/my-room"
-    end_dir = "~/my-house/my-room"
+    start_dir = "~/mi-casa/mi-cuarto"
+    end_dir = "~/mi-casa/mi-cuarto"
 
     commands = [
-        'cat .chest/LS',
-        'cat .chest/CAT',
-        'cat .chest/CD'
+        'cat .cofre/LS',
+        'cat .cofre/CAT',
+        'cat .cofre/CD'
     ]
 
     hints = [
-        _("{{rb:Use}} {{yb:cat .chest/LS}} {{rb:to read the LS scroll.}}")
+        "{{rb:Usa}} {{yb:cat .cofre/LS}} {{rb:para leer el pergamino LS.}}"
     ]
 
     def next(self):
@@ -68,22 +71,22 @@ class Step2(StepTemplateMv):
 
 class Step3(StepTemplateMv):
     story = [
-        _("I wonder if there's anything else hidden in this {{lb:.chest}}?"),
-        _("Have a {{lb:closer look}} for some more items.")
+        "¿Habrá algo más oculto en este {{lb:.cofre}}?",
+        "{{lb:Mira más de cerca}} para encontrar otros objetos."
     ]
 
-    start_dir = "~/my-house/my-room"
-    end_dir = "~/my-house/my-room"
+    start_dir = "~/mi-casa/mi-cuarto"
+    end_dir = "~/mi-casa/mi-cuarto"
 
     hints = [
-        _("{{rb:Use}} {{yb:ls -a .chest}} {{rb:to see if there are any hidden items in the chest.}}")
+        "{{rb:Usa}} {{yb:ls -a .cofre}} {{rb:para encontrar otros objetos ocultos en el cofre.}}"
     ]
 
     commands = [
-        "ls -a .chest",
-        "ls -a .chest/",
-        'ls .chest/ -a',
-        'ls .chest -a'
+        "ls -a .cofre",
+        "ls -a .cofre/",
+        'ls .cofre/ -a',
+        'ls .cofre -a'
     ]
 
     def next(self):
@@ -92,19 +95,22 @@ class Step3(StepTemplateMv):
 
 class Step4(StepTemplateMv):
     story = [
-        _("You suddenly notice a tiny stained {{lb:.note}}, scrumpled in the corner of the {{lb:.chest}}."),
-        _("What does it say?\n")
+        (
+            "De repente encuentras una pequeña {{lb:.nota}} manchada y arrugada en la "
+            "esquina del {{lb:.cofre}}."
+        ),
+        "¿Qué dice?\n"
     ]
 
-    start_dir = "~/my-house/my-room"
-    end_dir = "~/my-house/my-room"
+    start_dir = "~/mi-casa/mi-cuarto"
+    end_dir = "~/mi-casa/mi-cuarto"
 
     hints = [
-        _("{{rb:Use}} {{yb:cat .chest/.note}} {{rb:to read the}} {{lb:.note}}{{rb:.}}")
+        "{{rb:Usa}} {{yb:cat .cofre/.nota}} {{rb:para leer la}} {{lb:.nota}}{{rb:.}}"
     ]
 
     commands = [
-        "cat .chest/.note"
+        "cat .cofre/.nota"
     ]
 
     def next(self):

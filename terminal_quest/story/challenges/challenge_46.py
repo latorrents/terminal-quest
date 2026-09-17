@@ -1,16 +1,17 @@
 #!/usr/bin/env python
 #
 # Copyright (C) 2014-2017 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
-from linux_story.Animation import Animation
-from linux_story.StepTemplate import StepTemplate
-from linux_story.common import get_story_file, get_username
-from linux_story.helper_functions import wrap_in_box
-from linux_story.step_helper_functions import unblock_cd_commands
-from linux_story.story.terminals.terminal_sudo import TerminalSudo
-from linux_story.story.terminals.terminal_rm import TerminalRm
+from terminal_quest.animation import Animation
+from terminal_quest.step import StepTemplate
+from terminal_quest.common import get_story_file, get_username
+from terminal_quest.helpers import wrap_in_box
+from terminal_quest.step_helpers import unblock_cd_commands
+from terminal_quest.terminals import TerminalSudo
+from terminal_quest.terminals import TerminalRm
 
 
 class StepTemplateRm(StepTemplate):
@@ -23,32 +24,32 @@ class StepTemplateSudo(StepTemplate):
 
 class Step1(StepTemplateRm):
     story = [
-        _("{{gb:Brilliant! You saved all the villagers.}}"),
-        _("You are alone with the Rabbit and the bell. The Rabbit turns angrily and starts running towards you."),
+        "{{gb:¡Brillante! Salvaste a todos los aldeanos.}}",
+        "Estás solo con el Conejo y la campana. El Conejo se da vuelta furioso y empieza a correr hacia ti.",
         "",
-        _("Time to end this. {{lb:Remove the bell.}}")
+        "Es hora de terminar con esto. {{lb:Elimina la campana.}}"
     ]
 
-    start_dir = "~/woods/thicket/rabbithole"
-    end_dir = "~/woods/thicket/rabbithole"
+    start_dir = "~/bosque/matorral/madriguera"
+    end_dir = "~/bosque/matorral/madriguera"
     commands = [
-        "rm bell"
+        "rm campana"
     ]
     hints = [
-        _("{{rb:Use}} {{yb:rm bell}} {{rb:to remove the bell.}}")
+        "{{rb:Usa}} {{yb:rm campana}} {{rb:para eliminar la campana.}}"
     ]
     dark_theme = True
 
     def block_command(self, line):
-        if line == "rm Rabbit":
-            print _("The rabbit dodged the attack!")
+        if line == "rm Conejo":
+            print("¡El conejo esquivó el ataque!")
             return True
         return StepTemplateRm.block_command(self, line)
 
     def check_command(self, line):
-        if self.get_last_user_input() == "rm Rabbit":
+        if self.get_last_user_input() == "rm Conejo":
             self.send_hint(
-                _("{{lb:The rabbit dodged the attack!}} {{rb:Remove the bell with}} {{yb:rm bell}}")
+                "{{lb:¡El conejo esquivó el ataque!}} {{rb:Elimina la campana con}} {{yb:rm campana}}"
             )
             return
 
@@ -63,39 +64,39 @@ class Step1(StepTemplateRm):
 
 class Step2(StepTemplateRm):
     story = [
-        _("The rabbit stops. The anger behind its eyes fades, replaced with confusion."),
+        "El conejo se detiene. La furia de sus ojos se desvanece y en su lugar aparece la confusión.",
         "",
-        _("The Swordmaster runs into the {{bb:rabbithole}}."),
+        "El Espadachin entra corriendo en la {{bb:madriguera}}.",
         "",
-        _("Swordmaster: {{Bb:\"You did it! The rabbit is free from the cursed bell, and you saved everyone!\"}}"),
+        "Espadachin: {{Bb:\"¡Lo lograste! El conejo está libre de la campana maldita, ¡y salvaste a todos!\"}}",
         "",
-        _("{{Bb:\"Have you looked inside the}} {{bb:chest}} {{Bb:the rabbit stole? It's right here.\"}}")
+        "{{Bb:\"¿Ya miraste dentro del}} {{bb:cofre}} {{Bb:que robó el conejo? Está justo aquí.\"}}"
     ]
-    start_dir = "~/woods/thicket/rabbithole"
-    end_dir = "~/woods/thicket/rabbithole"
+    start_dir = "~/bosque/matorral/madriguera"
+    end_dir = "~/bosque/matorral/madriguera"
     commands = [
-        "cat chest/scroll"
+        "cat cofre/pergamino"
     ]
     hints = [
-        _("{{rb:Use}} {{yb:cat chest/scroll}} {{rb:to examine the contents.}}")
+        "{{rb:Usa}} {{yb:cat cofre/pergamino}} {{rb:para examinar el contenido.}}"
     ]
     deleted_items = [
-        "~/woods/thicket/rabbithole/Rabbit"
+        "~/bosque/matorral/madriguera/Conejo"
     ]
 
     file_list = [
         {
-            "path": "~/woods/thicket/rabbithole/Swordmaster",
+            "path": "~/bosque/matorral/madriguera/Espadachin",
             "contents": get_story_file("swordmaster-without-sword")
         },
         {
-            "path": "~/woods/thicket/rabbithole/Rabbit",
+            "path": "~/bosque/matorral/madriguera/Conejo",
             "contents": get_story_file("Rabbit-cute")
         }
     ]
 
     def check_command(self, line):
-        if line == "cat chest/torn-note":
+        if line == "cat cofre/nota-rota":
             return False
         return StepTemplateRm.check_command(self, line)
 
@@ -105,28 +106,28 @@ class Step2(StepTemplateRm):
 
 class Step3(StepTemplateSudo):
     story = wrap_in_box([
-        _("{{gb:New Power:}} Use {{yb:sudo}} to"),
-        _(" {{lb:make yourself into a Super User.}}")
+        "{{gb:Nuevo Poder:}} Usa {{yb:sudo}} para",
+        " {{lb:convertirte en Super Usuario.}}"
     ])
     story += [
-        _("Try it out. Use {{yb:sudo ls}} to look around."),
-        _("You will be asked for a password."),
+        "Pruébalo. Usa {{yb:sudo ls}} para mirar alrededor.",
+        "Te pedirá una contraseña.",
         "",
-        _("Swordmaster: {{Bb:The Rabbit couldn't guess the password.}}"),
-        _("{{Bb:Can you figure it out?}}"),
+        "Espadachin: {{Bb:El Conejo no pudo adivinar la contraseña.}}",
+        "{{Bb:¿Puedes descubrirla tú?}}",
         "",
-        _("Tip: The password will be invisible to keep it secret. It will look like you've typed nothing, so you need to be careful.")
+        "Consejo: La contraseña será invisible para mantenerla en secreto. Parecerá que no escribiste nada, así que ten cuidado."
     ]
     commands = [
         "sudo ls",
         "sudo ls .",
         "sudo ls ./"
     ]
-    start_dir = "~/woods/thicket/rabbithole"
-    end_dir = "~/woods/thicket/rabbithole"
+    start_dir = "~/bosque/matorral/madriguera"
+    end_dir = "~/bosque/matorral/madriguera"
     hints = [
-        "{{rb:Try again! Use}} {{yb:sudo ls}}{{rb:. The default password is}} {{yb:kano}}"
-        "{{rb:. If you've changed the password, try that here instead.}}"
+        "{{rb:¡Inténtalo de nuevo! Usa}} {{yb:sudo ls}}{{rb:. La contraseña predeterminada es}} {{yb:password}}"
+        "{{rb:. Si cambiaste la contraseña, prueba con esa.}}"
     ]
 
     def next(self):
@@ -135,23 +136,23 @@ class Step3(StepTemplateSudo):
 
 class Step4(StepTemplateSudo):
     story = [
-        _("Swordmaster: {{Bb:\"Wow, you have some skills. You may not have noticed the change, but you became a "
-          "Super User for an instant!}}"),
-        _("{{Bb:Knowing this command gives you the power to do things when all else fails.\"}}"),
+        "Espadachin: {{Bb:\"Vaya, sí que tienes talento. Quizás no notaste el cambio, pero ¡te convertiste en "
+        "Super Usuario por un instante!}}",
+        "{{Bb:Conocer este comando te da el poder de hacer cosas cuando todo lo demás falla.\"}}",
         "",
-        _("{{gb:Well done, you've learnt the power of}} {{yb:sudo}}{{gb:!}}"),
+        "{{gb:¡Bien hecho, aprendiste el poder de}} {{yb:sudo}}{{gb:!}}",
         "",
-        _("Swordmaster: {{Bb:\"You should turn into a Super User and}} {{lb:remove}} {{Bb:this chest so it cannot fall into enemy hands again.}}"),
-        _("{{Bb:To delete the whole chest, use}} {{yb:sudo rm -r chest/}}{{Bb:. The -r flag is used for directories.\"}}")
+        "Espadachin: {{Bb:\"Deberías convertirte en Super Usuario y}} {{lb:eliminar}} {{Bb:este cofre para que no vuelva a caer en manos enemigas.}}",
+        "{{Bb:Para borrar el cofre entero, usa}} {{yb:sudo rm -r cofre/}}{{Bb:. La opción -r se usa para directorios.\"}}"
     ]
     commands = [
-        "sudo rm -r chest",
-        "sudo rm -r chest/"
+        "sudo rm -r cofre",
+        "sudo rm -r cofre/"
     ]
-    start_dir = "~/woods/thicket/rabbithole"
-    end_dir = "~/woods/thicket/rabbithole"
+    start_dir = "~/bosque/matorral/madriguera"
+    end_dir = "~/bosque/matorral/madriguera"
     hints = [
-        "{{rb:Use}} {{yb:sudo rm -r chest}} {{rb:to remove the chest and its contents.}}"
+        "{{rb:Usa}} {{yb:sudo rm -r cofre}} {{rb:para eliminar el cofre y su contenido.}}"
     ]
 
     def next(self):
@@ -160,23 +161,23 @@ class Step4(StepTemplateSudo):
 
 class Step5(StepTemplateSudo):
     story = [
-        _("Swordmaster: {{Bb:\"Well done!\"}}"),
-        _("{{Bb:\"Let's go back to}} {{bb:~/town}}{{Bb:. Everyone will want to thank you!\"}}")
+        "Espadachin: {{Bb:\"¡Bien hecho!\"}}",
+        "{{Bb:\"Volvamos al}} {{bb:~/pueblo}}{{Bb:. ¡Todos querrán darte las gracias!\"}}"
     ]
 
-    start_dir = "~/woods/thicket/rabbithole"
-    end_dir = "~/town"
+    start_dir = "~/bosque/matorral/madriguera"
+    end_dir = "~/pueblo"
     file_list = [
         {
-            "path": "~/town/Ruth",
+            "path": "~/pueblo/Ruth",
             "contents": get_story_file("Ruth")
         },
         {
-            "path": "~/town/Clara",
+            "path": "~/pueblo/Clara",
             "contents": get_story_file("Clara")
         },
         {
-            "path": "~/town/Eleanor",
+            "path": "~/pueblo/Eleanor",
             "contents": get_story_file("Eleanor")
         }
     ]
@@ -190,33 +191,33 @@ class Step5(StepTemplateSudo):
 
 class Step6(StepTemplateSudo):
     story = [
-        _("The towns people cheer as you walk into town."),
-        _("{{lb:Look around.}}")
+        "La gente del pueblo te aclama mientras entras al pueblo.",
+        "{{lb:Mira alrededor.}}"
     ]
     commands = [
         "ls"
     ]
-    start_dir = "~/town"
-    end_dir = "~/town"
+    start_dir = "~/pueblo"
+    end_dir = "~/pueblo"
 
     hints = [
-        _("{{rb:Use}} {{yb:ls}} {{rb:to look around.}}")
+        "{{rb:Usa}} {{yb:ls}} {{rb:para mirar alrededor.}}"
     ]
 
     file_list = [
         {
-            "path": "~/town/Rabbit",
+            "path": "~/pueblo/Conejo",
             "contents": get_story_file("Rabbit-cute")
         },
         {
-            "path": "~/town/Swordmaster",
+            "path": "~/pueblo/Espadachin",
             "contents": get_story_file("swordmaster-without-sword")
         }
     ]
 
     deleted_items = [
-        "~/woods/thicket/rabbithole/Rabbit",
-        "~/woods/thicket/rabbithole/Swordmaster"
+        "~/bosque/matorral/madriguera/Conejo",
+        "~/bosque/matorral/madriguera/Espadachin"
     ]
 
     def next(self):
@@ -225,45 +226,45 @@ class Step6(StepTemplateSudo):
 
 class Step7(StepTemplateSudo):
     story = [
-        _("You see your Mum, Dad and everyone else you met on your adventure. They stand around you in the street "
-          "clapping and cheering."),
-        _("{{lb:Talk to everyone.}}")
+        "Ves a tu Mama, a tu Papa y a todos los que conociste en tu aventura. Te rodean en la calle "
+        "aplaudiendo y festejando.",
+        "{{lb:Habla con todos.}}"
     ]
-    start_dir = "~/town"
-    end_dir = "~/town"
+    start_dir = "~/pueblo"
+    end_dir = "~/pueblo"
 
     hints = [
-        _("")
+        ""
     ]
 
     all_commands = {
-        "cat Mum": _("Mum: {{Bb:\"You saved Folderton! You're a hero!\"}}"),
-        "cat Dad": _("Dad: {{Bb:\"I'm so proud of you, " + get_username() + ".\"}}"),
-        "cat Mayor": _("Mayor: {{Bb:\"Now that you're a Super User, you must always remember:\n"
-                       " 1. Respect the privacy of others.\n"
-                       " 2. Think before you type.\n"
-                       " 3. With great power comes great responsibility.\"}}")
+        "cat Mama": "Mama: {{Bb:\"¡Salvaste Folderton! ¡Eres un héroe!\"}}",
+        "cat Papa": "Papa: {{Bb:\"Estoy muy orgulloso de ti, " + get_username() + ".\"}}",
+        "cat Alcalde": "Alcalde: {{Bb:\"Ahora que eres Super Usuario, siempre debes recordar:\n"
+                       " 1. Respeta la privacidad de los demás.\n"
+                       " 2. Piensa antes de escribir.\n"
+                       " 3. Un gran poder conlleva una gran responsabilidad.\"}}"
     }
 
     other_commands = {
-        "cat grumpy-man": _("grumpy-man: {{Bb:\"Ruth told me about how you helped hide her and our animals. "
-                            "Thank you!}}"),
-        "cat Ruth": _("Ruth: {{Bb:\"If you ever come by the farm, you can have a glass of milk on us!\"}}"),
-        "cat little-boy": _("little-boy: {{Bb:\"Mummy is safe!\"}}"),
-        "cat young-girl": _("young-girl: {{Bb:\"We found Mummy. I'm really glad she's safe.\"}}"),
-        "cat Edith": _("Edith: {{Bb:\"I'm so glad Eleanor is safe! Thank you for saving Edward and I.\"}}"),
-        "cat Edward": _("Edward: {{Bb:\"Now all this is over, we can go back to our house and stop living in "
-                        "hiding.\"}}"),
-        "cat Eleanor": _("Eleanor: {{Bb:\"You found my parents! I knew they'd be alright.\"}}"),
-        "cat dog": _("dog: {{Bb:\"Woof woof!\"}}"),
-        "cat Bernard": _("Bernard: {{Bb:\"Who is that Masked Swordmaster? He looks oddly familiar.\"}}"),
-        "cat Clara": _(
-            "Clara: {{Bb:\"Eleanor helped me feel brave, but I'm so happy you found my children}} {{bb:young-girl}} {{Bb:and}} "
-            "{{bb:little-boy}}{{Bb:! Thank you " + get_username() + "!\"}}"
+        "cat hombre-enojado": "hombre-enojado: {{Bb:\"Ruth me contó cómo la ayudaste a esconderse a ella y a nuestros animales. "
+                            "¡Gracias!}}",
+        "cat Ruth": "Ruth: {{Bb:\"Si alguna vez pasas por la granja, ¡te invitamos un vaso de leche!\"}}",
+        "cat chico": "chico: {{Bb:\"¡Mamá está a salvo!\"}}",
+        "cat chica": "chica: {{Bb:\"Encontramos a Mamá. Me alegra mucho que esté a salvo.\"}}",
+        "cat Edith": "Edith: {{Bb:\"¡Me alegra tanto que Eleanor esté a salvo! Gracias por salvarnos a Edward y a mí.\"}}",
+        "cat Edward": "Edward: {{Bb:\"Ahora que todo esto terminó, podemos volver a nuestra casa y dejar de vivir "
+                        "escondidos.\"}}",
+        "cat Eleanor": "Eleanor: {{Bb:\"¡Encontraste a mis papás! Sabía que estarían bien.\"}}",
+        "cat perro": "perro: {{Bb:\"¡Guau guau!\"}}",
+        "cat Bernard": "Bernard: {{Bb:\"¿Quién es ese Espadachin Enmascarado? Me resulta extrañamente familiar.\"}}",
+        "cat Clara": (
+            "Clara: {{Bb:\"Eleanor me ayudó a ser valiente, ¡pero estoy tan feliz de que encontraras a mis hijos}} {{bb:chica}} {{Bb:y}} "
+            "{{bb:chico}}{{Bb:! ¡Gracias, " + get_username() + "!\"}}"
         ),
-        "cat Swordmaster": _("Swordmaster: {{Bb:\"You've done well. You are indeed a force to be reckoned with. "
-                             "Keep training and you'll become even more powerful.\"}}"),
-        "cat Rabbit": _("Rabbit: {{Bb:....}}")
+        "cat Espadachin": "Espadachin: {{Bb:\"Lo hiciste bien. Eres sin duda alguien a quien hay que tener en cuenta. "
+                             "Sigue entrenando y serás todavía más poderoso.\"}}",
+        "cat Conejo": "Conejo: {{Bb:....}}"
     }
 
     def check_command(self, line):
@@ -274,7 +275,7 @@ class Step7(StepTemplateSudo):
 
         # If they enter ls, say Well Done
         if line == 'ls':
-            hint = _("\n{{gb:You look around.}}")
+            hint = "\n{{gb:Mira a tu alrededor.}}"
             self.send_hint(hint)
             return False
         elif line in self.other_commands:
@@ -284,7 +285,7 @@ class Step7(StepTemplateSudo):
 
         # check through list of commands
         self.hints = [
-            _("{{rb:Use}} {{yb:%s}} {{rb:to progress.}}") % self.all_commands.keys()[0]
+            "{{rb:Usa}} {{yb:%s}} {{rb:para avanzar.}}" % list(self.all_commands.keys())[0]
         ]
 
         end_dir_validated = self.get_fake_path() == self.end_dir
@@ -294,7 +295,7 @@ class Step7(StepTemplateSudo):
             self.all_commands.pop(line, None)
 
             if len(self.all_commands) == 0:
-                hint += _("\n\n{{gb:Press}} {{ob:Enter}} {{gb:to continue.}}")
+                hint += "\n\n{{gb:Presiona}} {{ob:Enter}} {{gb:para continuar.}}"
 
             self.send_hint(hint)
         else:
@@ -305,8 +306,8 @@ class Step7(StepTemplateSudo):
         return False
 
     def next(self):
-        from kano_profile.badges import save_app_state_variable_with_dialog
-        save_app_state_variable_with_dialog('linux-story', 'finished', 'challenge_46')
+        from terminal_quest.progress import save_app_state_variable_with_dialog
+        save_app_state_variable_with_dialog('terminal-quest', 'finished', 'challenge_46')
         self._is_finished = True
         self.exit()
         return -1, -1

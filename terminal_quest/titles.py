@@ -1,6 +1,7 @@
 # titles.py
 #
 # Copyright (C) 2014-2016 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 
@@ -8,32 +9,32 @@ chapters = {
     1: {
         'start_challenge': 1,
         'end_challenge': 9,
-        'title': _('Start exploring')
+        'title': "Comenzar a explorar"
     },
     2: {
         'start_challenge': 10,
         'end_challenge': 16,
-        'title': _('Save a family')
+        'title': "Salva a la familia"
     },
     3: {
         'start_challenge': 17,
         'end_challenge': 22,
-        'title': _('Go to the farm')
+        'title': "Ve a la granja"
     },
     4: {
         'start_challenge': 23,
         'end_challenge': 31,
-        'title': _('Save Eleanor')
+        'title': "Salva a Eleanor"
     },
     5: {
         'start_challenge': 32,
         'end_challenge': 39,
-        'title': _('Meet the swordmaster')
+        'title': "Conoce al espadachín"
     },
     6: {
         'start_challenge': 40,
         'end_challenge': 46,
-        'title': _('Fight the kidnapper')
+        'title': "Enfrenta al secuestrador"
     }
 }
 
@@ -41,187 +42,187 @@ chapters = {
 # Contains the text describing the challenges
 challenges = {
     1: {
-        'title': _('Wake up!'),
+        'title': "¡Despierta!",
         'chapter': 1
     },
     2: {
-        'title': _('Look in your wardrobe'),
+        'title': "Mira en tu armario",
         'chapter': 1
     },
     3: {
-        'title': _('Look on your shelves'),
+        'title': "Busca en tus estantes",
         'chapter': 1
     },
     4: {
-        'title': _('Find Mum'),
+        'title': "Encuentra a mamá",
         'chapter': 1
     },
     5: {
-        'title': _('Where\'s Dad?'),
+        'title': "¿Dónde está papá?",
         'chapter': 1
     },
     6: {
-        'title': _('Visit the town'),
+        'title': "Visita el pueblo",
         'chapter': 1
     },
     7: {
-        'title': _('Town meeting'),
+        'title': "Reunión del pueblo",
         'chapter': 1
     },
     8: {
-        'title': _('The bell strikes'),
+        'title': "Suena la campana",
         'chapter': 1
     },
     9: {
-        'title': _('Where\'s Mum?'),
+        'title': "¿Dónde está mamá?",
         'chapter': 1
     },
     10: {
-        'title': _('See more clearly'),
+        'title': "Ver más claramente",
         'chapter': 2
     },
     11: {
-        'title': _('Save the girl'),
+        'title': "Salva a la niña",
         'chapter': 2
     },
     12: {
-        'title': _('Save the dog'),
+        'title': "Salva al perro",
         'chapter': 2
     },
     13: {
-        'title': _('Food hunt'),
+        'title': "Cacería de alimentos",
         'chapter': 2
     },
     14: {
-        'title': _('Folderton Hero'),
+        'title': "Héroe de Folderton",
         'chapter': 2
     },
     15: {
-        'title': _('Have a closer look'),
+        'title': "Mira más de cerca",
         'chapter': 2
     },
     16: {
-        'title': _('A gift'),
+        'title': "Un regalo",
         'chapter': 2
     },
     17: {
-        'title': _('Find your voice'),
+        'title': "Encuentra tu voz",
         'chapter': 3
     },
     18: {
-        'title': _('Visit the farm'),
+        'title': "Visita la granja",
         'chapter': 3
     },
     19: {
-        'title': _('Meet Ruth'),
+        'title': "Conoce a Ruth",
         'chapter': 3
     },
     20: {
-        'title': _('Learn to build'),
+        'title': "Aprende a construir",
         'chapter': 3
     },
     21: {
-        'title': _('Hide Ruth and her animals'),
+        'title': "Esconde a Ruth y sus animales",
         'chapter': 3
     },
     22: {
-        'title': _('Did you hear that?'),
+        'title': "¿Escuchaste eso?",
         'chapter': 3
     },
     23: {
-        'title': _('Hello Eleanor'),
+        'title': "Hola Eleanor",
         'chapter': 4
     },
     24: {
-        'title': _('Go east'),
+        'title': "Ve hacia el este",
         'chapter': 4
     },
     25: {
-        'title': _('Meet Bernard'),
+        'title': "Conoce a Bernard",
         'chapter': 4
     },
     26: {
-        'title': _('Go into the library'),
+        'title': "Entra a la biblioteca",
         'chapter': 4
     },
     27: {
-        'title': _('Help Bernard'),
+        'title': "Ayuda a Bernard",
         'chapter': 4
     },
     28: {
-        'title': _('Find the librarian'),
+        'title': "Encuentra a la bibliotecaria",
         'chapter': 4
     },
     29: {
-        'title': _('Talk to Clara'),
+        'title': "Háblale a Clara",
         'chapter': 4
     },
     30: {
-        'title': _('Did you hear that?'),
+        'title': "¿Escuchaste eso?",
         'chapter': 4
     },
     31: {
-        'title': _('Explore the shed-shop'),
+        'title': "Explora la tienda de cobertizos",
         'chapter': 4
     },
     32: {
-        'title': _('Follow Ruth\'s hint'),
+        'title': "Sigue la pista de Ruth",
         'chapter': 5
     },
     33: {
-        'title': _('Another locked door'),
+        'title': "Otra puerta cerrada",
         'chapter': 5
     },
     34: {
-        'title': _('Cave of mysteries'),
+        'title': "La cueva de los misterios",
         'chapter': 5
     },
     35: {
-        'title': _('Set the bird free'),
+        'title': "Libera al pájaro",
         'chapter': 5
     },
     36: {
-        'title': _('Set off the fireworks'),
+        'title': "Lanza los fuegos artificiales",
         'chapter': 5
     },
     37: {
-        'title': _('Answer the riddle'),
+        'title': "Responde el acertijo",
         'chapter': 5
     },
     38: {
-        'title': _('Go back to the swordmaster\'s.'),
+        'title': "Vuelve con el espadachín",
         'chapter': 6
     },
     39: {
-        'title': _('Meet the Swordmaster'),
+        'title': "Conoce al Espadachín",
         'chapter': 6
     },
     40: {
-        'title': _('Trail of notes'),
+        'title': "Un rastro de notas",
         'chapter': 6
     },
     41: {
-        'title': _('Meet the note giver'),
+        'title': "Conoce a quien deja las notas",
         'chapter': 6
     },
     42: {
-        'title': _('Unlock the library'),
+        'title': "Abre la biblioteca",
         'chapter': 6
     },
     43: {
-        'title': _('A helping hand'),
+        'title': "Una mano amiga",
         'chapter': 7
     },
     44: {
-        'title': _('Go into the rabbithole'),
+        'title': "Entra en la madriguera",
         'chapter': 7
     },
     45: {
-        'title': _('Save everyone'),
+        'title': "Salva a todos",
         'chapter': 7
     },
     46: {
-        'title': _('Break the curse'),
+        'title': "Rompe el hechizo",
         'chapter': 7
     }
 }

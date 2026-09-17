@@ -1,13 +1,19 @@
-from linux_story.common import get_story_file
+# library.py
+#
+# Copyright (C) 2014-2017 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
+# License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
+
+from terminal_quest.common import get_story_file
 
 
 library = {
-    "name": "library",
+    "name": "biblioteca",
     "children": [
         {
-            "name": "Rabbit",
+            "name": "Conejo",
             "type": "file",
-            "contents": get_story_file("Rabbit"),
+            "contents": get_story_file("Conejo"),
             "challenges": [
                 {
                     "challenge": 0,
@@ -26,31 +32,31 @@ library = {
             ]
         },
         {
-            "name": "private-section",
+            "name": "seccion-privada",
             "type": "directory",
             "challenges": [
                 {
                     "challenge": 0,
                     "step": 1,
-                    "permissions": 0000
+                    "permissions": 0o000
                 },
                 {
                     "challenge": 42,
                     "step": 3,
-                    "permissions": 0755
+                    "permissions": 0o755
                 }
             ],
             "children": [
                 {
-                    "name": "chest",
+                    "name": "cofre",
                     "children": [
                         {
-                            "name": "scroll",
-                            "contents": get_story_file("scroll"),
+                            "name": "pergamino",
+                            "contents": get_story_file("pergamino"),
                         },
                         {
-                            "name": "torn-note",
-                            "contents": get_story_file("torn-note")
+                            "name": "nota-rota",
+                            "contents": get_story_file("nota-rota")
                         }
                     ],
                     "challenges": [
@@ -71,9 +77,9 @@ library = {
                     ]
                 },
                 {
-                    "name": "Rabbit",
+                    "name": "Conejo",
                     "type": "file",
-                    "contents": get_story_file("Rabbit"),
+                    "contents": get_story_file("Conejo"),
                     "challenges": [
                         {
                             "challenge": 0,
@@ -92,7 +98,7 @@ library = {
                     ]
                 },
                 {
-                    "name": "note",
+                    "name": "nota",
                     "contents": get_story_file("note_private-section"),
                     "challenges": [
                         {
@@ -111,7 +117,7 @@ library = {
                     ]
                 },
                 {
-                    "name": "sword",
+                    "name": "espada",
                     "contents": get_story_file("RM-sword"),
                     "challenges": [
                         {
@@ -128,7 +134,7 @@ library = {
             ]
         },
         {
-            "name": "public-section",
+            "name": "seccion-publica",
             "children": [
                 {
                     "name": "NANO",

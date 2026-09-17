@@ -1,25 +1,23 @@
- ,----------------------------------------.
-/                                          \
-|    _____       _______                    |
-|   / ____|   /\|__   __|                   |
-|  | |       /  \  | |                      |
-|  | |      / /\ \ | |                      |
-|  | |____ / ____ \| |                      |
-|   \_____/_/    \_\_|                      |
-|                                           |
-|  This command gives you the power to read |
-|  the contents of files.                   |
-|                                           |
-|  Examples                                 |
-|                                           |
-|  cat wardrobe/cap                         |
-|  This will print out the contents of cap  |
-|  if you are in ~/my-house/my-room         |
-|                                           |
-|  cat ~/my-house/my-room/wardrobe/cap      |
-|  This will print out the contents of cap  |
-|  regardless of where you are              |
-\                                          /
- `----------------------------------------"
-
-
+ ,---------------------------------------------.
+/                                               \
+|    _____       _______                        |
+|   / ____|   /\|__   __|                       |
+|  | |       /  \  | |                          |
+|  | |      / /\ \ | |                          |
+|  | |____ / ____ \| |                          |
+|   \_____/_/    \_\_|                          |
+|                                               |
+|  Este hechizo te da el poder de leer el       |
+|  contenido de los archivos.                   |
+|                                               |
+|  Ejemplos                                     |
+|                                               |
+|  cat armario/gorra                            |
+|  Te muestra el contenido de -gorra-           |
+|  si estás en ~/mi-casa/mi-cuarto              |
+|                                               |
+|  cat ~/mi-casa/mi-cuarto/armario/gorra        |
+|  Te muestra el contenido de -gorra-           |
+|  sin importar dónde estés                     |
+\                                               /
+ `---------------------------------------------'

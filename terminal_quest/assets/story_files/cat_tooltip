@@ -6,13 +6,13 @@
   \_____/_/    \_\_|
 
 
-This command gives you the power to read the contents of files.
+Este hechizo te da el poder de leer el contenido de los archivos.
 
 
-Examples
+Ejemplos
 
-<span foreground="yellow">cat wardrobe/cap</span>
-This will print out the contents of cap if you are in ~/my-house/my-room
+{{yb:cat armario/gorra}}
+Te muestra el contenido de -gorra- si estás en ~/mi-casa/mi-cuarto
 
-<span foreground="yellow">cat ~/my-house/my-room/wardrobe/cap</span>
-This will print out the contents of cap regardless of where you are
+{{yb:cat ~/mi-casa/mi-cuarto/armario/gorra}}
+Te muestra el contenido de -gorra- sin importar dónde estés

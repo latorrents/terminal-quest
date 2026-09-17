@@ -1,12 +1,13 @@
 # challenge_15.py
 #
 # Copyright (C) 2014-2016 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
-from linux_story.StepTemplate import StepTemplate
-from linux_story.story.terminals.terminal_mv import TerminalMv
-from linux_story.step_helper_functions import unblock_commands_with_cd_hint
+from terminal_quest.step import StepTemplate
+from terminal_quest.terminals import TerminalMv
+from terminal_quest.step_helpers import unblock_commands_with_cd_hint
 
 
 class StepTemplateMv(StepTemplate):
@@ -18,22 +19,22 @@ class StepTemplateMv(StepTemplate):
 
 class Step1(StepTemplateMv):
     story = [
-        _("You get the nagging feeling that you're missing something."),
-        _("What was the command that helped you find the hidden shelter?\n"),
-        _("Use it to have a {{lb:closer look around}}.\n")
+        "Tienes la molesta sensación de que se te está pasando algo.",
+        "¿Cuál era el comando que te ayudó a encontrar el refugio oculto?\n",
+        "Úsalo para {{lb:mirar alrededor más de cerca}}.\n"
     ]
     hints = [
-        _("{{rb:Use}} {{yb:ls -a}} {{rb:to look more closely around you.}}")
+        "{{rb:Usa}} {{yb:ls -a}} {{rb:para mirar a tu alrededor más de cerca.}}"
     ]
 
     story_dict = {
-        "CAT, LS, CD, .note": {
-            "path": "~/my-house/my-room/.chest"
+        "CAT, LS, CD, .nota": {
+            "path": "~/mi-casa/mi-cuarto/.cofre"
         }
     }
 
-    start_dir = "~/town/.hidden-shelter"
-    end_dir = "~/town/.hidden-shelter"
+    start_dir = "~/pueblo/.refugio-oculto"
+    end_dir = "~/pueblo/.refugio-oculto"
     commands = [
         "ls -a"
     ]
@@ -44,21 +45,21 @@ class Step1(StepTemplateMv):
 
 class Step2(StepTemplateMv):
     story = [
-        _("What's that? There's a {{bb:.tiny-chest}} in the corner of the shelter."),
-        _("Have a {{lb:look inside}} the {{bb:.tiny-chest}}.")
+        "¿Qué es eso? Hay un {{bb:.cofrecito}} en una esquina del refugio.",
+        "Vamos a {{lb:mirar dentro}} del {{bb:.cofrecito}}."
     ]
 
     hints = [
-        _("{{rb:Use}} {{yb:ls .tiny-chest}} {{rb:to look inside}}")
+        "{{rb:Usa}} {{yb:ls .cofrecito}} {{rb:para mirar dentro}}"
     ]
 
-    start_dir = "~/town/.hidden-shelter"
-    end_dir = "~/town/.hidden-shelter"
+    start_dir = "~/pueblo/.refugio-oculto"
+    end_dir = "~/pueblo/.refugio-oculto"
     commands = [
-        "ls .tiny-chest",
-        "ls .tiny-chest/",
-        "ls -a .tiny-chest",
-        "ls -a .tiny-chest/"
+        "ls .cofrecito",
+        "ls .cofrecito/",
+        "ls -a .cofrecito",
+        "ls -a .cofrecito/"
     ]
 
     def next(self):
@@ -67,18 +68,18 @@ class Step2(StepTemplateMv):
 
 class Step3(StepTemplateMv):
     story = [
-        _("You see a special looking scroll with a stamp that says {{bb:MV}}."),
-        _("{{lb:Read}} what it says.")
+        "Ves un pergamino de aspecto especial con un sello que dice {{bb:MV}}.",
+        "{{lb:Lee}} lo que dice."
     ]
 
     hints = [
-        _("{{rb:Use}} {{yb:cat .tiny-chest/MV}} {{rb:to read the MV parchment}}")
+        "{{rb:Usa}} {{yb:cat .cofrecito/MV}} {{rb:para leer el pergamino}}"
     ]
 
-    start_dir = "~/town/.hidden-shelter"
-    end_dir = "~/town/.hidden-shelter"
+    start_dir = "~/pueblo/.refugio-oculto"
+    end_dir = "~/pueblo/.refugio-oculto"
     commands = [
-        "cat .tiny-chest/MV"
+        "cat .cofrecito/MV"
     ]
 
     def next(self):
@@ -88,22 +89,25 @@ class Step3(StepTemplateMv):
 class Step4(StepTemplateMv):
     story = [
 
-        _("{{wb:Edward:}} {{Bb:\"Hey, that's our}} {{bb:.tiny-chest}}{{Bb:. We use it to keep things safe."),
-        _("That MV command is how I found out about moving objects with}} {{yb:mv}}{{Bb:."),
-        _("It's probably more useful to you, please take it as a thank you for saving us.\"}}"),
+        "{{wb:Edward:}} {{Bb:\"Oye, ese es nuestro}} {{bb:.cofrecito}}{{Bb:. Lo usamos para guardar cosas a salvo.",
+        "Gracias a ese pergamino MV aprendí a mover objetos con}} {{yb:mv}}{{Bb:.",
+        "Seguro que a ti te sirve más. Por favor, tómalo como agradecimiento por salvarnos.\"}}",
         "",
-        _("\nMaybe you should go back to {{bb:my-house}} to look for more hidden items."),
-        _("To quickly go back home, use {{yb:cd ~/my-house}}\n")
+        "\nTal vez deberías volver a {{bb:mi-casa}} para buscar más objetos ocultos.",
+        "Para volver rápidamente a casa, usa {{yb:cd ~/mi-casa}}\n"
     ]
 
-    start_dir = "~/town/.hidden-shelter"
-    end_dir = "~/my-house"
+    start_dir = "~/pueblo/.refugio-oculto"
+    end_dir = "~/mi-casa"
     commands = [
-        'cd ~/my-house/',
-        'cd ~/my-house'
+        'cd ~/mi-casa/',
+        'cd ~/mi-casa'
     ]
     hints = [
-        _("{{rb:No shortcuts! Use}} {{yb:cd ~/my-house}} {{rb:to get back to your house in one step.}}")
+        (
+            "{{rb:¡Sin abreviaturas! Usa}} {{yb:cd ~/mi-casa}} {{rb:para volver a tu casa en "
+            "un solo paso.}}"
+        )
     ]
 
     def block_command(self, line):
@@ -115,16 +119,19 @@ class Step4(StepTemplateMv):
 
 class Step5(StepTemplateMv):
     story = [
-        _("Let's see if we can find anything hidden around here!"),
-        _("Where do you think any hidden things could be?\n"),
-        _("Try {{lb:looking closely}} in {{bb:my-room}} first.")
+        "¡Veamos si podemos encontrar algo oculto por aquí!",
+        "¿Dónde piensas que podremos encontrar cosas ocultas?\n",
+        "Intenta {{lb:mirar más de cerca}} en {{bb:mi-cuarto}} primero."
     ]
 
-    start_dir = '~/my-house'
+    start_dir = '~/mi-casa'
 
     hints = [
-        _("{{rb:Stuck? Have a look in}} {{yb:my-room}}{{rb:.}}"),
-        _("{{rb:Use}} {{yb:ls -a my-room}} {{rb:to look for hidden files in}} {{lb:my-room}}{{rb:.}}")
+        "{{rb:¿Atascado? Mira en}} {{yb:mi-cuarto}}{{rb:.}}",
+        (
+            "{{rb:Usa}} {{yb:ls -a mi-cuarto}} {{rb:para buscar objetos ocultos en}} "
+            "{{lb:mi-cuarto}}{{rb:.}}"
+        )
     ]
 
     def check_output(self, output):
@@ -132,7 +139,7 @@ class Step5(StepTemplateMv):
         if not output:
             return False
 
-        if '.chest' in output:
+        if '.cofre' in output:
             return True
 
         return False

@@ -1,16 +1,17 @@
 # challenge_4.py
 #
 # Copyright (C) 2014-2016 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
 
 
-from linux_story.StepTemplate import StepTemplate
-from linux_story.common import get_story_file
-from linux_story.story.terminals.terminal_cd import TerminalCd
-from linux_story.step_helper_functions import unblock_commands_with_cd_hint
-from linux_story.helper_functions import wrap_in_box
+from terminal_quest.step import StepTemplate
+from terminal_quest.common import get_story_file
+from terminal_quest.terminals import TerminalCd
+from terminal_quest.step_helpers import unblock_commands_with_cd_hint
+from terminal_quest.helpers import wrap_in_box
 
 
 class StepTemplateCd(StepTemplate):
@@ -22,28 +23,31 @@ class StepTemplateCd(StepTemplate):
 
 class Step1(StepTemplateCd):
     story = [
-        _("That's weird. No time for that now though - lets find {{bb:Mum}}.\n "),
+        "¡Qué extraño! No hay tiempo para eso - encontremos a {{bb:Mama}}.\n ",
     ]
     story += wrap_in_box([
-        _("{{gb:New Power}}: {{yb:cd}} lets you {{lb:move}}"),
-        _("between places."),
+        "{{gb:Nuevo Poder}}: {{yb:cd}} te permite {{lb:moverte}}",
+        "entre distintos sitios.",
     ])
     story += [
-        _("Use the command {{yb:cd ..}} to {{lb:leave}} your room.\n")
+        "Usa el comando {{yb:cd ..}} para {{lb:abandonar}} tu habitación.\n"
     ]
 
-    start_dir = "~/my-house/my-room"
-    end_dir = "~/my-house"
+    start_dir = "~/mi-casa/mi-cuarto"
+    end_dir = "~/mi-casa"
     commands = [
         "cd ..",
         "cd ../",
-        "cd ~/my-house",
-        "cd ~/my-house/"
+        "cd ~/mi-casa",
+        "cd ~/mi-casa/"
     ]
     highlighted_commands = ['cd']
     hints = [
-        _("{{rb:Type}} {{yb:cd ..}} {{rb:to leave your room. The}} {{lb:..}} {{rb:is the room behind you.}}"),
-        _("{{rb:Type}} {{yb:cd ..}} {{rb:to leave your room.}}")
+        (
+            "{{rb:Escribe}} {{yb:cd ..}} {{rb:para abandonar tu habitación. El}} {{lb:..}} "
+            "{{rb:es para salir de allí.}}"
+        ),
+        "{{rb:Escribe}} {{yb:cd ..}} {{rb:para abandonar tu habitación.}}"
     ]
 
     def block_command(self, line):
@@ -55,21 +59,21 @@ class Step1(StepTemplateCd):
 
 class Step2(StepTemplateCd):
     story = [
-        _("You've left {{bb:my-room}} and are in the hall of {{bb:my-house}}.\n"),
-        _("{{lb:Look around}} at the different rooms using {{yb:ls}}.\n")
+        "Abandonaste {{bb:mi-cuarto}} y estás en la sala de {{bb:mi-casa}}.\n",
+        "{{lb:Mira alrededor}} de los diferentes sitios usando {{yb:ls}}.\n"
     ]
-    start_dir = "~/my-house"
-    end_dir = "~/my-house"
+    start_dir = "~/mi-casa"
+    end_dir = "~/mi-casa"
     commands = "ls"
-    hints = [_("{{rb:Type}} {{yb:ls}} {{rb:and press}} {{ob:Enter}}{{rb:.}}")]
+    hints = ["{{rb:Escribe}} {{yb:ls}} {{rb:y presiona}} {{ob:Enter}}{{rb:.}}"]
     file_list = [
         {
-            "path": "~/my-house/garden/greenhouse/note",
+            "path": "~/mi-casa/jardin/invernadero/nota",
             "contents": get_story_file("note_greenhouse"),
             "type": "file"
         }
     ]
-    deleted_items = ['~/my-house/garden/greenhouse/Dad']
+    deleted_items = ['~/mi-casa/jardin/invernadero/Papa']
 
     def next(self):
         return 4, 3
@@ -77,16 +81,16 @@ class Step2(StepTemplateCd):
 
 class Step3(StepTemplateCd):
     story = [
-        _("{{pb:Ding. Dong.}}\n"),
-        _("What was that? A bell? That's a bit odd."),
-        _("You see the door to your {{bb:kitchen}}, and hear the sound of cooking."),
-        _("Sounds like someone is preparing breakfast!\n"),
-        _("To {{lb:go inside the}} {{bb:kitchen}}, use {{yb:cd kitchen}}")
+        "{{pb:Ding. Dong.}}\n",
+        "¿Qué fue eso? ¿Una campana? Eso es un poco extraño.",
+        "Ves la puerta de tu {{bb:cocina}}, y escuchas el sonido de alguien cocinando.",
+        "¡Parece que alguien está preparando el desayuno!\n",
+        "Para {{lb:entrar a la}} {{bb:cocina}}, usa {{yb:cd cocina}}"
     ]
-    start_dir = "~/my-house"
-    end_dir = "~/my-house/kitchen"
-    commands = ["cd kitchen", "cd kitchen/"]
-    hints = [_("{{rb:Type}} {{yb:cd kitchen}} {{rb:and press}} {{ob:Enter}}{{rb:.}}")]
+    start_dir = "~/mi-casa"
+    end_dir = "~/mi-casa/cocina"
+    commands = ["cd cocina", "cd cocina/"]
+    hints = ["{{rb:Escribe}} {{yb:cd cocina}} {{rb:y presiona}} {{ob:Enter}}{{rb:.}}"]
 
     def block_command(self, line):
         return unblock_commands_with_cd_hint(line, self.commands)
@@ -97,13 +101,13 @@ class Step3(StepTemplateCd):
 
 class Step4(StepTemplateCd):
     story = [
-        _("Great, you're in the {{bb:kitchen}}.\n"),
-        _("{{lb:Look}} for {{bb:Mum}} using {{yb:ls}}.")
+        "Genial, estás dentro de la {{bb:cocina}}.\n",
+        "{{lb:Busca}} a {{bb:Mama}} usando {{yb:ls}}."
     ]
-    start_dir = "~/my-house/kitchen"
-    end_dir = "~/my-house/kitchen"
+    start_dir = "~/mi-casa/cocina"
+    end_dir = "~/mi-casa/cocina"
     commands = "ls"
-    hints = [_("{{rb:Can't find her? Type}} {{yb:ls}} {{rb:and press}} {{ob:Enter}}{{rb:.}}")]
+    hints = ["{{rb:¿No puedes encontrarla? Escribe}} {{yb:ls}} {{rb:y presiona}} {{ob:Enter}}{{rb:.}}"]
 
     def next(self):
         return 4, 5
@@ -111,13 +115,13 @@ class Step4(StepTemplateCd):
 
 class Step5(StepTemplateCd):
     story = [
-        _("You see her busily working in a cloud of steam."),
-        _("Let's {{lb:listen}} to what {{bb:Mum}} has to say by using {{yb:cat}}.")
+        "La ves trabajando muy duro entre una nube de vapor.",
+        "Vamos a {{lb:escuchar}} lo que {{bb:Mama}} tiene para decir usando {{yb:cat}}."
     ]
-    start_dir = "~/my-house/kitchen"
-    end_dir = "~/my-house/kitchen"
-    commands = "cat Mum"
-    hints = [_("{{rb:Stuck? Type:}} {{yb:cat Mum}}{{rb:. Don\'t forget the capital letter!}}")]
+    start_dir = "~/mi-casa/cocina"
+    end_dir = "~/mi-casa/cocina"
+    commands = "cat Mama"
+    hints = ["{{rb:¿Atascado? Escribe:}} {{yb:cat Mama}}{{rb:. ¡No olvides la letra mayúscula!}}"]
 
     def next(self):
         return 5, 1

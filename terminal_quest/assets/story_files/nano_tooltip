@@ -6,22 +6,22 @@
  |_| \_/_/    \_\_| \_|\____/
 
 
-This command gives you the power to modify files.
+Un comando para modificar archivos.
 
 
-Examples
+Ejemplo
 
-<span foreground="yellow">nano filename.sh/</span>
-Opens filename.sh for editing
+{{yb:nano archivo.sh}}
+Abre archivo.sh para editarlo
 
 
-Key Commands
+Teclas del comando
 
-<span foreground="yellow">Arrow Keys/</span>
-Move Cursor
+{{yb:Flechas}}
+Mueven el cursor
 
-<span foreground="yellow">Hold CTRL and Press O/</span>
-Save your changes
+{{yb:Mantén Ctrl y presiona O}}
+Guarda los cambios
 
-<span foreground="yellow">Hold CTRL and Press X/</span>
-Exit nano, press Y after to save your changes
+{{yb:Mantén Ctrl y presiona X}}
+Cierra nano. Si no guardaste, presiona S para guardar tus cambios

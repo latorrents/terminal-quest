@@ -1,15 +1,16 @@
 #!/usr/bin/env python
 #
 # Copyright (C) 2014-2017 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
-from linux_story.StepTemplate import StepTemplate
-from linux_story.PlayerLocation import generate_real_path
-from linux_story.common import get_username
-from linux_story.helper_functions import has_write_permissions
-from linux_story.step_helper_functions import unblock_commands
-from linux_story.story.terminals.terminal_rm import TerminalRm
+from terminal_quest.step import StepTemplate
+from terminal_quest.location import generate_real_path
+from terminal_quest.common import get_username
+from terminal_quest.helpers import has_write_permissions
+from terminal_quest.step_helpers import unblock_commands
+from terminal_quest.terminals import TerminalRm
 
 
 class StepTemplateRm(StepTemplate):
@@ -19,41 +20,41 @@ class StepTemplateRm(StepTemplate):
 
 class StepPeopleInCage(StepTemplateRm):
     commands_done = {
-        "cat bell": False,
-        "cat Rabbit": False
+        "cat campana": False,
+        "cat Conejo": False
     }
 
     def check_command(self, line):
         if line in self.commands:
             return StepTemplateRm.check_command(self, line)
-        elif line == "cat Rabbit":
-            self.send_hint("Rabbit: {{Bb:...}}\nThe rabbit looks frustrated.")
-        elif line == "cat bell":
-            self.send_hint("The bell glows menacingly.")
-        elif line.startswith("cat cage/"):
+        elif line == "cat Conejo":
+            self.send_hint("Conejo: {{Bb:...}}\nEl conejo se ve frustrado.")
+        elif line == "cat campana":
+            self.send_hint("La campana brilla de forma amenazante.")
+        elif line.startswith("cat jaula/"):
             self.send_hint(self.cat_people())
         else:
             return StepTemplateRm.check_command(self, line)
 
     def cat_people(self):
         people = {
-            "Mum": _("Mum: {{Bb:\"" + get_username() + ", I'm so glad to see you, but it's not safe here!\"}}"),
+            "Mama": "Mama: {{Bb:\"" + get_username() + ", ¡me alegra tanto verte, pero aquí no estás a salvo!\"}}",
 
-            "Dad": _("Dad: {{Bb:\"" + get_username() + ", strangest thing happened. I was kidnapped by a rabbit! "
-                     "Although, it seems to be acting even stranger now.\"}}"),
+            "Papa": "Papa: {{Bb:\"" + get_username() + ", pasó algo rarísimo. ¡Me secuestró un conejo! "
+                    "Aunque ahora parece estar actuando todavía más raro.\"}}",
 
-            "grumpy-man": _("grumpy-man: {{Bb:\"My legs are fixed. I hope my wife knows I'm safe.\"}}"),
-            "Mayor": _("Mayor: {{Bb:\"When I get out of here, I'm going to make a law to hunt all rabbits.\"}}"),
-            "little-boy": _("little-boy: {{Bb:\"I miss my mummy!\"}}"),
-            "young-girl": _("young-girl: {{Bb:\"I don't like being in here.\"}}"),
-            "Edith": _("Edith: {{Bb:\"You, " + get_username() + "! Get us out of here!\"}}"),
-            "Edward": _("Edward: {{Bb:\"Edith dear, calm down...\"}}"),
-            "dog": _("dog: {{Bb:\"Woof woof!\"}}"),
-            "Bernard": _("Bernard: {{Bb:\"After you left, I heard this sound\"}}"),
-            "head-librarian": _("head-librarian: {{Bb:\"Who are you?\"}}")
+            "hombre-enojado": "hombre-enojado: {{Bb:\"Mis piernas ya están curadas. Espero que mi esposa sepa que estoy bien.\"}}",
+            "Alcalde": "Alcalde: {{Bb:\"Cuando salga de aquí, voy a hacer una ley para cazar a todos los conejos.\"}}",
+            "chico": "chico: {{Bb:\"¡Extraño a mi mamá!\"}}",
+            "chica": "chica: {{Bb:\"No me gusta estar aquí.\"}}",
+            "Edith": "Edith: {{Bb:\"¡Tú, " + get_username() + "! ¡Sácanos de aquí!\"}}",
+            "Edward": "Edward: {{Bb:\"Edith querida, cálmate...\"}}",
+            "perro": "perro: {{Bb:\"¡Guau guau!\"}}",
+            "Bernard": "Bernard: {{Bb:\"Después de que te fuiste, oí este sonido\"}}",
+            "head-librarian": "bibliotecaria-jefe: {{Bb:\"¿Quién eres?\"}}"
         }
         for person in people:
-            if self._last_user_input == "cat cage/" + person:
+            if self._last_user_input == "cat jaula/" + person:
                 return people[person]
 
         return ""
@@ -61,10 +62,10 @@ class StepPeopleInCage(StepTemplateRm):
 
 class Step1(StepPeopleInCage):
     story = [
-        _("You are in the rabbithole. {{lb:Look around.}}")
+        "Estás en la madriguera. {{lb:Mira alrededor.}}"
     ]
-    start_dir = "~/woods/thicket/rabbithole"
-    end_dir = "~/woods/thicket/rabbithole"
+    start_dir = "~/bosque/matorral/madriguera"
+    end_dir = "~/bosque/matorral/madriguera"
 
     commands = [
         "ls",
@@ -72,7 +73,7 @@ class Step1(StepPeopleInCage):
         "ls ."
     ]
     hints = [
-        _("{{rb:Look around with}} {{yb:ls}}")
+        "{{rb:Mira alrededor con}} {{yb:ls}}"
     ]
 
     def next(self):
@@ -81,20 +82,20 @@ class Step1(StepPeopleInCage):
 
 class Step2(StepPeopleInCage):
     story = [
-        _("You see the Rabbit, but it seems to be distracted."),
-        _("There is also a cage and a mysteriously glowing bell. You sneak over to the cage."),
-        _("Swordmaster: {{Bb:\"Psst! We're inside the cage!\"}}"),
+        "Ves al Conejo, pero parece estar distraído.",
+        "También hay una jaula y una campana que brilla misteriosamente. Te acercas a escondidas a la jaula.",
+        "Espadachin: {{Bb:\"¡Psst! ¡Estamos dentro de la jaula!\"}}",
         "",
-        _("{{lb:Look inside the cage.}}")
+        "{{lb:Mira dentro de la jaula.}}"
     ]
-    start_dir = "~/woods/thicket/rabbithole"
-    end_dir = "~/woods/thicket/rabbithole"
+    start_dir = "~/bosque/matorral/madriguera"
+    end_dir = "~/bosque/matorral/madriguera"
     hints = [
-        _("{{rb:Use}} {{yb:ls cage}} {{rb:to look inside the cage.}}")
+        "{{rb:Usa}} {{yb:ls jaula}} {{rb:para mirar dentro de la jaula.}}"
     ]
     commands = [
-        "ls cage",
-        "ls cage/"
+        "ls jaula",
+        "ls jaula/"
     ]
 
     def next(self):
@@ -103,19 +104,19 @@ class Step2(StepPeopleInCage):
 
 class Step3(StepPeopleInCage):
     story = [
-        _("You see all the people who disappeared, looking miserable, inside the cage. Including your Mum and Dad!"),
-        _("Swordmaster: {{Bb:\"Hey, listen. I have something to say.\"}}"),
+        "Ves a todas las personas que desaparecieron, muy tristes, dentro de la jaula. ¡Incluidos tu Mama y tu Papa!",
+        "Espadachin: {{Bb:\"Oye, escucha. Tengo algo que decirte.\"}}",
         "",
-        _("Speak to your Mum and Dad. You can also listen to the other people trapped. "
-          "And when you're ready listen to what the Swordmaster has to say.")
+        "Habla con tu Mama y tu Papa. También puedes escuchar a las demás personas atrapadas. "
+        "Y cuando estés listo, escucha lo que el Espadachin tiene que decir."
     ]
-    start_dir = "~/woods/thicket/rabbithole"
-    end_dir = "~/woods/thicket/rabbithole"
+    start_dir = "~/bosque/matorral/madriguera"
+    end_dir = "~/bosque/matorral/madriguera"
     hints = [
-        _("{{rb:Use}} {{yb:cat cage/Swordmaster}} {{rb:to listen to the swordmaster.}}")
+        "{{rb:Usa}} {{yb:cat jaula/Espadachin}} {{rb:para escuchar al Espadachin.}}"
     ]
     commands = [
-        "cat cage/Swordmaster"
+        "cat jaula/Espadachin"
     ]
 
     def next(self):
@@ -124,18 +125,18 @@ class Step3(StepPeopleInCage):
 
 class Step4(StepPeopleInCage):
     story = [
-        _("Swordmaster: {{Bb:\"Listen, we don't have much time. But I think it's the bell, "
-          "it's controlling the Rabbit. It has mysterious powers.\"}}"),
+        "Espadachin: {{Bb:\"Escucha, no tenemos mucho tiempo. Pero creo que es la campana, "
+        "está controlando al Conejo. Tiene poderes misteriosos.\"}}",
         "",
-        _("{{lb:Examine}} the bell.")
+        "{{lb:Examina}} la campana."
     ]
-    start_dir = "~/woods/thicket/rabbithole"
-    end_dir = "~/woods/thicket/rabbithole"
+    start_dir = "~/bosque/matorral/madriguera"
+    end_dir = "~/bosque/matorral/madriguera"
     hints = [
-        _("{{rb:Use}} {{yb:cat bell}} {{rb:to examine the bell.}}")
+        "{{rb:Usa}} {{yb:cat campana}} {{rb:para examinar la campana.}}"
     ]
     commands = [
-        "cat bell"
+        "cat campana"
     ]
 
     def next(self):
@@ -144,22 +145,22 @@ class Step4(StepPeopleInCage):
 
 class Step5(StepPeopleInCage):
     story = [
-        _("The bell glows menacingly."),
+        "La campana brilla de forma amenazante.",
         "",
-        _("Swordmaster: {{Bb:\"The Rabbit hasn't figured out how to use the power it stole. But it will soon.\"}}"),
-        _("\"{{Bb:Before it does you must let us out of this cage, quietly.\"}}"),
+        "Espadachin: {{Bb:\"El Conejo todavía no descubrió cómo usar el poder que robó. Pero pronto lo hará.\"}}",
+        "{{Bb:\"Antes de que lo haga, debes sacarnos de esta jaula, sin hacer ruido.\"}}",
         "",
-        _("{{lb:You need to unlock the cage.}}")
+        "{{lb:Tienes que desbloquear la jaula.}}"
     ]
-    start_dir = "~/woods/thicket/rabbithole"
-    end_dir = "~/woods/thicket/rabbithole"
+    start_dir = "~/bosque/matorral/madriguera"
+    end_dir = "~/bosque/matorral/madriguera"
     hints = [
-        _("Swordmaster: {{Bb:\"We're all trapped in here because the}} {{lb:write}} {{Bb:permissions are removed.\"}}"),
-        _("Swordmaster: {{Bb:\"To re-add the write permissions, use}} {{yb:chmod +w cage}}{{Bb:\"}}")
+        "Espadachin: {{Bb:\"Estamos todos atrapados aquí porque se quitaron los permisos de}} {{lb:escritura}}{{Bb:.\"}}",
+        "Espadachin: {{Bb:\"Para volver a agregar los permisos de escritura, usa}} {{yb:chmod +w jaula}}{{Bb:\"}}"
     ]
 
     def check_command(self, line):
-        if has_write_permissions(generate_real_path("~/woods/thicket/rabbithole/cage")):
+        if has_write_permissions(generate_real_path("~/bosque/matorral/madriguera/jaula")):
             return True
         self.send_stored_hint()
 
@@ -169,17 +170,17 @@ class Step5(StepPeopleInCage):
 
 class Step6(StepPeopleInCage):
     story = [
-        _("Swordmaster: {{Bb:\"Now move us to the}} {{bb:~/town}}{{Bb:\"}}"),
-        _("{{Bb:\"To move a large group of people use the *. Like this:}} {{yb:mv cage/* ~/town}}{{Bb:\"}}")
+        "Espadachin: {{Bb:\"Ahora muévenos al}} {{bb:~/pueblo}}{{Bb:\"}}",
+        "{{Bb:\"Para mover a un grupo grande de personas usa el *. Así:}} {{yb:mv jaula/* ~/pueblo}}{{Bb:\"}}"
     ]
-    start_dir = "~/woods/thicket/rabbithole"
-    end_dir = "~/woods/thicket/rabbithole"
+    start_dir = "~/bosque/matorral/madriguera"
+    end_dir = "~/bosque/matorral/madriguera"
     hints = [
-        _("{{rb:Use}} {{yb:mv cage/* ~/town}} {{rb:to move all the villagers into the town.}}")
+        "{{rb:Usa}} {{yb:mv jaula/* ~/pueblo}} {{rb:para mover a todos los aldeanos al pueblo.}}"
     ]
     commands = [
-        "mv cage/* ~/town",
-        "mv cage/* ~/town/"
+        "mv jaula/* ~/pueblo",
+        "mv jaula/* ~/pueblo/"
     ]
 
     def block_command(self, line):
@@ -191,16 +192,16 @@ class Step6(StepPeopleInCage):
 
 class Step7(StepTemplateRm):
     story = [
-        _("{{lb:Look in ~/town}} to check that you moved all the people safely.")
+        "{{lb:Mira en ~/pueblo}} para comprobar que moviste a todas las personas a salvo."
     ]
-    start_dir = "~/woods/thicket/rabbithole"
-    end_dir = "~/woods/thicket/rabbithole"
+    start_dir = "~/bosque/matorral/madriguera"
+    end_dir = "~/bosque/matorral/madriguera"
     commands = [
-        "ls ~/town",
-        "ls ~/town/"
+        "ls ~/pueblo",
+        "ls ~/pueblo/"
     ]
     hints = [
-        _("{{rb:Use}} {{yb:ls ~/town}} {{rb:to check you moved everyone.}}")
+        "{{rb:Usa}} {{yb:ls ~/pueblo}} {{rb:para comprobar que moviste a todos.}}"
     ]
 
     def next(self):

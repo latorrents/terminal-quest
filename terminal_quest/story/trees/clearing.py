@@ -1,16 +1,17 @@
 # clearing.py
 #
 # Copyright (C) 2014-2017 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 
-from linux_story.common import get_story_file
+from terminal_quest.common import get_story_file
 
 house = {
-    "name": "house",
+    "name": "casa",
     "children": [
         {
-           "name": "Swordmaster",
+           "name": "Espadachin",
             "contents": get_story_file("swordmaster"),
             "challenges": [
                 {
@@ -30,7 +31,7 @@ house = {
             ]
         },
         {
-            "name": "note",
+            "name": "nota",
             "contents": get_story_file("note_woods"),
             "challenges": [
                 {
@@ -54,23 +55,23 @@ house = {
         {
             "challenge": 32,
             "step": 1,
-            "permissions": 0000
+            "permissions": 0o000
         },
         {
             "challenge": 33,
             "step": 32,
-            "permissions": 0700,
+            "permissions": 0o700,
         }
     ]
 }
 
 clearing = {
-    "name": "clearing",
+    "name": "claro",
     "children": [
         house,
         {
-            "name": "signpost",
-            "contents": get_story_file("signpost")
+            "name": "cartel",
+            "contents": get_story_file("cartel")
         }
     ],
     "challenges": [

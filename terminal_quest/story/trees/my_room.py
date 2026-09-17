@@ -1,7 +1,13 @@
-from linux_story.common import get_story_file
+# my_room.py
+#
+# Copyright (C) 2014-2017 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
+# License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
+
+from terminal_quest.common import get_story_file
 
 shelves = {
-    "name": "shelves",
+    "name": "estantes",
     "children":
         [
             {
@@ -9,60 +15,60 @@ shelves = {
                 "contents": get_story_file("redwall")
             },
             {
-                "name": "watership-down",
-                "contents": get_story_file("watership-down")
+                "name": "la-colina-de-watership",
+                "contents": get_story_file("la-colina-de-watership")
             },
             {
-                "name": "alice-in-wonderland",
-                "contents": get_story_file("alice-in-wonderland")
+                "name": "alicia-en-el-pais-de-las-maravillas",
+                "contents": get_story_file("alicia-en-el-pais-de-las-maravillas")
             },
             {
-                "name": "comic-book",
-                "contents": get_story_file("comic-book")
+                "name": "historieta",
+                "contents": get_story_file("historieta")
             },
             {
-                "name": "note",
+                "name": "nota",
                 "contents": get_story_file("note_my-room")
             }
         ]
 }
 
 wardrobe = {
-    "name": "wardrobe",
+    "name": "armario",
     "children": [
         {
-            "name": "cap",
-            "contents": get_story_file("cap")
+            "name": "gorra",
+            "contents": get_story_file("gorra")
         },
         {
-            "name": "dress",
-            "contents": get_story_file("dress")
+            "name": "vestido",
+            "contents": get_story_file("vestido")
         },
         {
-            "name": "jumper",
-            "contents": get_story_file("jumper")
+            "name": "sueter",
+            "contents": get_story_file("sueter")
         },
         {
-            "name": "shirt",
-            "contents": get_story_file("shirt")
+            "name": "camisa",
+            "contents": get_story_file("camisa")
         },
         {
-            "name": "skirt",
-            "contents": get_story_file("skirt")
+            "name": "falda",
+            "contents": get_story_file("falda")
         },
         {
-            "name": "t-shirt",
-            "contents": get_story_file("t-shirt")
+            "name": "camiseta",
+            "contents": get_story_file("camiseta")
         },
         {
-            "name": "trousers",
-            "contents": get_story_file("trousers")
+            "name": "pantalones",
+            "contents": get_story_file("pantalones")
         }
     ]
 }
 
 chest = {
-    "name": ".chest",
+    "name": ".cofre",
     "challenges": [
         {
             "challenge": 15,
@@ -83,33 +89,33 @@ chest = {
             "contents": get_story_file("LS")
         },
         {
-            "name": ".note",
-            "contents": get_story_file(".note")
+            "name": ".nota",
+            "contents": get_story_file(".nota")
         }
     ]
 }
 
 my_room = {
-    "name": "my-room",
+    "name": "mi-cuarto",
     "children": [
         {
-            "name": "alarm",
-            "contents": get_story_file("alarm")
+            "name": "despertador",
+            "contents": get_story_file("despertador")
         },
         {
-            "name": "chair",
-            "contents": get_story_file("chair")
+            "name": "silla",
+            "contents": get_story_file("silla")
         },
         {
-            "name": "computer",
-            "contents": get_story_file("computer")
+            "name": "computadora",
+            "contents": get_story_file("computadora")
         },
         {
-            "name": "desk",
-            "contents": get_story_file("desk")
+            "name": "escritorio",
+            "contents": get_story_file("escritorio")
         },
         {
-            "name": "bed",
+            "name": "cama",
             "contents": get_story_file("bed_my-room")
         },
         shelves,

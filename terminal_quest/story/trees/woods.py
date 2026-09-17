@@ -1,17 +1,18 @@
 # woods.py
 #
 # Copyright (C) 2014-2017 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 
-from cave import cave
-from clearing import clearing
-from rabbithole import rabbithole
-from linux_story.common import get_story_file
+from .cave import cave
+from .clearing import clearing
+from .rabbithole import rabbithole
+from terminal_quest.common import get_story_file
 
 
 thicket = {
-    "name": "thicket",
+    "name": "matorral",
     "challenges": [
         {
             "challenge": 0,
@@ -26,8 +27,8 @@ thicket = {
     "children": [
         rabbithole,
         {
-            "name": "Rabbit",
-            "contents": get_story_file("Rabbit"),
+            "name": "Conejo",
+            "contents": get_story_file("Conejo"),
             "challenges": [
                 {
                     "challenge": 0,
@@ -46,7 +47,7 @@ thicket = {
             ]
         },
         {
-            "name": "note",
+            "name": "nota",
             "contents": get_story_file("note_rabbithole"),
             "challenges": [
                 {
@@ -70,7 +71,7 @@ thicket = {
 
 
 woods = {
-    "name": "woods",
+    "name": "bosque",
     "challenges": [
         {
             "challenge": 0,
@@ -88,7 +89,7 @@ woods = {
         thicket,
         {
             "contents": get_story_file("note_woods"),
-            "name": "note",
+            "name": "nota",
             "challenges": [
                 {
                     "challenge": 0,

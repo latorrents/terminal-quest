@@ -1,11 +1,12 @@
 # challenge_24.py
 #
 # Copyright (C) 2014-2016 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
-from linux_story.step_helper_functions import unblock_cd_commands
-from linux_story.story.challenges.CompanionMisc import StepTemplateMkdir
+from terminal_quest.step_helpers import unblock_cd_commands
+from terminal_quest.story.challenges.CompanionMisc import StepTemplateMkdir
 
 
 # ----------------------------------------------------------------------------------------
@@ -13,25 +14,29 @@ from linux_story.story.challenges.CompanionMisc import StepTemplateMkdir
 
 class Step1(StepTemplateMkdir):
     story = [
-        _("You walk down the narrow road, with {{bb:Eleanor}} dancing " +\
-        "alongside, until you reach an open space in the " +\
-        "{{bb:east}} part of town."),
-        _("\n{{lb:Look around.}}")
+        (
+            "Caminas por el camino estrecho, con {{bb:Eleanor}} bailando a tu lado, hasta "
+            "que llegas a un espacio abierto en la parte {{bb:este}} del pueblo."
+        ),
+        "\n{{lb:Mira a tu alrededor.}}"
     ]
     commands = [
         "ls",
         "ls -a"
     ]
 
-    start_dir = "~/town/east"
-    end_dir = "~/town/east"
+    start_dir = "~/pueblo/este"
+    end_dir = "~/pueblo/este"
     hints = [
-        _("{{rb:Look around with}} {{yb:ls}}{{rb:.}}")
+        "{{rb:Mira alrededor con}} {{yb:ls}}{{rb:.}}"
     ]
-    deleted_items = ["~/town/Eleanor"]
-    file_list = [{"path": "~/town/east/Eleanor"}]
+    deleted_items = ["~/pueblo/Eleanor"]
+    file_list = [{"path": "~/pueblo/este/Eleanor"}]
 
-    companion_speech = _("Eleanor: {{Bb:I can't see my parents anywhere...but there's a weird building there.}}")
+    companion_speech = (
+        "Eleanor: {{Bb:No veo a mis padres por ninguna parte... pero hay un edificio "
+        "extraño allá.}}"
+    )
 
     def next(self):
         return 24, 2
@@ -39,18 +44,18 @@ class Step1(StepTemplateMkdir):
 
 class Step2(StepTemplateMkdir):
     story = [
-        _("You see a {{bb:shed-shop}}, {{bb:library}} and {{bb:restaurant}}."),
-        _("\nEleanor: {{Bb:\"Hey, what is that shed-shop?\"}}\n"),
-        _("{{Bb:\"Let's}} {{lb:go in}}{{Bb:!\"}}")
+        "Ves una {{bb:tienda-de-cobertizos}}, una {{bb:biblioteca}} y un {{bb:restaurante}}.",
+        "\nEleanor: {{Bb:\"¿Qué es esa tienda-de-cobertizos?\"}}\n",
+        "{{Bb:\"¡Vamos}} {{lb:adentro}}{{Bb:!\"}}"
     ]
 
-    start_dir = "~/town/east"
-    end_dir = "~/town/east/shed-shop"
+    start_dir = "~/pueblo/este"
+    end_dir = "~/pueblo/este/tienda-de-cobertizos"
     hints = [
-        _("{{rb:Use}} {{yb:cd shed-shop}} {{rb:to go in the shed-shop.}}")
+        "{{rb:Usa}} {{yb:cd tienda-de-cobertizos}} {{rb:para entrar a la tienda de cobertizos.}}"
     ]
 
-    companion_speech = _("Eleanor: {{Bb:Do you think they sell candy?}}")
+    companion_speech = "Eleanor: {{Bb:¿Crees que venderán caramelos?}}"
 
     def block_command(self, line):
         return unblock_cd_commands(line)
@@ -64,24 +69,24 @@ class Step3(StepTemplateMkdir):
     # Have a sign with "the-best-shed-maker-in-town"
 
     story = [
-        _("You both walk slowly into the shop."),
-        _("It is dusty and significantly darker in here than outside."),
-        _("{{bb:Eleanor}} looks like she needs to sneeze."),
-        _("\n{{lb:Look around.}}")
+        "Los dos entran despacio en la {{bb:tienda-de-cobertizos}}.",
+        "Aquí dentro está sucio y mucho más oscuro que afuera.",
+        "Parece que {{bb:Eleanor}} va a estornudar.",
+        "\n{{lb:Mira a tu alrededor.}}"
     ]
 
-    start_dir = "~/town/east/shed-shop"
-    end_dir = "~/town/east/shed-shop"
+    start_dir = "~/pueblo/este/tienda-de-cobertizos"
+    end_dir = "~/pueblo/este/tienda-de-cobertizos"
     hints = [
-        _("{{rb:Look around with}} {{yb:ls}}{{rb:.}}")
+        "{{rb:Mira alrededor con}} {{yb:ls}}{{rb:.}}"
     ]
     commands = [
         "ls",
         "ls -a"
     ]
-    deleted_items = ["~/town/east/Eleanor"]
-    file_list = [{"path": "~/town/east/shed-shop/Eleanor"}]
-    companion_speech = _("Eleanor: {{Bb:Ah..ah...achoo!! It's so dusty in here!}}")
+    deleted_items = ["~/pueblo/este/Eleanor"]
+    file_list = [{"path": "~/pueblo/este/tienda-de-cobertizos/Eleanor"}]
+    companion_speech = "Eleanor: {{Bb:¡Ah... ah... achís! ¡Qué sucio está aquí dentro!}}"
 
     def next(self):
         return 24, 4
@@ -90,22 +95,22 @@ class Step3(StepTemplateMkdir):
 class Step4(StepTemplateMkdir):
 
     story = [
-        _("You see a man called {{bb:Bernard}}, a door and a couple of tools."),
-        _("\nThe tools show up as {{gb:green}} in the Terminal."),
-        _("\n{{lb:Listen}} to what {{bb:Bernard}} has to say.")
+        "Ves a un hombre llamado {{bb:Bernard}}, una puerta y algunas herramientas.",
+        "\nLas herramientas se muestran en {{gb:verde}} en la terminal.",
+        "\n{{lb:Escucha}} lo que {{bb:Bernard}} tiene para decir."
     ]
 
-    start_dir = "~/town/east/shed-shop"
-    end_dir = "~/town/east/shed-shop"
+    start_dir = "~/pueblo/este/tienda-de-cobertizos"
+    end_dir = "~/pueblo/este/tienda-de-cobertizos"
 
     hints = [
-        _("{{rb:Use}} {{yb:cat Bernard}} {{rb:to see what Bernard has to say.}}")
+        "{{rb:Usa}} {{yb:cat Bernard}} {{rb:para escuchar lo que Bernard tiene para decir.}}"
     ]
 
     commands = [
         "cat Bernard"
     ]
-    companion_speech = _("Eleanor: {{Bb:My}} {{lb:cat}} {{Bb:used to be a great listener, I'd tell her everything.}}")
+    companion_speech = "Eleanor: {{Bb:Mi}} {{lb:gato}} {{Bb:siempre me escuchaba muy bien, le contaba todo.}}"
 
     def next(self):
         return 25, 1

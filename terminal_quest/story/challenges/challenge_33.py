@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 #
 # Copyright (C) 2014, 2015 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
-from linux_story.StepTemplate import StepTemplate
-from linux_story.common import get_story_file
-from linux_story.step_helper_functions import unblock_cd_commands
-from linux_story.story.terminals.terminal_nano import TerminalNano
+from terminal_quest.step import StepTemplate
+from terminal_quest.common import get_story_file
+from terminal_quest.step_helpers import unblock_cd_commands
+from terminal_quest.terminals import TerminalNano
 
 
 class StepTemplateNano(StepTemplate):
@@ -16,70 +17,70 @@ class StepTemplateNano(StepTemplate):
 
 class Step1(StepTemplateNano):
     story = [
-        _("You are in a clearing. {{lb:Look around.}}"),
+        "Estás en un claro. {{lb:Mira alrededor.}}",
     ]
-    start_dir = "~/woods/clearing"
-    end_dir = "~/woods/clearing"
+    start_dir = "~/bosque/claro"
+    end_dir = "~/bosque/claro"
     commands = [
         "ls",
         "ls -a"
     ]
     hints = [
-        _("{{rb:Look around the clearing with}} {{yb:ls}}")
+        "{{rb:Mira alrededor del claro con}} {{yb:ls}}"
     ]
 
     file_list = [
         {
-            "path": "~/woods/cave/sign",
-            "permissions": 0644,
+            "path": "~/bosque/cueva/letrero",
+            "permissions": 0o644,
             "type": "file",
             "contents": get_story_file("sign_cave")
         },
 
         {
-            "path": "~/woods/cave/dark-room",
-            "permissions": 0300,
+            "path": "~/bosque/cueva/cuarto-oscuro",
+            "permissions": 0o300,
             "type": "directory"
         },
         {
-            "path": "~/woods/cave/dark-room/sign",
-            "permissions": 0644,
+            "path": "~/bosque/cueva/cuarto-oscuro/letrero",
+            "permissions": 0o644,
             "type": "file",
             "contents": get_story_file("x-sign")
         },
 
         {
-            "path": "~/woods/cave/cage",
-            "permissions": 0500,
+            "path": "~/bosque/cueva/jaula",
+            "permissions": 0o500,
             "type": "directory"
         },
         {
-            "path": "~/woods/cave/cage/bird",
-            "permissions": 0644,
+            "path": "~/bosque/cueva/jaula/pajaro",
+            "permissions": 0o644,
             "type": "file",
-            "contents": get_story_file("bird")
+            "contents": get_story_file("pajaro")
         },
         {
-            "path": "~/woods/cave/cage/sign",
-            "permissions": 0644,
+            "path": "~/bosque/cueva/jaula/letrero",
+            "permissions": 0o644,
             "type": "file",
             "contents": get_story_file("r-sign")
         },
 
         {
-            "path": "~/woods/cave/locked-room/",
-            "permissions": 0600,
+            "path": "~/bosque/cueva/cuarto-cerrado/",
+            "permissions": 0o600,
             "type": "directory"
         },
         {
-            "path": "~/woods/cave/locked-room/lighter",
-            "permissions": 0644,
+            "path": "~/bosque/cueva/cuarto-cerrado/encendedor",
+            "permissions": 0o644,
             "type": "file",
-            "contents": get_story_file("lighter")
+            "contents": get_story_file("encendedor")
         },
         {
-            "path": "~/woods/cave/locked-room/sign",
-            "permissions": 0644,
+            "path": "~/bosque/cueva/cuarto-cerrado/letrero",
+            "permissions": 0o644,
             "type": "file",
             "contents": get_story_file("w-sign"),
         }
@@ -91,21 +92,21 @@ class Step1(StepTemplateNano):
 
 class Step2(StepTemplateNano):
     story = [
-        _("There's a house in the clearing. Have a {{lb:look}} in the {{lb:house}}, or try and {{lb:go inside}}."),
+        "Hay una casa en el claro. {{lb:Mira}} dentro de la {{lb:casa}}, o intenta {{lb:entrar}}.",
     ]
-    start_dir = "~/woods/clearing"
-    end_dir = "~/woods/clearing"
-    dirs_to_attempt = "~/woods/clearing/house"
+    start_dir = "~/bosque/claro"
+    end_dir = "~/bosque/claro"
+    dirs_to_attempt = "~/bosque/claro/casa"
     commands = [
-        "ls house",
-        "ls house/",
-        "ls -a house",
-        "ls -a house/",
-        "cd house",
-        "cd house/"
+        "ls casa",
+        "ls casa/",
+        "ls -a casa",
+        "ls -a casa/",
+        "cd casa",
+        "cd casa/"
     ]
     hints = [
-        _("{{rb:Use}} {{yb:ls house/}} {{rb:to look in the house.}}")
+        "{{rb:Usa}} {{yb:ls casa/}} {{rb:para mirar dentro de la casa.}}"
     ]
 
     def block_command(self, line):
@@ -117,31 +118,31 @@ class Step2(StepTemplateNano):
 
 class Step3(StepTemplateNano):
     story = [
-        _("Huh, you can't seem to look inside."),
-        _("It is locked in the same way the {{bb:private-section}} in the library is."),
-        _("Maybe there's a clue somewhere around here."),
+        "Mmm, parece que no puedes mirar adentro.",
+        "Está cerrada de la misma forma que la {{bb:seccion-privada}} de la biblioteca.",
+        "Tal vez haya una pista por aquí cerca.",
         "",
-        _("{{lb:Investigate}} the area and see if you can find any clues.")
+        "{{lb:Investiga}} la zona y fíjate si encuentras alguna pista."
     ]
-    start_dir = "~/woods/clearing"
+    start_dir = "~/bosque/claro"
 
     # This should be an array of allowed directories you can end up in.
     # Perhaps an empty array means it doesn't matter where you end up.
-    end_dir = "~/woods/clearing"
+    end_dir = "~/bosque/claro"
 
     hints = [
-        _("{{rb:There is a signpost in the garden.}} {{lb:Examine}} {{rb:it.}}"),
-        _("{{rb:Examine that signpost with}} {{yb:cat signpost}}{{rb:.}}")
+        "{{rb:Hay un cartel en el claro.}} {{lb:Examínalo}}{{rb:.}}",
+        "{{rb:Examina ese cartel con}} {{yb:cat cartel}}{{rb:.}}"
     ]
 
     commands = [
-        "cat signpost"
+        "cat cartel"
     ]
 
     # Perhaps a nice data structure could be if the list of commands were
     # paired with appropriate hints?
     paired_hints = {
-        "ls": _("Try examining the individual items with {{lb:cat}}.")
+        "ls": "Intenta examinar cada objeto con {{lb:cat}}."
     }
 
     def next(self):
@@ -150,20 +151,23 @@ class Step3(StepTemplateNano):
 
 class Step4(StepTemplateNano):
     story = [
-        _("Okay, the signpost has an instruction on it. Let's try it out.")
+        "Bien, el cartel tiene una instrucción. Vamos a probarla."
     ]
 
     # It would be good if we could pass the current dir across and this would
     # simply be the default?
-    start_dir = "~/woods/clearing"
-    end_dir = "~/woods/clearing"
+    start_dir = "~/bosque/claro"
+    end_dir = "~/bosque/claro"
 
     hints = [
-        _("{{rb:Use}} {{yb:echo knock knock}} {{rb:to knock on the door.}}")
+        "{{rb:Usa}} {{yb:echo toc toc}} {{rb:para tocar la puerta.}}"
     ]
 
     commands = [
-        "echo knock knock"
+        "echo knock knock",
+        "echo toc toc",
+        "echo Toc toc",
+        "echo Toc Toc"
     ]
 
     def next(self):
@@ -173,22 +177,25 @@ class Step4(StepTemplateNano):
 
 class Step5(StepTemplateNano):
     story = [
-        _("You hear a deep voice on the other side of the door."),
+        "Escuchas una voz grave del otro lado de la puerta.",
         "",
-        _("Swordmaster:"),
-        _("{{Bb:If you have me, you want to share me."),
-        _("If you share me, you haven't got me."),
-        _("What am I?}}"),
+        "Espadachin:",
+        "{{Bb:Si me tienes, quieres compartirme.",
+        "Si me compartes, ya no me tienes.",
+        "¿Qué soy?}}",
         "",
-        _("{{yb:1. What?}}"),
-        _("{{yb:2. I don't know}}")
+        "{{yb:1. ¿Qué?}}",
+        "{{yb:2. No sé}}"
     ]
 
-    start_dir = "~/woods/clearing"
-    end_dir = "~/woods/clearing"
+    start_dir = "~/bosque/claro"
+    end_dir = "~/bosque/claro"
 
     def next(self):
-        if self._last_user_input.lower() == "secret" or self._last_user_input.lower() == "echo secret":
+        if self._last_user_input.lower() in [
+                "secret", "echo secret",
+                "secreto", "echo secreto", "un secreto", "echo un secreto"
+        ]:
             return 33, 6
         else:
             return 33, 8
@@ -196,11 +203,11 @@ class Step5(StepTemplateNano):
 
 class Step6(StepTemplateNano):
     story = [
-        _("Swordmaster: {{Bb:...Did you complete the cave challenge?"),
-        _("Fine, here's another. Unlock the door to my house.}}")
+        "Espadachin: {{Bb:...¿Completaste el desafío de la cueva?",
+        "Muy bien, aquí tienes otro. Abre la puerta de mi casa.}}"
     ]
-    start_dir = "~/woods/clearing"
-    end_dir = "~/woods/clearing"
+    start_dir = "~/bosque/claro"
+    end_dir = "~/bosque/claro"
 
     def next(self):
         return 33, 7
@@ -208,20 +215,20 @@ class Step6(StepTemplateNano):
 
 class Step7(StepTemplateNano):
     story = [
-        _("Swordmaster: {{Bb:I thought so. You need to complete the challenges}} {{lb:in the cave in the woods}}"),
-        _("{{Bb:Come back when you've finished.}}")
+        "Espadachin: {{Bb:Lo suponía. Tienes que completar los desafíos}} {{lb:de la cueva del bosque}}",
+        "{{Bb:Vuelve cuando hayas terminado.}}"
     ]
-    start_dir = "~/woods/clearing"
-    end_dir = "~/woods/cave"
+    start_dir = "~/bosque/claro"
+    end_dir = "~/bosque/cueva"
     hints = [
-        _("Swordmaster: {{Bb:Head to the}} {{bb:~/woods/cave}} {{Bb:and stop hanging around outside my house!}}"),
+        "Espadachin: {{Bb:¡Ve a la}} {{bb:~/bosque/cueva}} {{Bb:y deja de merodear frente a mi casa!}}",
         "",
-        _("{{rb:Head to}} {{bb:~/woods/cave}}")
+        "{{rb:Ve a}} {{bb:~/bosque/cueva}}"
     ]
 
     def check_command(self, line):
-        if line == "echo knock knock":
-            self.send_hint("Swordmaster: {{Bb:Go and find the answer. Don't just stand there.}}")
+        if line in ["echo knock knock", "echo toc toc", "echo Toc toc", "echo Toc Toc"]:
+            self.send_hint("Espadachin: {{Bb:Ve a buscar la respuesta. No te quedes ahí parado.}}")
             return
         return StepTemplateNano.check_command(self, line)
 
@@ -234,18 +241,18 @@ class Step7(StepTemplateNano):
 
 class Step8(StepTemplateNano):
     story = [
-        _("Swordmaster: {{Bb:That is not the answer! Find the answer}} {{lb:in the cave near the woods.}}")
+        "Espadachin: {{Bb:¡Esa no es la respuesta! Encuentra la respuesta}} {{lb:en la cueva del bosque.}}"
     ]
-    start_dir = "~/woods/clearing"
-    end_dir = "~/woods/cave"
+    start_dir = "~/bosque/claro"
+    end_dir = "~/bosque/cueva"
     hints = [
-        _("Swordmaster: {{Bb:Head to the}} {{bb:~/woods/cave}} {{Bb:and stop hanging around outside my house!}}"),
-        _("{{rb:Head to}} {{bb:~/woods/cave}}")
+        "Espadachin: {{Bb:¡Ve a la}} {{bb:~/bosque/cueva}} {{Bb:y deja de merodear frente a mi casa!}}",
+        "{{rb:Ve a}} {{bb:~/bosque/cueva}}"
     ]
 
     def check_command(self, line):
-        if line == "echo knock knock":
-            self.send_hint(_("Swordmaster: {{Bb:Go and find the answer. Don't just stand there guessing.}}"))
+        if line in ["echo knock knock", "echo toc toc", "echo Toc toc", "echo Toc Toc"]:
+            self.send_hint("Espadachin: {{Bb:Ve a buscar la respuesta. No te quedes ahí adivinando.}}")
             return
         return StepTemplateNano.check_command(self, line)
 
@@ -258,18 +265,18 @@ class Step8(StepTemplateNano):
 
 class Step9(StepTemplateNano):
     story = [
-        _("{{lb:You walk slowly into the cave. It has a musty smell.}}"),
-        _("{{Bb:Look around.}}")
+        "{{lb:Entras despacio a la cueva. Huele a humedad.}}",
+        "{{Bb:Mira alrededor.}}"
     ]
-    start_dir = "~/woods/cave"
-    end_dir = "~/woods/cave"
+    start_dir = "~/bosque/cueva"
+    end_dir = "~/bosque/cueva"
     commands = [
         "ls",
         "ls .",
         "ls ./"
     ]
     hints = [
-        _("{{rb:Use}} {{yb:ls}} {{rb:to look around.}}")
+        "{{rb:Usa}} {{yb:ls}} {{rb:para mirar alrededor.}}"
     ]
 
     def next(self):

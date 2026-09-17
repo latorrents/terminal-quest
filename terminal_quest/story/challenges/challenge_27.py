@@ -1,13 +1,14 @@
 # challenge_27.py
 #
 # Copyright (C) 2014-2016 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
-from linux_story.common import get_story_file
-from linux_story.step_helper_functions import unblock_cd_commands
-from linux_story.helper_functions import wrap_in_box
-from linux_story.story.challenges.CompanionMisc import StepTemplateMkdir, StepTemplateNano
+from terminal_quest.common import get_story_file
+from terminal_quest.step_helpers import unblock_cd_commands
+from terminal_quest.helpers import wrap_in_box
+from terminal_quest.story.challenges.CompanionMisc import StepTemplateMkdir, StepTemplateNano
 
 
 # ----------------------------------------------------------------------------------------
@@ -15,31 +16,31 @@ from linux_story.story.challenges.CompanionMisc import StepTemplateMkdir, StepTe
 
 class Step1(StepTemplateMkdir):
     story = [
-        _("You are back in {{bb:Bernard}}'s place.\n"),
-        _("{{lb:Listen}} to what {{bb:Bernard}} has to say.")
+        "Te encuentras nuevamente en la tienda de {{bb:Bernard}}.\n",
+        "{{lb:Escucha}} lo que {{bb:Bernard}} tiene para decir."
     ]
 
-    start_dir = "~/town/east/shed-shop"
-    end_dir = "~/town/east/shed-shop"
+    start_dir = "~/pueblo/este/tienda-de-cobertizos"
+    end_dir = "~/pueblo/este/tienda-de-cobertizos"
 
     hints = [
-        _("{{rb:Use}} {{yb:cat Bernard}} {{rb:to interact with Bernard.}}")
+        "{{rb:Usa}} {{yb:cat Bernard}} {{rb:para interactuar con Bernard.}}"
     ]
 
     commands = [
         "cat Bernard"
     ]
 
-    deleted_items = ["~/town/east/library/Eleanor"]
+    deleted_items = ["~/pueblo/este/biblioteca/Eleanor"]
     file_list = [
         {
-            "path": "~/town/east/shed-shop/Eleanor",
+            "path": "~/pueblo/este/tienda-de-cobertizos/Eleanor",
             "contents": get_story_file("Eleanor"),
             "type": "file"
         }
     ]
     companion_speech = (
-        _("Eleanor: {{Bb:\"Achoo! This place is really dusty...*sniff*\"}}")
+        "Eleanor: {{Bb:\"¡Achís! Este lugar está sucio...*sniff*\"}}"
     )
 
     def next(self):
@@ -48,35 +49,37 @@ class Step1(StepTemplateMkdir):
 
 class Step2(StepTemplateNano):
     story = [
-        _("Bernard: {{Bb:\"Hellooooo. You came back to fix my script!\"}}\n "),
+        "Bernard: {{Bb:\"Holaaaaaa. ¿Volvieron para arreglar mi utensilio?\"}}\n ",
     ]
     story += wrap_in_box([
-        _("{{gb:New Power}}: {{yb:nano}} followed by an"),
-        _("object lets you {{lb:edit}} it"),
+        "{{gb:Nuevo Poder}}: {{yb:nano}} seguido de un",
+        "objeto te permite {{lb:editarlo}}",
     ])
     story += [
-        _("Let's try and use {{yb:nano best-horn-in-the-world.sh}} to edit it."),
+        "Intenta usar {{yb:nano la-mejor-bocina-del-mundo.sh}} para editarlo.",
     ]
 
-    start_dir = "~/town/east/shed-shop"
-    end_dir = "~/town/east/shed-shop"
+    start_dir = "~/pueblo/este/tienda-de-cobertizos"
+    end_dir = "~/pueblo/este/tienda-de-cobertizos"
 
     commands = [
-        "nano best-horn-in-the-world.sh"
+        "nano la-mejor-bocina-del-mundo.sh"
     ]
     highlighted_commands = ['nano']
 
     hints = [
-        _("{{rb:Use}} {{yb:nano best-horn-in-the-world}} " +\
-        "{{rb:to edit the tool.}}")
+        "{{rb:Usa}} {{yb:nano la-mejor-bocina-del-mundo.sh}} {{rb:para editar el utensilio.}}"
     ]
 
-    companion_speech = _("Eleanor: {{Bb:They taught us how to write at school. I don't think Bernard is very clever.}}")
+    companion_speech = (
+        "Eleanor: {{Bb:Nos enseñaron a escribir en la escuela. No creo que Bernard sea "
+        "muy inteligente.}}"
+    )
 
     def _setup_nano(self):
-        self._nano.set_goal_nano_save_name("best-horn-in-the-world.sh")
-        self._nano.set_goal_nano_end_content("echo \"Honk!\"")
-        self._nano.set_goal_nano_filepath("~/town/east/shed-shop/best-horn-in-the-world.sh")
+        self._nano.set_goal_nano_save_name("la-mejor-bocina-del-mundo.sh")
+        self._nano.set_goal_nano_end_content("echo \"Piii!\"")
+        self._nano.set_goal_nano_filepath("~/pueblo/este/tienda-de-cobertizos/la-mejor-bocina-del-mundo.sh")
 
     def check_command(self, line):
         if line == "cat Eleanor":
@@ -93,20 +96,20 @@ class Step2(StepTemplateNano):
 
 class Step3(StepTemplateNano):
     story = [
-        _("Now time to test your script!"),
-        _("Use {{yb:./best-horn-in-the-world.sh}} to run it.")
+        "¡Es hora de poner a prueba tu comando!",
+        "Usa {{yb:./la-mejor-bocina-del-mundo.sh}} para ejecutarlo."
     ]
 
-    start_dir = "~/town/east/shed-shop"
-    end_dir = "~/town/east/shed-shop"
+    start_dir = "~/pueblo/este/tienda-de-cobertizos"
+    end_dir = "~/pueblo/este/tienda-de-cobertizos"
 
     commands = [
-        "./best-horn-in-the-world.sh"
+        "./la-mejor-bocina-del-mundo.sh"
     ]
 
-    companion_speech = _("Eleanor: {{Bb:Will it be loud?}}")
+    companion_speech = "Eleanor: {{Bb:¿Sonará fuerte?}}"
     hints = [
-        _("{{rb:Use}} {{yb:./best-horn-in-the-world.sh}} {{rb:to run the script.}}")
+        "{{rb:Usa}} {{yb:./la-mejor-bocina-del-mundo.sh}} {{rb:para ejecutar el comando.}}"
     ]
 
     def next(self):
@@ -116,34 +119,35 @@ class Step3(StepTemplateNano):
 class Step4(StepTemplateNano):
     # Allow the user to ask all the questions within the same Step?
     story = [
-        _("{{gb:Congratulations, the script now prints \"Honk!\"}}"),
+        "{{gb:Felicitaciones, el comando ahora dice \"Piii!\"}}",
 
-        _("\nBernard: {{Bb:\"The tool is working! Wonderful! " +\
-        "Thank you so much!\"}}"),
+        "\nBernard: {{Bb:\"¡El utensilio está funcionando! ¡Fantástico! ¡Muchas gracias!\"}}",
 
-        _("\nIt occurs to you that you haven't asked {{bb:Bernard}} much about " +\
-        "himself."),
+        "\nSe te ocurre que no le has preguntado a {{bb:Bernard}} acerca de él.",
 
-        _("What would you like to ask him?"),
+        "¿Qué te gustaría preguntarle?",
 
-        _("\n{{yb:1: \"How did you create your tools?\"}}"),
+        "\n{{yb:1: \"¿Cómo creaste tus utensilios?\"}}",
 
-        _("{{yb:2: \"What's the next big tool you want to create?\"}}"),
+        "{{yb:2: \"¿Cuál será el próximo utensilio que crearás?\"}}",
 
-        _("{{yb:3: \"Are you going into hiding now?\"}}"),
+        "{{yb:3: \"¿Te esconderás ahora?\"}}",
 
-        _("{{yb:4: \"What's in your basement?\"}}"),
+        "{{yb:4: \"¿Qué hay en el sótano?\"}}",
 
-        _("\nUse {{yb:echo}} to ask him a question.")
+        "\nUsa {{yb:echo}} para hacerle la pregunta."
     ]
 
-    start_dir = "~/town/east/shed-shop"
-    end_dir = "~/town/east/shed-shop"
+    start_dir = "~/pueblo/este/tienda-de-cobertizos"
+    end_dir = "~/pueblo/este/tienda-de-cobertizos"
     hints = [
-        _("{{rb:Use}} {{yb:echo 1}}{{rb:,}} {{yb:echo 2}}{{rb:,}} {{yb:echo 3}} {{rb:or}} {{yb:echo 4}}")
+        (
+            "{{rb:Usa}} {{yb:echo 1}}{{rb:,}} {{yb:echo 2}}{{rb:,}} {{yb:echo 3}} {{rb:o}} "
+            "{{yb:echo 4}}"
+        )
     ]
 
-    companion_speech = _("Eleanor: {{Bb:\"I have a question - does he have candy in his basement?\"}}")
+    companion_speech = "Eleanor: {{Bb:\"Yo tengo una pregunta: ¿tendrá caramelos en el sótano?\"}}"
 
     commands = [
         "echo 2"
@@ -152,18 +156,17 @@ class Step4(StepTemplateNano):
     def check_command(self, line):
         if line == "echo 1":
             text = (
-                _("\nBernard: {{Bb:\"Ah, trade secret. *wink*\"}}")
+                "\nBernard: {{Bb:\"Ah, secreto profesional. *guiño*\"}}"
             )
             self.send_hint(text)
         elif line == "echo 3":
             text = (
-                _("\nBernard: {{Bb:\"Er, what? No, I wasn't planning " +\
-                "on doing so. Why would I do that?\"}}")
+                "\nBernard: {{Bb:\"Er, ¿qué? No, no estaba planeando hacerlo. ¿Por qué debería hacer eso?\"}}"
             )
             self.send_hint(text)
         elif line == "echo 4":
             text = (
-                _("\nBernard: {{Bb:\"Oh ho ho ho, that's none of your business.\"}}")
+                "\nBernard: {{Bb:\"Oh ho ho ho, eso no te interesa.\"}}"
             )
             self.send_hint(text)
         else:
@@ -175,28 +178,35 @@ class Step4(StepTemplateNano):
 
 class Step5(StepTemplateNano):
     print_text = [
-        _("{{yb:\"What's the next big tool you want to create?\"}}")
+        "{{yb:\"¿Cuál será el próximo utensilio que crearás?\"}}"
     ]
 
     story = [
-        _("Bernard: {{Bb:\"I want to know how the}} {{bb:private-section}} {{Bb:is locked " +\
-        "in the}} {{bb:library}}{{Bb:, and then make a key to unlock it.\"}}"),
+        (
+            "Bernard: {{Bb:\"Quisiera saber cómo es que cierran la}} {{bb:seccion-privada}} {{Bb:"
+            "de la}} {{bb:biblioteca}}{{Bb:, y luego crear una llave para abrirla.\"}}"
+        ),
 
-        _("\nEleanor: {{Bb:\"I guess the}} {{bb:librarian}} {{Bb:would have locked the private section.\"}}"),
+        (
+            "\nEleanor: {{Bb:\"Me imagino que la}} {{bb:bibliotecaria}} {{Bb:es quien cierra la "
+            "sección privada.\"}}"
+        ),
 
-        _("{{Bb:\"Maybe she can tell us how she did it? We should look for her.\"}}"),
+        "{{Bb:\"¿Tal vez puede decirnos cómo lo hace? Deberíamos buscarla.\"}}",
 
-        _("\n{{lb:Leave}} the {{bb:shed-shop}}.")
+        "\n{{lb:Sal}} de la {{bb:tienda-de-cobertizos}}."
     ]
 
     hints = [
-        _("{{rb:Use}} {{yb:cd ..}} {{rb:to go}} {{lb:back}} {{rb:to town.}}")
+        "{{rb:Usa}} {{yb:cd ..}} {{rb:para}} {{lb:volver}} {{rb:al pueblo.}}"
     ]
-    start_dir = "~/town/east/shed-shop"
-    end_dir = "~/town/east"
+    start_dir = "~/pueblo/este/tienda-de-cobertizos"
+    end_dir = "~/pueblo/este"
     companion_speech = \
-        _("Eleanor: {{Bb:\"What do you think is hidden in the private-section?}}" +\
-        "\n{{Bb:Maybe Bernard shouldn't see it...\"}}")
+        (
+            "Eleanor: {{Bb:\"¿Qué crees que esconde la seccion-privada?}}\n{{Bb:Tal vez Bernard "
+            "no debería saberlo...\"}}"
+        )
 
     def block_command(self, line):
         return unblock_cd_commands(line)

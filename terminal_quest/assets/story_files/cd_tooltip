@@ -6,22 +6,22 @@
   \_____|_____/
 
 
-cd gives you the power to move.
+Este hechizo te da el poder de moverte.
 
 
-Examples
+Ejemplos
 
-<span foreground="yellow">cd</span>
-This takes you the home directory
+{{yb:cd}}
+Te lleva a tu directorio de inicio
 
-<span foreground="yellow">cd ~</span>
-Identical to the spell above
+{{yb:cd ~}}
+Igual que el anterior
 
-<span foreground="yellow">cd ../</span>
-This moves you back a directory
+{{yb:cd ../}}
+Te saca del directorio en el que estás
 
-<span foreground="yellow">cd hidy-hole</span>
-This will move you inside hidey-hole, assuming you are next to it
+{{yb:cd escondite}}
+Te mueve dentro de -escondite-, si está cerca de ti
 
-<span foreground="yellow">cd ~/wood/treehouse</span>
-This will move you to the directory ~/wood/treehouse regardless of your current position
+{{yb:cd ~/bosque/casa-del-arbol}}
+Te mueve al directorio ~/bosque/casa-del-arbol sin importar tu posición actual

@@ -1,14 +1,15 @@
 # challenge_1.py
 #
 # Copyright (C) 2014-2017 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
 
-from linux_story.StepTemplate import StepTemplate
-from linux_story.story.terminals.terminal_ls import TerminalLs
-from linux_story.sound_manager import SoundManager
-from linux_story.helper_functions import wrap_in_box
+from terminal_quest.step import StepTemplate
+from terminal_quest.terminals import TerminalLs
+from terminal_quest.sound import SoundManager
+from terminal_quest.helpers import wrap_in_box
 
 
 class StepLs(StepTemplate):
@@ -20,31 +21,39 @@ class StepLs(StepTemplate):
 
 class Step1(StepLs):
     story = [
-        _("{{wb:Alarm}}: {{Bb:\"Beep beep beep! Beep beep beep!\"}}"),
-        _("{{wb:Radio}}: {{Bb:\"Good Morning, this is the 9am news.\"\n"),
-        _("\"The town of Folderton has awoken to strange news. There have been reports of missing people and "
-            "damaged buildings across the town, with more stories coming in as we speak.\""),
-        _("\n\"Mayor Hubert has called an emergency town meeting and we'll keep you posted as it "
-            "happens...\"}}\n"),
-        _("It's time to get up sleepy head!\n "),
+        "{{wb:Alarma}}: {{Bb:\"Bip bip bip! Bip bip bip!\"}}",
+        "{{wb:Radio}}: {{Bb:\"Buenos días, estas son las noticias de las 9am.\"\n",
+        (
+            "\"El pueblo de Folderton ha despertado entre extrañas noticias. Hubo varios "
+            "reportes de personas desaparecidas y edificios dañados a lo largo del pueblo, "
+            "van llegando más novedades mientras hablamos.\""
+        ),
+        (
+            "\n\"El alcalde Hubert ha llamado a una reunión de emergencia en el pueblo, te "
+            "mantendremos informado...\"}}\n"
+        ),
+        "¡Es hora de levantarse, dormilón!\n ",
     ]  # TODO: " \ is a hack in this array to stop word wrap code screwing up and adding new lines in where it shouldn't
 
     story += wrap_in_box([
-        _("{{gb:New Power:}} Type {{yb:ls}} and press"),
-        _("{{ob:Enter}} to {{lb:look around}}."),
+        "{{gb:Nuevo Poder:}} Escribe {{yb:ls}} y presiona",
+        "{{ob:Enter}} para {{lb:mirar a tu alrededor}}.",
     ])
 
-    start_dir = "~/my-house/my-room"
-    end_dir = "~/my-house/my-room"
+    start_dir = "~/mi-casa/mi-cuarto"
+    end_dir = "~/mi-casa/mi-cuarto"
     commands = "ls"
     highlighted_commands = ["ls"]
     hints = [
-        _("{{rb:Type}} {{yb:ls}} {{rb:and press}} {{ob:Enter}} {{rb:to take a look around your bedroom.}}")
+        (
+            "{{rb:Escribe}} {{yb:ls}} {{rb:y presiona}} {{ob:Enter}} {{rb:para echar un "
+            "vistazo alrededor de tu habitación.}}"
+        )
     ]
 
     def _run_at_start(self):
         sound_manager = SoundManager()
-        sound_manager.play_sound('alarm')
+        sound_manager.play_sound('despertador')
 
     def next(self):
         return 2, 1

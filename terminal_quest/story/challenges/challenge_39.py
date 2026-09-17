@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 #
 # Copyright (C) 2014-2017 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
-from linux_story.StepTemplate import StepTemplate
-from linux_story.common import get_story_file, get_username
-from linux_story.story.terminals.terminal_chmod import TerminalChmod
+from terminal_quest.step import StepTemplate
+from terminal_quest.common import get_story_file, get_username
+from terminal_quest.terminals import TerminalChmod
 
 
 class StepTemplateChmod(StepTemplate):
@@ -15,16 +16,16 @@ class StepTemplateChmod(StepTemplate):
 
 class Step1(StepTemplateChmod):
     story = [
-        _("You see a Masked Swordmaster watching you."),
-        _("{{lb:Listen}} to what he has to say.")
+        "Ves a un Espadachin Enmascarado que te observa.",
+        "{{lb:Escucha}} lo que tiene que decir."
     ]
-    start_dir = "~/woods/clearing/house"
-    end_dir = "~/woods/clearing/house"
+    start_dir = "~/bosque/claro/casa"
+    end_dir = "~/bosque/claro/casa"
     hints = [
-        _("{{rb:Use}} {{yb:cat Swordmaster}} {{rb:to}} {{lb:listen}} {{rb:to what the Swordmaster has to say.}}")
+        "{{rb:Usa}} {{yb:cat Espadachin}} {{rb:para}} {{lb:escuchar}} {{rb:lo que tiene que decir el Espadachin.}}"
     ]
     commands = [
-        "cat Swordmaster"
+        "cat Espadachin"
     ]
 
     def next(self):
@@ -33,23 +34,23 @@ class Step1(StepTemplateChmod):
 
 class Step2(StepTemplateChmod):
     story = [
-        _("{{wb:Swordmaster:}} {{Bb:\"Child, why do you seek me?\"}}"),
+        "{{wb:Espadachin:}} {{Bb:\"Niño, ¿por qué me buscas?\"}}",
         "",
-        _("{{yb:1: I want to unlock the private section in the library.}}"),
-        _("{{yb:2: Who are you?}}"),
-        _("{{yb:3: Have you been leaving me strange notes?}}"),
+        "{{yb:1: Quiero abrir la sección privada de la biblioteca.}}",
+        "{{yb:2: ¿Quién eres?}}",
+        "{{yb:3: ¿Has estado dejándome notas extrañas?}}",
         "",
-        _("Respond with {{yb:echo 1}}, {{yb:echo 2}}, or {{yb:echo 3}}.")
+        "Responde con {{yb:echo 1}}, {{yb:echo 2}} o {{yb:echo 3}}."
     ]
     commands = [
         "echo 1"
     ]
-    start_dir = "~/woods/clearing/house"
-    end_dir = "~/woods/clearing/house"
+    start_dir = "~/bosque/claro/casa"
+    end_dir = "~/bosque/claro/casa"
     extra_hints = {
-        "echo 2": _("Swordmaster: {{Bb:\"I have fled the outside world to make my home here in this peaceful wood. "
-                    "The few who know of me call me the Masked Swordmaster.\"}}"),
-        "echo 3": _("Swordmaster: {{Bb:\"What notes?\"}}")
+        "echo 2": "Espadachin: {{Bb:\"Huí del mundo exterior para hacer mi hogar aquí, en este bosque tranquilo. "
+                  "Los pocos que me conocen me llaman el Espadachin Enmascarado.\"}}",
+        "echo 3": "Espadachin: {{Bb:\"¿Qué notas?\"}}"
     }
 
     last_step = True
@@ -67,29 +68,29 @@ class Step2(StepTemplateChmod):
 
 class Step3(StepTemplateChmod):
     print_text = [
-        _("{{yb:I want to unlock the private section in the library.}}")
+        "{{yb:Quiero abrir la sección privada de la biblioteca.}}"
     ]
     story = [
-        _("Swordmaster: {{Bb:\"Well, if you unlocked the chest in the}} {{bb:~/woods/cave}}"
-        "{{Bb:, then you already know how.}}\""),
-        _("{{Bb:\"A note of caution: what is inside is both powerful and dangerous.\"}}"),
+        "Espadachin: {{Bb:\"Bueno, si abriste el cofre de la}} {{bb:~/bosque/cueva}}"
+        "{{Bb:, entonces ya sabes cómo hacerlo.\"}}",
+        "{{Bb:\"Una advertencia: lo que hay dentro es poderoso y peligroso a la vez.\"}}",
         "",
-        _("{{yb:1: What is inside the library that is so dangerous?}}"),
-        _("{{yb:2: Why do you live so far from other people?}}"),
-        _("{{yb:3: Do you know why people are disappearing?}}")
+        "{{yb:1: ¿Qué hay en la biblioteca que sea tan peligroso?}}",
+        "{{yb:2: ¿Por qué vives tan lejos de la gente?}}",
+        "{{yb:3: ¿Sabes por qué está desapareciendo la gente?}}"
     ]
 
     commands = [
         "echo 3"
     ]
 
-    start_dir = "~/woods/clearing/house"
-    end_dir = "~/woods/clearing/house"
+    start_dir = "~/bosque/claro/casa"
+    end_dir = "~/bosque/claro/casa"
     extra_hints = {
-        "echo 1": _("Swordmaster: \"A command that gives the wielder tremendous power, "
-                    "turning you into a Super User.\"}}"),
-        "echo 2": _("Swordmaster: {{Bb:\"Being a swordmaster, I have the ability to}} {{lb:remove}} {{Bb:others. "
-                    "This makes people uneasy around me, so I choose to live in the woods instead.\"}}")
+        "echo 1": "Espadachin: {{Bb:\"Un comando que da a quien lo usa un poder tremendo, "
+                  "y lo convierte en Super Usuario.\"}}",
+        "echo 2": "Espadachin: {{Bb:\"Como soy espadachin, tengo la capacidad de}} {{lb:eliminar}} {{Bb:a otros. "
+                  "Eso pone nerviosa a la gente cuando estoy cerca, así que prefiero vivir en el bosque.\"}}"
     }
 
     def check_command(self, line):
@@ -104,26 +105,26 @@ class Step3(StepTemplateChmod):
 
 class Step4(StepTemplateChmod):
     print_text = [
-        _("{{yb:Do you know why people are disappearing?}}")
+        "{{yb:¿Sabes por qué está desapareciendo la gente?}}"
     ]
     story = [
-        _("Swordmaster: {{Bb:\"I wasn't aware people were disappearing. Is that what is causing that bell?"),
-        _("Perhaps it is good you are here then.\""),
-        _("\"Tell me, what is your name?\"}}")
+        "Espadachin: {{Bb:\"No sabía que la gente estaba desapareciendo. ¿Es por eso que suena esa campana?",
+        "Entonces quizás sea bueno que estés aquí.\"",
+        "\"Dime, ¿cómo te llamas?\"}}"
     ]
-    start_dir = "~/woods/clearing/house"
-    end_dir = "~/woods/clearing/house"
+    start_dir = "~/bosque/claro/casa"
+    end_dir = "~/bosque/claro/casa"
     commands = [
         "echo " + get_username()
     ]
     hints = [
-        _("{{rb:Use}} {{yb:echo " + get_username() + "}} {{rb:to give your name.}}")
+        "{{rb:Usa}} {{yb:echo " + get_username() + "}} {{rb:para decir tu nombre.}}"
     ]
 
     def check_command(self, last_user_input):
         if last_user_input.startswith("echo") and last_user_input not in self.commands:
             self.send_hint(
-                _("Swordmaster: {{Bb:\"That's a strange name. Is that really your name?\"}}")
+                "Espadachin: {{Bb:\"Qué nombre tan extraño. ¿De verdad te llamas así?\"}}"
             )
         return StepTemplateChmod.check_command(self, last_user_input)
 
@@ -133,22 +134,22 @@ class Step4(StepTemplateChmod):
 
 class Step5(StepTemplateChmod):
     story = [
-        _("Swordmaster: {{Bb:\"I thought you might be. Few have the power to use the commands you used earlier."),
-        _("How did I know your name? Use}} {{yb:ls -l}} {{Bb:to see.\"}}")
+        "Espadachin: {{Bb:\"Eso pensé. Pocos tienen el poder de usar los comandos que usaste antes.",
+        "¿Cómo supe tu nombre? Usa}} {{yb:ls -l}} {{Bb:para verlo.\"}}"
     ]
     commands = [
         "ls -l",
         "ls -l .",
         "ls -l ./"
     ]
-    start_dir = "~/woods/clearing/house"
-    end_dir = "~/woods/clearing/house"
+    start_dir = "~/bosque/claro/casa"
+    end_dir = "~/bosque/claro/casa"
 
     file_list = [
         {
             "contents": get_story_file("note_swordsmaster-house"),
-            "path": "~/woods/clearing/house/note",
-            "permissions": 0644,
+            "path": "~/bosque/claro/casa/nota",
+            "permissions": 0o644,
             "type": "file"
         }
     ]
@@ -159,17 +160,17 @@ class Step5(StepTemplateChmod):
 
 class Step6(StepTemplateChmod):
     story = [
-        _("Swordmaster: {{Bb:\"Your name is written in this world, for anyone who knows where to look.\"}}"),
+        "Espadachin: {{Bb:\"Tu nombre está escrito en este mundo, para quien sepa dónde mirar.\"}}",
         "{{Bb:\"...\"}}",
-        _("{{Bb:\"...why is there a}} {{lb:note}} {{Bb:in this room?\"}}"),
-        _("{{Bb:\"Do you see it? Use}} {{lb:cat note}} {{Bb:to examine it.\"}}")
+        "{{Bb:\"...¿por qué hay una}} {{lb:nota}} {{Bb:en este cuarto?\"}}",
+        "{{Bb:\"¿La ves? Usa}} {{lb:cat nota}} {{Bb:para examinarla.\"}}"
     ]
     commands = [
-        "cat note"
+        "cat nota"
     ]
 
-    start_dir = "~/woods/clearing/house"
-    end_dir = "~/woods/clearing/house"
+    start_dir = "~/bosque/claro/casa"
+    end_dir = "~/bosque/claro/casa"
 
     def next(self):
         return 40, 1

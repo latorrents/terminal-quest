@@ -1,15 +1,16 @@
 # challenge_2.py
 #
 # Copyright (C) 2014-2016 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
 # License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
 #
 # A chapter of the story
 
 
-from linux_story.StepTemplate import StepTemplate
-from kano_profile.apps import save_app_state_variable
-from linux_story.helper_functions import wrap_in_box
-from linux_story.story.terminals.terminal_cat import TerminalCat
+from terminal_quest.step import StepTemplate
+from terminal_quest.progress import save_app_state_variable
+from terminal_quest.helpers import wrap_in_box
+from terminal_quest.terminals import TerminalCat
 
 
 class StepCat(StepTemplate):
@@ -21,25 +22,25 @@ class StepCat(StepTemplate):
 
 class Step1(StepCat):
     story = [
-        _("Awesome, now you can see the objects around you."),
-        _("There's your {{bb:bed}}, an {{bb:alarm}}... "),
-        _("Euuughh...turn that {{bb:alarm}} off! \n"),
+        "Increíble, ahora puedes ver los objetos a tu alrededor. ",
+        "Allí está tu {{bb:cama}}, tu {{bb:despertador}}... ",
+        "¡Euuughh...apaga ese {{bb:despertador}}, por favor! \n",
     ]
 
     story += wrap_in_box([
-        _("{{gb:New Power}}: to {{lb:examine}} objects, type"),
-        _("{{yb:cat}} and the object name."),
+        "{{gb:Nuevo Poder}}: para {{lb:examinar}} objetos, escribe",
+        "{{yb:cat}} y el nombre del objeto.",
     ])
 
     story += [
-        _("Use {{yb:cat alarm}} to {{lb:examine}} the {{bb:alarm}}.")
+        "Usa {{yb:cat despertador}} para {{lb:examinar}} el {{bb:despertador}}."
     ]
 
-    start_dir = "~/my-house/my-room"
-    end_dir = "~/my-house/my-room"
-    commands = "cat alarm"
+    start_dir = "~/mi-casa/mi-cuarto"
+    end_dir = "~/mi-casa/mi-cuarto"
+    commands = "cat despertador"
     highlighted_commands = ['cat']
-    hints = [_("{{rb:Type}} {{yb:cat alarm}} {{rb:to investigate the alarm.}}")]
+    hints = ["{{rb:Escribe}} {{yb:cat despertador}} {{rb:para investigar el despertador.}}"]
 
     def next(self):
         return 2, 2
@@ -47,15 +48,15 @@ class Step1(StepCat):
 
 class Step2(StepCat):
     story = [
-        _("Ok - it's switched off. Better get dressed...\n"),
+        "Ok - está apagado. Mejor vístete...\n",
 
-        _("Type {{yb:ls wardrobe/}} to {{lb:look inside}} your {{bb:wardrobe}}.\n")
+        "Escribe {{yb:ls armario/}} para {{lb:mirar dentro}} de tu {{bb:armario}}.\n"
     ]
-    start_dir = "~/my-house/my-room"
-    end_dir = "~/my-house/my-room"
-    commands = ["ls wardrobe", "ls wardrobe/"]
+    start_dir = "~/mi-casa/mi-cuarto"
+    end_dir = "~/mi-casa/mi-cuarto"
+    commands = ["ls armario", "ls armario/"]
     hints = [
-        _("{{rb:Type}} {{yb:ls wardrobe/}} {{rb:to look for something to wear.}}")
+        "{{rb:Escribe}} {{yb:ls armario/}} {{rb:para buscar ropa para ponerte.}}"
     ]
 
     def next(self):
@@ -64,14 +65,14 @@ class Step2(StepCat):
 
 class Step3(StepCat):
     story = [
-        _("Check out that {{bb:t-shirt}}!\n"),
-        _("{{lb:Examine}} the {{bb:t-shirt}} with {{yb:cat wardrobe/t-shirt}} to see how it looks.\n")
+        "¡Mira esa {{bb:camiseta}}!\n",
+        "{{lb:Examina}} la {{bb:camiseta}} con {{yb:cat armario/camiseta}} para ver cómo te sienta.\n"
     ]
-    start_dir = "~/my-house/my-room"
-    end_dir = "~/my-house/my-room"
-    commands = "cat wardrobe/t-shirt"
+    start_dir = "~/mi-casa/mi-cuarto"
+    end_dir = "~/mi-casa/mi-cuarto"
+    commands = "cat armario/camiseta"
     hints = [
-        _("{{rb:Type}} {{yb:cat wardrobe/t-shirt}} {{rb:to investigate how it looks.}}")
+        "{{rb:Escribe}} {{yb:cat armario/camiseta}} {{rb:para averiguar cómo se ve.}}"
     ]
 
     def next(self):
@@ -80,27 +81,30 @@ class Step3(StepCat):
 
 class Step4(StepCat):
     story = [
-        _("Looking good! Put that on and look for something else.\n"),
-        _("{{lb:Examine}} the {{bb:skirt}} or the {{bb:trousers}}.\n")
+        "¡Se ve bien! Póntela y busca algo más.\n",
+        "{{lb:Examina}} la {{bb:falda}} o los {{bb:pantalones}}.\n"
     ]
-    start_dir = "~/my-house/my-room"
-    end_dir = "~/my-house/my-room"
+    start_dir = "~/mi-casa/mi-cuarto"
+    end_dir = "~/mi-casa/mi-cuarto"
     commands = [
-        "cat wardrobe/skirt",
-        "cat wardrobe/trousers"
+        "cat armario/falda",
+        "cat armario/pantalones"
     ]
     hints = [
-        _("{{rb:Type}} {{yb:cat wardrobe/trousers}} {{rb:or}} {{yb:cat wardrobe/skirt}} {{rb:to dress yourself.}}")
+        (
+            "{{rb:Escribe}} {{yb:cat armario/pantalones}} {{rb:o}} {{yb:cat armario/falda}} "
+            "{{rb:para vestirte.}}"
+        )
     ]
     checked_outside_wardrobe = False
 
     def check_command(self, line):
         if line == self.commands[0]:
-            save_app_state_variable('linux-story', 'outfit', 'skirt')
+            save_app_state_variable('terminal-quest', 'outfit', 'falda')
         elif line == self.commands[1]:
-            save_app_state_variable('linux-story', 'outfit', 'trousers')
-        elif not self.checked_outside_wardrobe and (line == "cat trousers" or line == "cat skirt"):
-            self.send_hint(_("\n{{rb:You need to look in your}} {{bb:wardrobe}} {{rb:for that item.}}"))
+            save_app_state_variable('terminal-quest', 'outfit', 'pantalones')
+        elif not self.checked_outside_wardrobe and (line == "cat pantalones" or line == "cat falda"):
+            self.send_hint("\n{{rb:Necesitas mirar dentro de tu}} {{bb:armario}} {{rb:para ver ese objeto.}}")
             self.checked_outside_wardrobe = True
 
         return StepCat.check_command(self, line)
@@ -111,16 +115,16 @@ class Step4(StepCat):
 
 class Step5(StepCat):
     story = [
-        _("Awesome, you're nearly dressed to quest.\n"),
-        _("Finally, check out that {{bb:cap}}.\n")
+        "¡Genial, ya casi estás listo para la aventura!\n",
+        "Finalmente, échale un vistazo a esa {{bb:gorra}}.\n"
     ]
-    start_dir = "~/my-house/my-room"
-    end_dir = "~/my-house/my-room"
+    start_dir = "~/mi-casa/mi-cuarto"
+    end_dir = "~/mi-casa/mi-cuarto"
     commands = [
-        "cat wardrobe/cap"
+        "cat armario/gorra"
     ]
     hints = [
-        _("{{rb:Type}} {{yb:cat wardrobe/cap}} {{rb:to}} {{lb:examine}} {{rb:the cap.}}")
+        "{{rb:Escribe}} {{yb:cat armario/gorra}} {{rb:para}} {{lb:examinar}} {{rb:la gorra.}}"
     ]
 
     last_step = True

@@ -6,10 +6,10 @@
  |_|  |_|_|\_\_____/_____|_|  \_\
 
 
-This command makes a directory/shelter/building.
+Crea un directorio, refugio o edificio
 
 
-Example
+Ejemplo
 
-<span foreground="yellow">mkdir igloo</span>
-This will make an igloo in the directory you're currently in
+{{yb:mkdir iglu}}
+Construye un iglú en el directorio en el que te encuentras

@@ -6,13 +6,13 @@
 |_|  \_\_|  |_|
 
 
-This command gives you the power to remove items.
+Este comando te da el poder de eliminar objetos.
 
 
-Examples
+Ejemplos
 
-rm spell
-This removes the item spell.
+{{yb:rm hechizo}}
+Elimina el objeto hechizo.
 
-rm -r wardrobe/
-This removes the wardrobe and all contents of wardrobe.
+{{yb:rm -r armario/}}
+Elimina el armario y todo lo que hay dentro.

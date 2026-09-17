@@ -1,27 +1,33 @@
-from linux_story.common import get_story_file
+# garden.py
+#
+# Copyright (C) 2014-2017 Kano Computing Ltd.
+# Copyright (C) 2026 David Latorre <david@latorredev.com> (adaptación standalone en Python 3)
+# License: http://www.gnu.org/licenses/gpl-2.0.txt GNU GPL v2
+
+from terminal_quest.common import get_story_file
 
 greenhouse = {
-    "name": "greenhouse",
+    "name": "invernadero",
     "children": [
         {
-            "name": "carrots",
-            "contents": get_story_file("carrots")
+            "name": "zanahorias",
+            "contents": get_story_file("zanahorias")
         },
         {
-            "name": "pumpkin",
-            "contents": get_story_file("pumpkin")
+            "name": "calabaza",
+            "contents": get_story_file("calabaza")
         },
         {
-            "name": "tomato",
-            "contents": get_story_file("tomato")
+            "name": "tomate",
+            "contents": get_story_file("tomate")
         },
         {
-            "name": "onion",
-            "contents": get_story_file("onion")
+            "name": "cebolla",
+            "contents": get_story_file("cebolla")
         },
         {
-            "name": "Dad",
-            "contents": get_story_file("Dad"),
+            "name": "Papa",
+            "contents": get_story_file("Papa"),
             "challenges": [
                 {
                     "challenge": 0,
@@ -35,7 +41,7 @@ greenhouse = {
             ]
         },
         {
-            "name": "note",
+            "name": "nota",
             "contents": get_story_file("note_greenhouse"),
             "challenges":
                 [
@@ -48,19 +54,19 @@ greenhouse = {
     ]
 }
 garden = {
-    "name": "garden",
+    "name": "jardin",
     "children": [
         {
-            "name": "bench",
-            "contents": get_story_file("bench")
+            "name": "banco",
+            "contents": get_story_file("banco")
         },
         {
-            "name": "flowers",
-            "contents": get_story_file("flowers")
+            "name": "flores",
+            "contents": get_story_file("flores")
         },
         {
-            "name": "fence",
-            "contents": get_story_file("fence")
+            "name": "cerca",
+            "contents": get_story_file("cerca")
         },
         greenhouse
     ]
